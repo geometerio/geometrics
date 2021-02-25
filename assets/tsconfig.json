@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "jsx": "react",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "outDir": "./dist/",
+    "strict": true,
+    "target": "es2016"
+  },
+  "exclude": ["/node_modules/**/*"],
+  "files": ["js/geometrics.ts"]
+}

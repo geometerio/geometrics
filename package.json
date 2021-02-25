@@ -1,0 +1,18 @@
+{
+  "name": "geometics",
+  "version": "0.0.1",
+  "description": "Sets up OpenTelemetry in JS.",
+  "license": "MIT",
+  "main": "./priv/static/geometrics.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/geometerio/geometrics.git"
+  },
+  "author": "Geometer",
+  "files": [
+    "README.md",
+    "LICENSE.md",
+    "package.json",
+    "priv/static/geometrics.js"
+  ]
+}

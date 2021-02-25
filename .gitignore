@@ -5,6 +5,8 @@
 /deps/
 /doc/
 /priv/plts/
+/priv/static/
 /tmp
 erl_crash.dump
 geometrics-*.tar
+node_modules
