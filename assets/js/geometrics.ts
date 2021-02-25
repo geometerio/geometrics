@@ -1,22 +1,24 @@
-// this will be needed to get a tracer
-import opentelemetry, { ROOT_CONTEXT, context, propagation, SpanContext, setSpan } from '@opentelemetry/api'
-import { ZoneContextManager } from '@opentelemetry/context-zone'
-// tracer provider for web
-import { WebTracerProvider } from '@opentelemetry/web'
-// and an exporter with span processor
-import { ConsoleSpanExporter, BatchSpanProcessor, SimpleSpanProcessor } from '@opentelemetry/tracing'
-import { HttpTraceContext, TRACE_PARENT_HEADER } from '@opentelemetry/core'
-import { DocumentLoad } from '@opentelemetry/plugin-document-load'
-import { registerInstrumentations } from '@opentelemetry/instrumentation'
-import { CollectorTraceExporter } from '@opentelemetry/exporter-collector'
-import * as otelAPI from "@opentelemetry/api";
+import opentelemetry, {Context, context, propagation, ROOT_CONTEXT, setSpan, Span} from '@opentelemetry/api'
+import {ZoneContextManager} from '@opentelemetry/context-zone'
+import {WebTracerProvider} from '@opentelemetry/web'
+import {BatchSpanProcessor, ConsoleSpanExporter, SimpleSpanProcessor} from '@opentelemetry/tracing'
+import {HttpTraceContext, TRACE_PARENT_HEADER} from '@opentelemetry/core'
+import {DocumentLoad} from '@opentelemetry/plugin-document-load'
+import {registerInstrumentations} from '@opentelemetry/instrumentation'
+import {CollectorTraceExporter} from '@opentelemetry/exporter-collector'
 
-// import { HoneycombExporter } from 'opentelemetry-exporter-honeycomb'
+let tracerProvider: WebTracerProvider;
+let rootCtx: Context;
 
-function init(opts: { rootCtx?: SpanContext }) {
+type InitOptions = {
+  serviceName: string;
+  logToConsole: boolean;
+}
+
+function initTracer({serviceName, logToConsole}: InitOptions) {
   propagation.setGlobalPropagator(new HttpTraceContext())
 
-  const tracerProvider = new WebTracerProvider()
+  tracerProvider = new WebTracerProvider()
 
   tracerProvider.register({
     contextManager: new ZoneContextManager(),
@@ -28,18 +30,18 @@ function init(opts: { rootCtx?: SpanContext }) {
     tracerProvider: tracerProvider,
   })
 
-  const collectorOptions = {
-    serviceName: 'js',
+  if(logToConsole) {
+    tracerProvider.addSpanProcessor(new SimpleSpanProcessor(new ConsoleSpanExporter()))
   }
 
-  // @ts-ignore
-  // tracerProvider.addSpanProcessor(new SimpleSpanProcessor(new ConsoleSpanExporter()))
-  tracerProvider.addSpanProcessor(new BatchSpanProcessor(new CollectorTraceExporter(collectorOptions)))
+  tracerProvider.addSpanProcessor(new BatchSpanProcessor(new CollectorTraceExporter({serviceName})))
 
-  return tracerProvider
+  rootCtx = createRootCtx()
+
+  return {tracerProvider, rootCtx}
 }
 
-function createRootCtx() {
+function createRootCtx(): Context {
   const metaElement = [...document.getElementsByTagName('meta')].find(
     (e) => e.getAttribute('name') === TRACE_PARENT_HEADER,
   )
@@ -52,7 +54,18 @@ function createRootCtx() {
   return baseContext
 }
 
-const tracerProvider = init({})
-const rootCtx = createRootCtx()
+function withSpan(name: string, fn: (span: Span) => any) {
+  if(!tracerProvider || !rootCtx) { throw new Error("must initialize tracer by calling initTracer()")}
 
-export { tracerProvider, rootCtx, otelAPI }
+  const tracer = tracerProvider.getTracer("default")
+  const span = tracer.startSpan(name, {}, rootCtx)
+
+  return opentelemetry.context.with(setSpan(opentelemetry.context.active(), span), () => {
+    const response = fn(span)
+    span.end()
+
+    return response
+  })
+}
+
+export { withSpan, initTracer }

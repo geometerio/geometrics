@@ -1,6 +1,13 @@
+import { Context, Span } from '@opentelemetry/api';
 import { WebTracerProvider } from '@opentelemetry/web';
-import * as otelAPI from "@opentelemetry/api";
-declare const tracerProvider: WebTracerProvider;
-declare const rootCtx: otelAPI.Context;
-export { tracerProvider, rootCtx, otelAPI };
+declare type InitOptions = {
+    serviceName: string;
+    logToConsole: boolean;
+};
+declare function initTracer({ serviceName, logToConsole }: InitOptions): {
+    tracerProvider: WebTracerProvider;
+    rootCtx: Context;
+};
+declare function withSpan(name: string, fn: (span: Span) => any): any;
+export { withSpan, initTracer };
 //# sourceMappingURL=geometrics.d.ts.map
