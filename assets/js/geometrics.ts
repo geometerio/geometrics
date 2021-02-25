@@ -28,7 +28,7 @@ function init(opts: { rootCtx?: SpanContext }) {
   })
 
   const collectorOptions = {
-    serviceName: 'fusign-js',
+    serviceName: 'js',
   }
 
   // @ts-ignore
