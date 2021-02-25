@@ -9,6 +9,7 @@ import { HttpTraceContext, TRACE_PARENT_HEADER } from '@opentelemetry/core'
 import { DocumentLoad } from '@opentelemetry/plugin-document-load'
 import { registerInstrumentations } from '@opentelemetry/instrumentation'
 import { CollectorTraceExporter } from '@opentelemetry/exporter-collector'
+import * as otelAPI from "@opentelemetry/api";
 
 // import { HoneycombExporter } from 'opentelemetry-exporter-honeycomb'
 
@@ -54,4 +55,4 @@ function createRootCtx() {
 const tracerProvider = init({})
 const rootCtx = createRootCtx()
 
-export { tracerProvider, rootCtx }
+export { tracerProvider, rootCtx, otelAPI }
