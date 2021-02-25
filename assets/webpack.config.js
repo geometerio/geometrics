@@ -1,10 +1,13 @@
 const path = require('path')
+const WebpackShellPluginNext = require('webpack-shell-plugin-next');
+const outputDirectory = path.resolve(__dirname, '../priv/static');
+const typesDirectory = path.resolve(__dirname, './dist')
 
 module.exports = {
   entry: './js/geometrics.ts',
   output: {
     filename: 'geometrics.js',
-    path: path.resolve(__dirname, '../priv/static'),
+    path: outputDirectory,
     library: 'geometrics',
     libraryTarget: 'umd',
     globalObject: 'this'
@@ -28,7 +31,15 @@ module.exports = {
       }
     ]
   },
-  plugins: [],
+  plugins: [
+    new WebpackShellPluginNext({
+      onBuildExit:{
+        scripts: [`cp -R ${typesDirectory}/ ${outputDirectory}`],
+        blocking: true,
+        parallel: false
+      }
+    })
+  ],
   resolve: {
     extensions: ['.ts', '.js'],
   },

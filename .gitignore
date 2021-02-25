@@ -1,6 +1,7 @@
 *.ez
 /_build/
 /.fetch
+/assets/dist/
 /cover/
 /deps/
 /doc/
