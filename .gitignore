@@ -10,3 +10,5 @@
 erl_crash.dump
 geometrics-*.tar
 node_modules
+.idea
+*.iml
