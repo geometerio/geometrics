@@ -56,7 +56,7 @@ defmodule Geometrics.OpenTelemetry.Logger do
   def init(__MODULE__), do: init({__MODULE__, :geometrics_logger})
 
   def init({__MODULE__, config_name}) do
-    config = Application.get_env(:logger, config_name)
+    config = Application.get_env(:logger, config_name, [])
     {:ok, new(config, %__MODULE__{})}
   end
 

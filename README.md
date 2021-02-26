@@ -27,6 +27,8 @@ config :logger,
     :console,
     Geometrics.OpenTelemetry.Logger
   ]
+
+config :geometrics, :collector_endpoint, "http://localhost:55681/v1/trace"
 ```
 
 Configure `opentelemetry` with an exporter. This example assumes that an `otel/opentelemetry-collector-dev:latest` collector is running on localhost.
@@ -78,14 +80,14 @@ defmodule MyAppWeb.Router do
 end
 ```
 
-Optionally add the traceparent to the root layout:
+Add meta tags to the root layout that will enable front-end/back-end tracing
 
 ```slim
 doctype html
 html lang="en"
   head
     = csrf_meta_tag()
-    = Geometrics.Phoenix.View.traceparent(@conn)
+    = Geometrics.Phoenix.View.meta_tags(@conn)
     / ....
   body
     = @inner_content

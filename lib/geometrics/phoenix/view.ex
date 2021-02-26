@@ -6,6 +6,20 @@ defmodule Geometrics.Phoenix.View do
   alias Geometrics.Plug.OpenTelemetry
   alias Phoenix.HTML.Tag
 
+  def meta_tags(conn) do
+    [
+      traceparent(conn),
+      collector_host()
+    ]
+  end
+
+  def collector_host() do
+    Tag.tag(:meta,
+      name: "collector_endpoint",
+      content: Application.get_env(:geometrics, :collector_endpoint)
+    )
+  end
+
   def traceparent(conn) do
     content =
       conn

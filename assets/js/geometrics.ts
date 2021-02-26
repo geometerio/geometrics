@@ -34,18 +34,25 @@ function initTracer({serviceName, logToConsole}: InitOptions) {
     tracerProvider.addSpanProcessor(new SimpleSpanProcessor(new ConsoleSpanExporter()))
   }
 
-  tracerProvider.addSpanProcessor(new BatchSpanProcessor(new CollectorTraceExporter({serviceName})))
+  tracerProvider.addSpanProcessor(new BatchSpanProcessor(new CollectorTraceExporter({
+    serviceName,
+    url: getMetaTagValue("collector_endpoint")
+  })))
 
   rootCtx = createRootCtx()
 
   return {tracerProvider, rootCtx}
 }
 
-function createRootCtx(): Context {
+function getMetaTagValue(metaTagName: string) {
   const metaElement = [...document.getElementsByTagName('meta')].find(
-    (e) => e.getAttribute('name') === TRACE_PARENT_HEADER,
+      (e) => e.getAttribute('name') === metaTagName,
   )
-  const traceparent = (metaElement && metaElement.content) || ''
+  return (metaElement && metaElement.content) || ''
+}
+
+function createRootCtx(): Context {
+  const traceparent = getMetaTagValue(TRACE_PARENT_HEADER);
   const baseContext = opentelemetry.propagation.extract(ROOT_CONTEXT, { traceparent })
 
   const span = opentelemetry.trace.getTracer('default').startSpan('JS ROOT', {}, baseContext)
