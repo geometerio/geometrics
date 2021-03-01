@@ -45,7 +45,7 @@ This might be represented by the following time-based visualization:
                                                                           | callback 2 |
 ```
 
-## Distributed Tracing
+## Distributed Tracing (ie Propagation)
 
 A trace may involve multiple applications, or multiple runtimes. For instance, an HTTP request
 may generate asynchronous jobs in a tool such as Oban. A web application may involve browser-based
@@ -61,6 +61,15 @@ Two popular mechanisms of propagating traces between systems are the
 (B3 Propagation)[https://github.com/openzipkin/b3-propagation]. The former defines a single
 format for encoding `trace-id`, `span-id`, and trace-specific flags in a `traceparent` header.
 The latter is implemented by many open source trace aggregators.
+
+Geometrics does two things to propagate traces from Phoenix to Javascript. First, there is a
+plug that sets things from the current trace onto the `conn`, in private attributes as well as
+response headers. Using the provided Phoenix view helpers in the root layout also writes out
+configuration via meta tags that the javascript can hook into. Propagating the trace back to
+other contexts (XHTML requests, websockets, live view, etc) may require some manual integration.
+Theoretically, propagation mechanisms can be introduced that do everything automatically—in
+practice this may not be possible (for instance, with Phoenix Channel/LiveView javascript which
+does not not provide automatic hooks to alter connection headers).
 
 ## Tracing vs Metrics
 
@@ -79,4 +88,18 @@ at some rate to filter the traces that are actually sent.
 Metrics tend to aggregate before exporting. Tracing sends as much data as possible, and relies on
 exporting to more sophisticated back-ends that can aggregate and analyze the aggregate traces on the
 fly.
+
+## Instrumenting vs exporting
+
+One thing that is important about OpenTelemetry is that it provides a specification for implementing
+application tracing across multiple languages, a normalized set of attributes for different types of
+traces (HTTP requests vs database queries, for example), and a vendor-agnostic protocol for 
+exporting span traces to various backends (Honeycomb, Jaeger, Zipkin).
+
+This means that a team can instrument their applications in one way, and swap out the service(s) used
+to analyze traces if needed.
+
+OpenTelemetry provides a [language-agnostic agent](https://github.com/open-telemetry/opentelemetry-collector)
+to collect traces using the vendor-agnostic protocol, then forward the traces to a backend. This 
+allows applications to export traces via a single mechanism, without having to care what happens later.
 
