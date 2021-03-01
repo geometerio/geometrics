@@ -1,4 +1,4 @@
-import opentelemetry, {Context, context, propagation, ROOT_CONTEXT, setSpan, Span} from '@opentelemetry/api'
+import opentelemetry, {Context, context, propagation, ROOT_CONTEXT, setSpan, setSpanContext, Span} from '@opentelemetry/api'
 import {ZoneContextManager} from '@opentelemetry/context-zone'
 import {WebTracerProvider} from '@opentelemetry/web'
 import {BatchSpanProcessor, ConsoleSpanExporter, SimpleSpanProcessor} from '@opentelemetry/tracing'
@@ -6,6 +6,18 @@ import {HttpTraceContext, TRACE_PARENT_HEADER} from '@opentelemetry/core'
 import {DocumentLoad} from '@opentelemetry/plugin-document-load'
 import {registerInstrumentations} from '@opentelemetry/instrumentation'
 import {CollectorTraceExporter} from '@opentelemetry/exporter-collector'
+
+/*
+  DocumentLoad does not work correctly with context propagation, so traces produced by that library
+  are not attached to other traces.
+
+  This library may actually work correctly, but has not been released, and cannot be targeted by
+  npm (which does not support installing git subdirectories). Check in to see when this is released,
+  and when it does, test replacing the DocumentLoad plugin.
+
+  https://github.com/open-telemetry/opentelemetry-js-contrib/tree/main/plugins/web/opentelemetry-instrumentation-document-load
+
+*/
 
 let tracerProvider: WebTracerProvider;
 let rootCtx: Context;
@@ -22,7 +34,10 @@ function initTracer({serviceName, logToConsole}: InitOptions) {
 
   tracerProvider.register({
     contextManager: new ZoneContextManager(),
+    propagator: new HttpTraceContext(),
   })
+
+  rootCtx = createRootCtx()
 
   registerInstrumentations({
     instrumentations: [new DocumentLoad()],
@@ -38,8 +53,6 @@ function initTracer({serviceName, logToConsole}: InitOptions) {
     serviceName,
     url: getMetaTagValue("collector_endpoint")
   })))
-
-  rootCtx = createRootCtx()
 
   return {tracerProvider, rootCtx}
 }
@@ -57,6 +70,7 @@ function createRootCtx(): Context {
 
   const span = opentelemetry.trace.getTracer('default').startSpan('JS ROOT', {}, baseContext)
   setSpan(context.active(), span)
+  setSpanContext(baseContext, span.context())
   span.end()
   return baseContext
 }

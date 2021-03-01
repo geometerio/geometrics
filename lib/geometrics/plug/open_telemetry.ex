@@ -17,6 +17,7 @@ defmodule Geometrics.Plug.OpenTelemetry do
       span_ctx ->
         conn
         |> Plug.Conn.put_private(:__current_ot_ctx__, span_ctx)
+        |> Plug.Conn.put_resp_header("traceparent", :otel_propagator_http_w3c.encode(span_ctx))
     end
   end
 
