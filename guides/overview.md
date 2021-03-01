@@ -62,3 +62,21 @@ Two popular mechanisms of propagating traces between systems are the
 format for encoding `trace-id`, `span-id`, and trace-specific flags in a `traceparent` header.
 The latter is implemented by many open source trace aggregators.
 
+## Tracing vs Metrics
+
+Many of us are familiar with the concept of metrics. How metrics overlaps with tracing may not
+be clear, however.
+
+A metric tends to be an individual data point encapsulating some event at some point in time. When
+large amounts of metrics are produced, many systems begin aggregating the metrics. At any point in
+time, a tool for visualizing application metrics may only retain computed statistics and aggregations
+(sums, 95th percentile, etc).
+
+Tracing takes a different approach, which is to capture correlated runtime data across spans of time,
+and send raw data to backend systems. If large amounts of traces are produced, they may be sampled
+at some rate to filter the traces that are actually sent.
+
+Metrics tend to aggregate before exporting. Tracing sends as much data as possible, and relies on
+exporting to more sophisticated back-ends that can aggregate and analyze the aggregate traces on the
+fly.
+

@@ -8,11 +8,12 @@ defmodule Geometrics.MixProject do
     [
       app: :geometrics,
       deps: deps(),
+      description: description(),
       dialyzer: dialyzer(),
       docs: docs(),
       elixir: "~> 1.11",
       elixirc_paths: elixirc_paths(Mix.env()),
-      preferred_cli_env: [credo: :test, dialyzer: :test],
+      preferred_cli_env: [credo: :test, dialyzer: :test, docs: :docs],
       start_permanent: Mix.env() == :prod,
       version: @version,
     ]
@@ -40,6 +41,12 @@ defmodule Geometrics.MixProject do
     ]
   end
 
+  defp description,
+    do: """
+        Wraps OpenTelemetry from Erlang and JS, providing opinions and documentation for rapidly adding tracing
+        to an application.
+        """
+
   defp dialyzer do
     [
       plt_add_apps: [:ex_unit, :mix],
@@ -52,6 +59,7 @@ defmodule Geometrics.MixProject do
     [
       extras: [
         "guides/overview.md",
+        "guides/javascript.md",
         "guides/references.md",
       ],
       source_ref: "v#{@version}",
