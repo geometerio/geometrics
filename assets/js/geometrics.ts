@@ -40,7 +40,6 @@ function initTracer({serviceName, logToConsole}: InitOptions) {
   rootCtx = createRootCtx()
 
   registerInstrumentations({
-    instrumentations: [new DocumentLoad()],
     // @ts-ignore
     tracerProvider: tracerProvider,
   })
