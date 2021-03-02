@@ -103,3 +103,16 @@ OpenTelemetry provides a [language-agnostic agent](https://github.com/open-telem
 to collect traces using the vendor-agnostic protocol, then forward the traces to a backend. This 
 allows applications to export traces via a single mechanism, without having to care what happens later.
 
+## OpenTelemetry gotchas
+
+* Spans are only valid if they are ended, giving them a duration.
+* Spans are only exported if they are valid.
+* Timeout errors in Elixir/Erlang usually signal process exits, rather than
+  raising exceptions.
+* `:telemetry` helpers rescue/reraise exceptions, but do not catch exits.
+* Helper libraries like `OpentelemetryPhoenix` and `OpentelemetryEcto` hook
+  into `:telemetry`, since they are unable to alter Phoenix/Ecto runtime code
+  to introduce `OpenTelemetry`-specific helpers.
+* Ergo... an overloaded system that begins timing out in GenServer calls or
+  database queries may lose the most important traces, ie those associated with
+  the timeouts. See the [Phoenix + Ecto](phoenix.md) page for more info.

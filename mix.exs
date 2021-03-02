@@ -59,7 +59,9 @@ defmodule Geometrics.MixProject do
     [
       extras: [
         "guides/overview.md",
+        "guides/phoenix.md",
         "guides/javascript.md",
+        "guides/deployment.md",
         "guides/references.md",
       ],
       source_ref: "v#{@version}",
