@@ -4,11 +4,16 @@ Geometrics provides a few hooks for tracing front-end Javascript along with back
 
 ## Tracing across stack boundaries
 
-Some extra steps are necessary to tie front end and back end spans together. It is necessary to "propagate" an identifier from the server to the frontend in order to ensure that frontend events show up in the same trace as the backend events that initiated the request. This is called "context propagation." The way that Geometrics achieves context propagation is by placing `meta` tags in the root layout that `opentelemetry-js` understands and can use to tie together to all the spans that are then created on the front end.
+In order to tie the backend tracing context to front end events, you must provide a set of meta tags in your root layout.
 
 ```.eex
 <%= Geometrics.Phoenix.View.meta_tags() %>
 ```
+
+This will create two `meta` tags:
+
+* A tag with the name `traceparent` that contains a unique identifier used by OpenTelemetry to tie traces together. The naming for this meta tag arises from a recent W3C proposal around distributed tracing. It proposes a standard format for headers that lets you identify traces across services. If you're curious to read more about it, check out the proposal [here](https://www.w3.org/TR/trace-context/#problem-statement)).
+* A tag with the name `collector_endpoint` that tells the frontend where to send its telemetry events.
 
 ## Collecting traces
 
@@ -16,7 +21,7 @@ In order aggregate and export trace events, the frontend needs to speak with a p
 
 ## Usage
 
-To capture spans, you can wrap whatever block of code you wish to capture in a `withSpan`. This function allows you to pass a name for the span, as well as a function that will wrap the code for the span. This function will also receive the span, which you can use to get useful information off like the context it's being created in, and the current span's parent span, if there is one. In this example we create a span for initializing a liveSocket connection.
+To capture spans, you can wrap whatever block of code you wish to capture in a `withSpan`. This function allows you to pass a name for the span, as well as a function that will wrap the code for the span. This function will also receive a javascript object which represents the span that is being created. In the example below we use this object to pass the context of our frontend event to our LiveView backend via param.
 
 ```.js
 import {withSpan, initTracer} from "geometrics"
