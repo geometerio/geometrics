@@ -17,7 +17,7 @@ This will create two `meta` tags:
 
 ## Collecting traces
 
-In order aggregate and export trace events, the frontend needs to speak with a public endpoint separate from your Phoenix backend. This endpoint is a running server called a [`opentelemetry-collector`](https://github.com/open-telemetry/opentelemetry-collector). It's main purpose is receive requests containing trace information to buffer and export traces to visualization services like Honeycomb.
+In order aggregate and export trace events, the frontend needs to speak with a public endpoint separate from your Phoenix backend. This endpoint is a running server called a [`opentelemetry-collector`](https://github.com/open-telemetry/opentelemetry-collector). Its main purpose is to receive requests containing trace information to buffer and export traces to visualization services like Honeycomb.
 
 ## Usage
 
