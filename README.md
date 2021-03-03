@@ -93,8 +93,23 @@ html lang="en"
     = @inner_content
 ```
 
+## Running the OpenTelemetry collector
+
+In order to actually report data to Honeycomb (or other services), you will need to run an [OpenTelemetry collector](https://github.com/open-telemetry/opentelemetry-collector). This component is responsible for receiving, processing and exporting OpenTelemetry data to external services. 
+
+To do this you will need to run an installation script (note that you will need to set `HONEYCOMB_DATASET` and `HONEYCOMB_WRITE_KEY` in your environment before running this command):
+
+`$ mix geometrics.intall`
+
+This will copy a `docker-compose.yml` file used to run the collector into your projects top level directory. It will also copy over a configuration file, `otel-collector-config.yml`, used to configure the collector Docker process.
+
+To run the collector, simply run `docker compose up`. You should now see metrics data appear in Honeycomb under the dataset configured by `HONEYCOMB_DATASET`.
+
 ## References
 
+For further reading, see [guides/overview.md](guides/overview.md).
+
+External references: 
 * https://opentelemetry.io/docs/concepts/what-is-opentelemetry/
 * https://opentelemetry.io/docs/erlang/getting-started/
 * https://github.com/open-telemetry/opentelemetry-specification
