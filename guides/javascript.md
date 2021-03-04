@@ -44,5 +44,4 @@ const liveSocket = withSpan("liveSocket.connect()", (span) => {
 Note that we pass the `span.context()` in the socket connection params as `traceContext`. We pick up this context on the
 backend and use it to tie the frontend span with the trace context in the backend. 
 
-At the moment, spans will not nest within each other if you call `withSpan` from within another `withSpan` block. This is 
-a known issue and is being worked on.
+At the moment, it is only possible to record synchronous behavior executed in the context of a `withSpan`.
