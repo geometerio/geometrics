@@ -1,6 +1,15 @@
-import opentelemetry, {Context, context, propagation, ROOT_CONTEXT, setSpan, setSpanContext, Span} from '@opentelemetry/api'
+import opentelemetry, {
+  Context,
+  context,
+  getSpan,
+  propagation,
+  ROOT_CONTEXT,
+  setSpan,
+  setSpanContext,
+  Span
+} from '@opentelemetry/api'
 import {ZoneContextManager} from '@opentelemetry/context-zone'
-import {WebTracerProvider} from '@opentelemetry/web'
+import {StackContextManager, WebTracerProvider} from '@opentelemetry/web'
 import {BatchSpanProcessor, ConsoleSpanExporter, SimpleSpanProcessor} from '@opentelemetry/tracing'
 import {HttpTraceContext, TRACE_PARENT_HEADER} from '@opentelemetry/core'
 import {DocumentLoad} from '@opentelemetry/plugin-document-load'
@@ -75,13 +84,14 @@ function createRootCtx(): Context {
 }
 
 function withSpan(name: string, fn: (span: Span) => any) {
-  if(!tracerProvider || !rootCtx) { throw new Error("must initialize tracer by calling initTracer()")}
+  if(!tracerProvider || !rootCtx) { throw new Error("you must initialize the tracer with initTracer() before using withSpan()")}
 
   const tracer = tracerProvider.getTracer("default")
-  const span = tracer.startSpan(name, {}, rootCtx)
+  const span = getSpan(opentelemetry.context.active()) ? tracer.startSpan(name, {}, opentelemetry.context.active()) : tracer.startSpan(name, {}, rootCtx)
 
   return opentelemetry.context.with(setSpan(opentelemetry.context.active(), span), () => {
     const response = fn(span)
+
     span.end()
 
     return response
