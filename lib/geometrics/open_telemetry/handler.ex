@@ -4,7 +4,7 @@ defmodule Geometrics.OpenTelemetry.Handler do
   """
   @dialyzer {:nowarn_function, connection_status: 1}
   @dialyzer {:nowarn_function, create_child_span: 3}
-  @dialyzer {:nowarn_function, create_parent_ctx: 1}
+  @dialyzer {:nowarn_function, create_parent_context: 1}
   @dialyzer {:nowarn_function, handle_exception: 4}
   @dialyzer {:nowarn_function, handle_cast: 2}
   @dialyzer {:nowarn_function, get_peer_data: 1}
@@ -131,10 +131,38 @@ defmodule Geometrics.OpenTelemetry.Handler do
     |> create_child_span("HANDLE_EVENT #{meta.event}", meta.socket)
   end
 
-  def open_child_span([:phoenix, :live_view, :mount, :start], _payload, meta, _config) do
-    meta.socket
-    |> create_parent_ctx()
-    |> create_child_span("MOUNT #{to_module(meta.socket.view)}", meta.socket)
+  def open_child_span([:phoenix, :live_view, :mount, :start] = event, _payload, meta, _config) do
+    IO.inspect(event, label: "event")
+    IO.inspect(meta.socket.private.connect_params, label: "connect_params of socket")
+
+    case meta.socket do
+      %{ root_pid: nil } ->
+        handle_initial_lv_mount(meta.socket)
+      %{ root_pid: root_pid } ->
+        handle_lv_connect_mount(meta.socket)
+    end
+  end
+
+  defp handle_initial_lv_mount(socket) do
+    socket
+    |> create_parent_context()
+    |> create_child_span("INITIAL MOUNT #{to_module(socket.view)}", socket)
+  end
+
+  defp handle_lv_connect_mount(socket) do
+    case socket.private.connect_params do
+      %{"traceContext" => trace_context} ->
+        headers = [
+          {"traceparent", "00-#{trace_context["traceId"]}-#{trace_context["spanId"]}-00"}
+        ]
+
+        :otel_propagator.text_map_extract(headers)
+      _ -> IO.warn("No traceContext on connect_params")
+    end
+
+    span_ctx = Tracer.start_span("SECOND MOUNT #{to_module(socket.view)}")
+    Tracer.set_current_span(span_ctx)
+    OTLogger.track_span_ctx(span_ctx)
   end
 
   defp create_child_span(parent_ctx, span_name, socket) do
@@ -167,23 +195,9 @@ defmodule Geometrics.OpenTelemetry.Handler do
     Span.set_attributes(new_ctx, attributes)
   end
 
-  defp create_parent_ctx(socket) do
+  defp create_parent_context(socket) do
     parent_span = Tracer.start_span("LIVE #{to_module(socket.view)}", %{kind: :SERVER})
-
-    context =
-      case socket.private.connect_params do
-        %{"traceContext" => trace_context} ->
-          headers = [
-            {"traceparent", "00-#{trace_context["traceId"]}-#{trace_context["spanId"]}-01"}
-          ]
-
-          :otel_propagator_http_w3c.extract(headers, [])
-
-        _ ->
-          Ctx.new()
-      end
-
-    parent_ctx = Tracer.set_current_span(context, parent_span)
+    parent_ctx = Tracer.set_current_span(parent_span)
 
     _prev_ctx = Ctx.attach(parent_ctx)
     Span.end_span(parent_span)
@@ -274,7 +288,7 @@ defmodule Geometrics.OpenTelemetry.Handler do
   Set status to `:ok` when a `:stop` event fires, which suggests that whatever happened
   was successful, ie did not crash or raise.
   """
-  def handle_success([:phoenix, :live_view, _, :stop], _payload, _meta, _config) do
+  def handle_success([:phoenix, :live_view, _, :stop] = event, _payload, _meta, _config) do
     span_ctx = Tracer.current_span_ctx()
     Span.set_attribute(span_ctx, :status, :ok)
     Span.end_span(span_ctx)
