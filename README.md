@@ -11,7 +11,6 @@ Add `Geometrics` and an exporter (i.e. `opentelemetry_exporter`) to `mix.exs`:
 def deps do
 [
   {:geometrics, github: "geometerio/geometrics"
-  {:opentelemetry_exporter, ">= 0.0.0"},
 ]
 end
 ```
