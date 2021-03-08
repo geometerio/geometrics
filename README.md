@@ -20,17 +20,28 @@ Configure `Geometrics` in `config.exs`:
 ```elixir
 config :geometrics, :ecto_prefix, [:my_app, :repo]
 
+
 config :logger,
        backends: [
          :console,
          Geometrics.OpenTelemetry.Logger
        ]
 
+# The service name will show up in each span in your metrics service (i.e. Honeycomb)
 config :opentelemetry, :resource,
        service: [name: "<app name> backend"]
 
+# This is the endpoint that both frontend and backend opentelemetry trace data will be sent to. Read
+# more in guides/overview.md
 config :geometrics, :collector_endpoint, "http://localhost:55681/v1/trace"
 ```
+
+*A quick note about the purpose of `Geometrics.OpenTelemetry.Logger`:*
+
+Process exits aren't caught and reported by OpenTelemetry by default. This is because there isn't an opportunity for the
+crashed process to end its trace span before crashing, and only ended spans ever get reported. That is
+where `Geometrics.OpenTelemetry.Logger` comes in. Its main responsibility is to receive crash error logs and
+end any pre-existing spans associated with that crashed process so that they get reported.
 
 Run `mix geometrics.install`. This will set up the OpenTelemetry collector that is used to export trace data to external
 services like Honeycomb.
@@ -108,7 +119,7 @@ for receiving, processing and exporting OpenTelemetry data to external services.
 To do this you will need to run an installation script (note that you will need to set `HONEYCOMB_DATASET`
 and `HONEYCOMB_WRITE_KEY` in your environment before running this command):
 
-`$ mix geometrics.intall`
+`mix geometrics.intall`
 
 This will copy a `docker-compose.yml` file used to run the collector into your projects top level directory. It will
 also copy over a configuration file, `otel-collector-config.yml`, used to configure the collector Docker process.
