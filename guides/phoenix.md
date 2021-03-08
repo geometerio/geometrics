@@ -29,11 +29,6 @@ If a `traceContext` parameter is included in the Javascript that initializes
 the LiveView session, the trace can be tied back to the initial page load, as
 well as potentially include other OpenTelemetry spans created in Javascript.
 
-At the time of writing, some issues with propagating trace ids through the
-Javascript layer have yet to be fully worked out, but the basic flow of a
-trace from the initial page load, to the browser, then back into the LiveView
-socket has been proven to work.
-
 Note: before updating `OpentelemetryPhoenix`, please verify that it does not 
-introducing conflicting tracing code.
+introduce conflicting tracing code.
 
