@@ -89,19 +89,26 @@ Metrics tend to aggregate before exporting. Tracing sends as much data as possib
 exporting to more sophisticated back-ends that can aggregate and analyze the aggregate traces on the
 fly.
 
-## Instrumenting vs exporting
+## Exporting traces
 
 One thing that is important about OpenTelemetry is that it provides a specification for implementing
 application tracing across multiple languages, a normalized set of attributes for different types of
 traces (HTTP requests vs database queries, for example), and a vendor-agnostic protocol for 
-exporting span traces to various backends (Honeycomb, Jaeger, Zipkin).
+exporting span traces to various 3rd-party tracing services (Honeycomb, Jaeger, Zipkin).
 
-This means that a team can instrument their applications in one way, and swap out the service(s) used
-to analyze traces if needed.
+This means that a team can instrument their applications in one way, and swap out the service(s) used to analyze traces
+if needed. In other words, you can choose to instrument your frontend and backend respectively with `opentelemetry-js`
+and `opentelemetry-erlang`, and have both those libraries report data to Honeycomb using a consistent standard. The way
+this was achieved was by standardizing that all OpenTelemetry language implementations must be able to communicate with
+a running agent called an `OpenTelemetry collector` over HTTP.
 
-OpenTelemetry provides a [language-agnostic agent](https://github.com/open-telemetry/opentelemetry-collector)
-to collect traces using the vendor-agnostic protocol, then forward the traces to a backend. This 
+The [OpenTelemetry collector agent](https://github.com/open-telemetry/opentelemetry-collector) is used
+to collect traces using the vendor-agnostic protocol, then forward the traces to a 3rd party tracing service. This 
 allows applications to export traces via a single mechanism, without having to care what happens later.
+
+The diagram below illustrates how this looks.
+
+![alt text](assets/OpenTelemetry Exporter Diagram.png)
 
 ## OpenTelemetry gotchas
 
