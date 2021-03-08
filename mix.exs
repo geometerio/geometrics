@@ -34,6 +34,7 @@ defmodule Geometrics.MixProject do
       {:ex_doc, only: [:docs], runtime: false},
       {:opentelemetry, "~> 0.6", override: true},
       {:opentelemetry_api, "~> 0.6", override: true},
+      {:opentelemetry_exporter, ">= 0.6.0", override: true},
       {:opentelemetry_ecto, github: "opentelemetry-beam/opentelemetry_ecto"},
       {:opentelemetry_phoenix, github: "opentelemetry-beam/opentelemetry_phoenix"},
       {:phoenix_html, "~> 2.11"},
