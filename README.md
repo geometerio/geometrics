@@ -27,6 +27,9 @@ config :logger,
          Geometrics.OpenTelemetry.Logger
        ]
 
+config :opentelemetry, :resource,
+       service: [name: "<app name> backend"]
+
 config :geometrics, :collector_endpoint, "http://localhost:55681/v1/trace"
 ```
 
