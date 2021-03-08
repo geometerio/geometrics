@@ -15,6 +15,7 @@ defmodule Geometrics.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       preferred_cli_env: [credo: :test, dialyzer: :test, docs: :docs],
       start_permanent: Mix.env() == :prod,
+      aliases: aliases(),
       version: @version,
     ]
   end
@@ -68,6 +69,16 @@ defmodule Geometrics.MixProject do
       source_ref: "v#{@version}",
       main: "overview"
     ]
+  end
+
+  def aliases() do
+    [docs: ["docs", &copy_images/1]]
+  end
+
+  defp copy_images(_) do
+    File.cp_r("guides/assets", "doc/assets", fn source, destination ->
+      IO.gets("Overwriting #{destination} by #{source}. Type y to confirm. ") == "y\n"
+    end)
   end
 
   defp elixirc_paths(:test), do: ["lib", "test/support"]
