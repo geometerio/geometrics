@@ -1,7 +1,55 @@
 # Geometrics
 
 An opinionated library for adding application tracing and metrics to a Phoenix application. Geometrics includes
-dependencies which hook into Phoenix and Ecto telemetry, adding support for LiveView as well as crash tracking.
+dependencies which hook into Phoenix and Ecto [telemetry](https://hexdocs.pm/phoenix/telemetry.html), adding support for
+LiveView as well as crash tracking.
+
+## Basic Usage
+
+Given this simple LiveView module in a Phoenix application:
+
+```elixir
+defmodule GeometerTracingDemosWeb.PageLive do
+  use GeometerTracingDemosWeb, :live_view
+
+  alias GeometerTracingDemos.Repo
+  alias GeometerTracingDemos.SomeModel
+
+  require OpenTelemetry.Tracer
+
+  @impl true
+  def mount(_params, _session, socket) do
+    ...
+  end
+
+  @impl true
+  def handle_event("create", %{"some_model" => form_attrs}, socket) do
+    OpenTelemetry.Tracer.with_span "My custom span" do
+      %SomeModel{}
+      |> SomeModel.changeset(form_attrs)
+      |> Repo.insert()
+    end
+
+    {:noreply, socket}
+  end
+end
+```
+
+You can see an application trace that extends throughout an entire live view session 
+
+![Honeycomb Trace Exmample](guides/assets/Honeycomb Trace Example.png)
+
+(Note that the trace shown here is from the [Honeycomb.io](https://www.honeycomb.io/) UI, but should carry over to any Application
+tracing service)
+
+## Why does this library exists?
+
+1. To distill knowledge gleaned from dissecting the somewhat overwhelming OpenTelemetry/observability ecosystem into an
+   easily consumed set of [guides](guides).
+2. To provide Phoenix LiveView observability, which has not yet been included into OpenTelemetry the way
+   that [Phoenix](https://github.com/opentelemetry-beam/opentelemetry_phoenix)
+   and [Ecto](https://github.com/opentelemetry-beam/opentelemetry_ecto) have.
+3. To generally make it easier to get started with observing your Phoenix application
 
 ## Installation
 

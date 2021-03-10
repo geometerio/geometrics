@@ -108,7 +108,7 @@ allows applications to export traces via a single mechanism, without having to c
 
 The diagram below illustrates how this looks.
 
-![alt text](assets/OpenTelemetry Exporter Diagram.png)
+![OpenTelemetry Exporter Diagram](assets/OpenTelemetry Exporter Diagram.png)
 
 ## OpenTelemetry gotchas
 
