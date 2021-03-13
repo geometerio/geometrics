@@ -103,7 +103,7 @@ this was achieved was by standardizing that all OpenTelemetry language implement
 a running agent called an `OpenTelemetry collector` over HTTP.
 
 The [OpenTelemetry collector agent](https://github.com/open-telemetry/opentelemetry-collector) is used
-to collect traces using the vendor-agnostic protocol, then forward the traces to a 3rd party tracing service. This 
+to collect traces using the vendor-agnostic protocol, then forward the traces to a 3rd party tracing service. This
 allows applications to export traces via a single mechanism, without having to care what happens later.
 
 The diagram below illustrates how this looks.

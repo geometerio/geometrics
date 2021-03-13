@@ -35,7 +35,7 @@ defmodule GeometerTracingDemosWeb.PageLive do
 end
 ```
 
-You can see an application trace that extends throughout an entire live view session 
+You can see an application trace that extends throughout an entire live view session.
 
 ![Honeycomb Trace Exmample](guides/assets/Honeycomb Trace Example.png)
 
@@ -58,7 +58,7 @@ Add `Geometrics` and an exporter (i.e. `opentelemetry_exporter`) to `mix.exs`:
 ```elixir
 def deps do
 [
-  {:geometrics, github: "geometerio/geometrics"
+  {:geometrics, github: "geometerio/geometrics"}
 ]
 end
 ```
@@ -167,7 +167,7 @@ for receiving, processing and exporting OpenTelemetry data to external services.
 To do this you will need to run an installation script (note that you will need to set `HONEYCOMB_DATASET`
 and `HONEYCOMB_WRITE_KEY` in your environment before running this command):
 
-`mix geometrics.intall`
+`mix geometrics.install`
 
 This will copy a `docker-compose.yml` file used to run the collector into your projects top level directory. It will
 also copy over a configuration file, `otel-collector-config.yml`, used to configure the collector Docker process.
