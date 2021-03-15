@@ -37,7 +37,7 @@ end
 
 You can see an application trace that extends throughout an entire live view session.
 
-![Honeycomb Trace Exmample](guides/assets/Honeycomb Trace Example.png)
+![Honeycomb Trace Exmample](guides/assets/honeycomb_trace_example.png)
 
 (Note that the trace shown here is from the [Honeycomb.io](https://www.honeycomb.io/) UI, but should carry over to any Application
 tracing service)
