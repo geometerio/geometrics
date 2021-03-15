@@ -32,7 +32,7 @@ defmodule Geometrics.MixProject do
     [
       {:credo, ">= 0.0.0", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
-      {:ex_doc, only: [:docs], runtime: false},
+      {:ex_doc, ">= 0.0.0", only: [:docs], runtime: false},
       {:opentelemetry, "~> 0.6", override: true},
       {:opentelemetry_api, "~> 0.6", override: true},
       {:opentelemetry_exporter, ">= 0.6.0", override: true},
@@ -66,19 +66,14 @@ defmodule Geometrics.MixProject do
         "guides/deployment.md",
         "guides/references.md",
       ],
+      assets: "guides/assets",
       source_ref: "v#{@version}",
       main: "overview"
     ]
   end
 
   def aliases() do
-    [docs: ["docs", &copy_images/1]]
-  end
-
-  defp copy_images(_) do
-    File.cp_r("guides/assets", "doc/assets", fn source, destination ->
-      IO.gets("Overwriting #{destination} by #{source}. Type y to confirm. ") == "y\n"
-    end)
+    []
   end
 
   defp elixirc_paths(:test), do: ["lib", "test/support"]

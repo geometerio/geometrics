@@ -100,7 +100,7 @@ This means that a team can instrument their applications in one way, and swap ou
 if needed. In other words, you can choose to instrument your frontend and backend respectively with `opentelemetry-js`
 and `opentelemetry-erlang`, and have both those libraries report data to Honeycomb using a consistent standard. The way
 this was achieved was by standardizing that all OpenTelemetry language implementations must be able to communicate with
-a running agent called an `OpenTelemetry collector` over HTTP.
+a running agent called an [OpenTelemetry collector](https://github.com/open-telemetry/opentelemetry-collector) over HTTP.
 
 The [OpenTelemetry collector agent](https://github.com/open-telemetry/opentelemetry-collector) is used
 to collect traces using the vendor-agnostic protocol, then forward the traces to a 3rd party tracing service. This
