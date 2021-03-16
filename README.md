@@ -51,7 +51,7 @@ Application tracing service)
 ## Why does this library exists?
 
 1. To distill knowledge gleaned from dissecting the somewhat overwhelming OpenTelemetry/observability ecosystem into an
-   easily consumed set of [guides](guides).
+   easily consumed set of [guides](https://geometerio.github.io/geometrics).
 2. To provide Phoenix LiveView observability, which has not yet been included into OpenTelemetry the way
    that [Phoenix](https://github.com/opentelemetry-beam/opentelemetry_phoenix)
    and [Ecto](https://github.com/opentelemetry-beam/opentelemetry_ecto) have.
