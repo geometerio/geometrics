@@ -4,6 +4,10 @@ An opinionated library for adding application tracing and metrics to a Phoenix a
 dependencies which hook into Phoenix and Ecto [telemetry](https://hexdocs.pm/phoenix/telemetry.html), adding support for
 LiveView as well as crash tracking.
 
+This repo also contains informative [guides](https://geometerio.github.io/geometrics) to help you wrap your head around 
+Application tracing concepts which can be notoriously confusing, especially in Elixir and Erlang. It is worth reading these before
+diving in.
+
 ## Basic Usage
 
 Given this simple LiveView module in a Phoenix application:
@@ -24,6 +28,8 @@ defmodule GeometerTracingDemosWeb.PageLive do
 
   @impl true
   def handle_event("create", %{"some_model" => form_attrs}, socket) do
+    # This is an example of adding a custom span to your application. All of the other application traces in the image
+    # below come by default after installing Geometrics without any other changes to source code.
     OpenTelemetry.Tracer.with_span "My custom span" do
       %SomeModel{}
       |> SomeModel.changeset(form_attrs)
