@@ -66,6 +66,7 @@ defmodule Geometrics.MixProject do
         "guides/deployment.md",
         "guides/references.md",
       ],
+      output: "docs",
       assets: "guides/assets",
       source_ref: "v#{@version}",
       main: "overview"
