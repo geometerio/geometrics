@@ -4,9 +4,9 @@ An opinionated library for adding application tracing and metrics to a Phoenix a
 dependencies which hook into Phoenix and Ecto [telemetry](https://hexdocs.pm/phoenix/telemetry.html), adding support for
 LiveView as well as crash tracking.
 
-This repo also contains informative [guides](https://geometerio.github.io/geometrics) to help you wrap your head around 
-Application tracing concepts which can be notoriously confusing, especially in Elixir and Erlang. It is worth reading these before
-diving in.
+This repo also contains informative [guides](https://geometerio.github.io/geometrics) to help you wrap your head around
+Application tracing concepts which can be notoriously confusing, especially in Elixir and Erlang. It is worth reading
+these before diving in.
 
 ## Basic Usage
 
@@ -45,8 +45,8 @@ You can see an application trace that extends throughout an entire live view ses
 
 ![Honeycomb Trace Exmample](guides/assets/honeycomb_trace_example.png)
 
-(Note that the trace shown here is from the [Honeycomb.io](https://www.honeycomb.io/) UI, but should carry over to any Application
-tracing service)
+(Note that the trace shown here is from the [Honeycomb.io](https://www.honeycomb.io/) UI, but should carry over to any
+Application tracing service)
 
 ## Why does this library exists?
 
@@ -59,22 +59,27 @@ tracing service)
 
 ## Installation
 
-Add `Geometrics` and an exporter (i.e. `opentelemetry_exporter`) to `mix.exs`:
+Add `geometrics` to your `mix.exs`.
+
+Note that it is not currently published to Hex due to version conflicts between `opentelemetry`
+and `opentelemetry-phoenix`. Open Telemetry is in its early development stages, but folks in the
+Elixir [#opentelemetry slack channel](https://elixir-lang.slack.com/archives/CA4CNK38B) are very responsive!
 
 ```elixir
 def deps do
-[
-  {:geometrics, github: "geometerio/geometrics"}
-]
+  [
+    {:geometrics, github: "geometerio/geometrics"}
+  ]
 end
 ```
 
 Configure `Geometrics` in `config.exs`:
 
 ```elixir
+# Necessary to tell OpenTelemetry what repository to report traces for
 config :geometrics, :ecto_prefix, [:my_app, :repo]
 
-
+# Configuring a custom logger Geometrics.OpenTelemetry.Logger to help export process crashes to OpenTelemetry, which aren't reported by default 
 config :logger,
        backends: [
          :console,
@@ -83,26 +88,15 @@ config :logger,
 
 # The service name will show up in each span in your metrics service (i.e. Honeycomb)
 config :opentelemetry, :resource,
-       service: [name: "<app name> backend"]
+       service: [
+         name: "<app name> backend"
+       ]
 
-# This is the endpoint that both frontend and backend opentelemetry trace data will be sent to. Read
-# more in guides/overview.md
+# This is the endpoint that both frontend and backend opentelemetry trace data will be sent to
 config :geometrics, :collector_endpoint, "http://localhost:55681/v1/trace"
 ```
 
-*A quick note about the purpose of `Geometrics.OpenTelemetry.Logger`:*
-
-Process exits aren't caught and reported by OpenTelemetry by default. This is because there isn't an opportunity for the
-crashed process to end its trace span before crashing, and only ended spans ever get reported. That is
-where `Geometrics.OpenTelemetry.Logger` comes in. Its main responsibility is to receive crash error logs and
-end any pre-existing spans associated with that crashed process so that they get reported.
-
-Run `mix geometrics.install`. This will set up the OpenTelemetry collector that is used to export trace data to external
-services like Honeycomb.
-
-Configure `opentelemetry` with an exporter. This example assumes that an `otel/opentelemetry-collector-dev:latest`
-collector is running on localhost. The `docker-compose.yml` file that runs this image will be set up from
-running `mix geometrics.install` in the previous step.
+Configure `opentelemetry` with an exporter:
 
 ```elixir
 config :opentelemetry,
@@ -115,6 +109,10 @@ config :opentelemetry,
          }
        ]
 ```
+
+In this example we export all trace data to an opentelemetry-collector agent that will be running on `localhost:55681`.
+See [the section on running the opentelemetry collector](#running-the-opentelemetry-collector) below
+or [the guides](https://geometerio.github.io/geometrics) for more on this.
 
 Add the handler to the `Application`'s supervision tree:
 
@@ -164,6 +162,10 @@ html lang="en"
     = @inner_content
 ```
 
+## Getting frontend event traces
+
+To get javascript traces to show up within LiveView traces, check out the [javascript guide](https://geometerio.github.io/geometrics/javascript.html).
+
 ## Running the OpenTelemetry collector
 
 In order to actually report data to Honeycomb (or other services), you will need to run
@@ -181,9 +183,16 @@ also copy over a configuration file, `otel-collector-config.yml`, used to config
 To run the collector, simply run `docker compose up`. You should now see metrics data appear in Honeycomb under the
 dataset configured by `HONEYCOMB_DATASET`.
 
+**Reporting to other third-party tracing services**:
+
+By default the `otel-collector-config.yml` and `docker-compose.yml` also spin up a local instance of [Jaeger](https://www.jaegertracing.io/)
+(running on http://localhost:16686/) and [Zipkin](https://zipkin.io/) (running on http://127.0.0.1:9411/)
+that will both also receive the same trace data. If you'd prefer not to send your trace data over the network to
+Honeycomb (or any other API), you can use these locally running tracing services instead.
+
 ## References
 
-For further reading, see [guides/overview.md](guides/overview.md).
+For further reading, see [the guides](https://geometerio.github.io/geometrics).
 
 External references:
 
