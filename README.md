@@ -68,7 +68,7 @@ Elixir [#opentelemetry slack channel](https://elixir-lang.slack.com/archives/CA4
 ```elixir
 def deps do
   [
-    {:geometrics, github: "geometerio/geometrics"}
+    {:geometrics, github: "geometerio/geometrics", branch: "main"}
   ]
 end
 ```
