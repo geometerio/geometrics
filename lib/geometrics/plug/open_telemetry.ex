@@ -7,6 +7,7 @@ defmodule Geometrics.Plug.OpenTelemetry do
 
   def init(opts), do: opts
 
+  @spec call(any, any) :: any
   def call(conn, _opts) do
     OpenTelemetry.Tracer.current_span_ctx()
     |> case do
