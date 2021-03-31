@@ -69,8 +69,8 @@ Elixir [#opentelemetry slack channel](https://elixir-lang.slack.com/archives/CA4
 def deps do
   [
     {:geometrics, github: "geometerio/geometrics", branch: "main"},
-    {:opentelemetry, "~> 0.6"},
-    {:opentelemetry_api, "~> 0.6"}
+    {:opentelemetry, "~> 0.6", override: true},  # override: true is necessary for now due to opentelemetry_ecto and opentelemetry_phoenix libraries using 0.5.0 of opentelemetry
+    {:opentelemetry_api, "~> 0.6", override: true}
   ]
 end
 ```
