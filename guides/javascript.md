@@ -29,6 +29,21 @@ Phoenix backend. This endpoint is a running server called
 an [opentelemetry-collector](https://github.com/open-telemetry/opentelemetry-collector). Its main purpose is to receive
 requests containing trace information to buffer and export traces to visualization services like Honeycomb.
 
+## Setup
+
+To use Geometrics' included javascript, you must add it to your `package.json`:
+
+```.json
+  "dependencies": {
+    ...
+    "geometrics": "file:../../geometrics",
+    ...
+  },
+
+```
+
+Then run `npm install`
+
 ## Usage
 
 To capture spans, you can wrap whatever block of code you wish to capture in a `withSpan`. This function allows you to
