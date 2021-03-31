@@ -39,6 +39,11 @@ context of our frontend event to our LiveView backend via param.
 ```.js
 import {withSpan, initTracer} from "geometrics"
 
+initTracer({
+  serviceName: 'frontend',
+  logToConsole: true
+})
+
 const liveSocket = withSpan("liveSocket.connect()", (span) => {
   const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
   const options = {
