@@ -7,10 +7,10 @@
     <meta name="generator" content="ExDoc v0.23.0">
     <meta name="project" content="geometrics v0.1.0">
 
-    <title>404 — geometrics v0.1.0</title>
+    <title>Deployments — geometrics v0.1.0</title>
     <link rel="stylesheet" href="dist/elixir-9f91ebe876dc01d67920.css" />
 
-    <script src="dist/sidebar_items-fbc28d9657.js"></script>
+    <script src="dist/sidebar_items-db5c7def5c.js"></script>
 
       <script src="docs_config.js"></script>
 
@@ -74,14 +74,11 @@ geometrics
   <div class="content-outer">
     <div id="content" class="content-inner">
 
-<h2>Page not found</h2>
-
-<p>Sorry, but the page you were trying to get to, does not exist. You
-may want to try searching this site using the sidebar
-
-  or using our <a href="api-reference.html">API Reference</a> page
-
-to find what you were looking for.</p>
+<h1>Deployments</h1><p>To collect trace data in production environments, it is necessary to run
+the <a href="https://github.com/open-telemetry/opentelemetry-collector">OpenTelemetry collector</a>
+somewhere in your network that will be accessible from both your frontend and backend. In a Kubernetes deploys, it could
+be run as a sidecar container. In DigitalOcean deploys, you may need to deploy
+the <code class="inline">otel/opentelemetry-collector-dev:latest</code> as a separate droplet.</p>
       <footer class="footer">
         <p>
           <span class="line">

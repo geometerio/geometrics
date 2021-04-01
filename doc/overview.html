@@ -10,7 +10,7 @@
     <title>Overview — geometrics v0.1.0</title>
     <link rel="stylesheet" href="dist/elixir-9f91ebe876dc01d67920.css" />
 
-    <script src="dist/sidebar_items-fbc28d9657.js"></script>
+    <script src="dist/sidebar_items-db5c7def5c.js"></script>
 
       <script src="docs_config.js"></script>
 
@@ -144,7 +144,7 @@ exporting span traces to various 3rd-party tracing services (Honeycomb, Jaeger, 
 if needed. In other words, you can choose to instrument your frontend and backend respectively with <code class="inline">opentelemetry-js</code>
 and <code class="inline">opentelemetry-erlang</code>, and have both those libraries report data to Honeycomb using a consistent standard. The way
 this was achieved was by standardizing that all OpenTelemetry language implementations must be able to communicate with
-a running agent called an <a href="https://github.com/open-telemetry/opentelemetry-collector">OpenTelemetry collector</a> over HTTP.</p><p>The <a href="https://github.com/open-telemetry/opentelemetry-collector">OpenTelemetry collector agent</a> is used
+a running agent called an <code class="inline">OpenTelemetry collector</code> over HTTP.</p><p>The <a href="https://github.com/open-telemetry/opentelemetry-collector">OpenTelemetry collector agent</a> is used
 to collect traces using the vendor-agnostic protocol, then forward the traces to a 3rd party tracing service. This
 allows applications to export traces via a single mechanism, without having to care what happens later.</p><p>The diagram below illustrates how this looks.</p><p><img src="assets/OpenTelemetry Exporter Diagram.png" alt="OpenTelemetry Exporter Diagram"></img></p><h2 id="opentelemetry-gotchas" class="section-heading">
   <a href="#opentelemetry-gotchas" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>

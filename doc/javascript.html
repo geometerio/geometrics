@@ -10,7 +10,7 @@
     <title>Javascript — geometrics v0.1.0</title>
     <link rel="stylesheet" href="dist/elixir-9f91ebe876dc01d67920.css" />
 
-    <script src="dist/sidebar_items-fbc28d9657.js"></script>
+    <script src="dist/sidebar_items-db5c7def5c.js"></script>
 
       <script src="docs_config.js"></script>
 
@@ -91,17 +91,8 @@ to.</li></ul><h2 id="collecting-traces" class="section-heading">
 </h2>
 <p>In order aggregate and export trace events, the frontend needs to speak with a public endpoint separate from your
 Phoenix backend. This endpoint is a running server called
-an <a href="https://github.com/open-telemetry/opentelemetry-collector">opentelemetry-collector</a>. Its main purpose is to receive
-requests containing trace information to buffer and export traces to visualization services like Honeycomb.</p><h2 id="setup" class="section-heading">
-  <a href="#setup" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
-  Setup
-</h2>
-<p>To use Geometrics' included javascript, you must add it to your <code class="inline">package.json</code>:</p><pre><code class=".json">  &quot;dependencies&quot;: {
-    ...
-    &quot;geometrics&quot;: &quot;file:../../geometrics&quot;,
-    ...
-  },
-</code></pre><p>Then run <code class="inline">npm install</code></p><h2 id="usage" class="section-heading">
+a <a href="https://github.com/open-telemetry/opentelemetry-collector"><code class="inline">opentelemetry-collector</code></a>. Its main purpose is to receive
+requests containing trace information to buffer and export traces to visualization services like Honeycomb.</p><h2 id="usage" class="section-heading">
   <a href="#usage" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
   Usage
 </h2>
@@ -109,11 +100,6 @@ requests containing trace information to buffer and export traces to visualizati
 pass a name for the span, as well as a function that will wrap the code for the span. This function will also receive a
 javascript object which represents the span that is being created. In the example below we use this object to pass the
 context of our frontend event to our LiveView backend via param.</p><pre><code class=".js">import {withSpan, initTracer} from &quot;geometrics&quot;
-
-initTracer({
-  serviceName: 'frontend',
-  logToConsole: true
-})
 
 const liveSocket = withSpan(&quot;liveSocket.connect()&quot;, (span) =&gt; {
   const csrfToken = document.querySelector(&quot;meta[name='csrf-token']&quot;).getAttribute(&quot;content&quot;)

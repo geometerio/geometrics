@@ -7,10 +7,10 @@
     <meta name="generator" content="ExDoc v0.23.0">
     <meta name="project" content="geometrics v0.1.0">
 
-    <title>404 — geometrics v0.1.0</title>
+    <title>API Reference — geometrics v0.1.0</title>
     <link rel="stylesheet" href="dist/elixir-9f91ebe876dc01d67920.css" />
 
-    <script src="dist/sidebar_items-fbc28d9657.js"></script>
+    <script src="dist/sidebar_items-db5c7def5c.js"></script>
 
       <script src="docs_config.js"></script>
 
@@ -74,14 +74,87 @@ geometrics
   <div class="content-outer">
     <div id="content" class="content-inner">
 
-<h2>Page not found</h2>
+<h1>
+  API Reference <small class="app-vsn">geometrics v0.1.0</small>
+</h1>
 
-<p>Sorry, but the page you were trying to get to, does not exist. You
-may want to try searching this site using the sidebar
+  <section class="details-list">
+    <h2 id="modules" class="section-heading">
+  <a href="#modules" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Modules
+</h2>
 
-  or using our <a href="api-reference.html">API Reference</a> page
+    <div class="summary">
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="Geometrics.html">Geometrics</a>
 
-to find what you were looking for.</p>
+  </div>
+
+    <div class="summary-synopsis"><p>Documentation for <a href="#content"><code class="inline">Geometrics</code></a>.</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="Geometrics.OpenTelemetry.Handler.html">Geometrics.OpenTelemetry.Handler</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Configures OpenTelemetry to collect traces from Phoenix, Ecto, and LiveView.</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="Geometrics.OpenTelemetry.Logger.html">Geometrics.OpenTelemetry.Logger</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Capture crashes and exits with open spans. This helps to capture problems where a
+system is overloaded or under-optimized, and timeouts occur. Timeout errors (in Ecto,
+or when <code class="inline">call</code>ing into GenServers) typically trigger <code class="inline">exit</code> instead of raising exceptions.</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="Geometrics.Phoenix.View.html">Geometrics.Phoenix.View</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Provides a mechanism for an OpenTelemetry trace created</p></div>
+
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="Geometrics.Plug.OpenTelemetry.html">Geometrics.Plug.OpenTelemetry</a>
+
+  </div>
+
+    <div class="summary-synopsis"><p>Ensure that the current OpenTelemetry context is available to the conn.</p></div>
+
+</div>
+
+    </div>
+  </section>
+
+
+  <section class="details-list">
+    <h2 id="mix-tasks" class="section-heading">
+  <a href="#mix-tasks" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Mix Tasks
+</h2>
+
+    <div class="summary">
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="Mix.Tasks.Geometrics.Install.html">mix geometrics.install</a>
+
+  </div>
+
+</div>
+
+    </div>
+  </section>
+
       <footer class="footer">
         <p>
           <span class="line">
