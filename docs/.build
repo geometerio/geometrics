@@ -15,9 +15,10 @@ dist/html/fonts/icomoon.eot
 dist/html/fonts/icomoon.svg
 dist/html/fonts/icomoon.ttf
 dist/html/fonts/icomoon.woff
-dist/search_items-6119cd017c.js
-dist/sidebar_items-fbc28d9657.js
+dist/search_items-92266a4f6c.js
+dist/sidebar_items-e7f3c6def2.js
 index.html
+installation.html
 javascript.html
 overview.html
 phoenix.html

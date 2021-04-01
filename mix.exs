@@ -61,6 +61,7 @@ defmodule Geometrics.MixProject do
     [
       extras: [
         "guides/overview.md",
+        "guides/installation.md",
         "guides/phoenix.md",
         "guides/javascript.md",
         "guides/deployment.md",
