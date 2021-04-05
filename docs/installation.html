@@ -10,7 +10,7 @@
     <title>Installation — geometrics v0.1.0</title>
     <link rel="stylesheet" href="dist/elixir-9f91ebe876dc01d67920.css" />
 
-    <script src="dist/sidebar_items-e7f3c6def2.js"></script>
+    <script src="dist/sidebar_items-a7c3bb4b95.js"></script>
 
       <script src="docs_config.js"></script>
 
@@ -80,74 +80,89 @@ geometrics
 </h2>
 <p>Add <code class="inline">geometrics</code> to your <code class="inline">mix.exs</code>.</p><p>Note that it is not currently published to Hex due to version conflicts between <code class="inline">opentelemetry</code>
 and <code class="inline">opentelemetry-phoenix</code>. Open Telemetry is in its early development stages, but folks in the
-Elixir <a href="https://elixir-lang.slack.com/archives/CA4CNK38B">#opentelemetry slack channel</a> are very responsive!</p><pre><code class="nohighlight makeup elixir"><span class="kd">def</span><span class="w"> </span><span class="nf">deps</span><span class="w"> </span><span class="k" data-group-id="7399340125-1">do</span><span class="w">
-  </span><span class="p" data-group-id="7399340125-2">[</span><span class="w">
-    </span><span class="p" data-group-id="7399340125-3">{</span><span class="ss">:geometrics</span><span class="p">,</span><span class="w"> </span><span class="ss">github</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;geometerio/geometrics&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">branch</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;main&quot;</span><span class="p" data-group-id="7399340125-3">}</span><span class="p">,</span><span class="w">
-    </span><span class="p" data-group-id="7399340125-4">{</span><span class="ss">:opentelemetry</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;~&gt; 0.6&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">override</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="7399340125-4">}</span><span class="p">,</span><span class="w">  </span><span class="c1"># override: true is necessary for now due to opentelemetry_ecto and opentelemetry_phoenix libraries using 0.5.0 of opentelemetry</span><span class="w">
-    </span><span class="p" data-group-id="7399340125-5">{</span><span class="ss">:opentelemetry_api</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;~&gt; 0.6&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">override</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="7399340125-5">}</span><span class="w">
-  </span><span class="p" data-group-id="7399340125-2">]</span><span class="w">
-</span><span class="k" data-group-id="7399340125-1">end</span></code></pre><h2 id="config-exs-runtime-exs" class="section-heading">
+Elixir <a href="https://elixir-lang.slack.com/archives/CA4CNK38B">#opentelemetry slack channel</a> are very responsive!</p><pre><code class="nohighlight makeup elixir"><span class="kd">def</span><span class="w"> </span><span class="nf">deps</span><span class="w"> </span><span class="k" data-group-id="4428323155-1">do</span><span class="w">
+  </span><span class="p" data-group-id="4428323155-2">[</span><span class="w">
+    </span><span class="p" data-group-id="4428323155-3">{</span><span class="ss">:geometrics</span><span class="p">,</span><span class="w"> </span><span class="ss">github</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;geometerio/geometrics&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">branch</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;main&quot;</span><span class="p" data-group-id="4428323155-3">}</span><span class="p">,</span><span class="w">
+    </span><span class="p" data-group-id="4428323155-4">{</span><span class="ss">:opentelemetry</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;~&gt; 0.6&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">override</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="4428323155-4">}</span><span class="p">,</span><span class="w">  </span><span class="c1"># override: true is necessary for now due to opentelemetry_ecto and opentelemetry_phoenix libraries using 0.5.0 of opentelemetry</span><span class="w">
+    </span><span class="p" data-group-id="4428323155-5">{</span><span class="ss">:opentelemetry_api</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;~&gt; 0.6&quot;</span><span class="p">,</span><span class="w"> </span><span class="ss">override</span><span class="p">:</span><span class="w"> </span><span class="no">true</span><span class="p" data-group-id="4428323155-5">}</span><span class="w">
+  </span><span class="p" data-group-id="4428323155-2">]</span><span class="w">
+</span><span class="k" data-group-id="4428323155-1">end</span></code></pre><h2 id="config-exs-runtime-exs" class="section-heading">
   <a href="#config-exs-runtime-exs" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
   config.exs / runtime.exs
 </h2>
 <p>Configure <a href="Geometrics.html"><code class="inline">Geometrics</code></a> in <code class="inline">config.exs</code>:</p><pre><code class="nohighlight makeup elixir"><span class="c1"># Necessary to tell OpenTelemetry what repository to report traces for</span><span class="w">
-</span><span class="n">config</span><span class="w"> </span><span class="ss">:geometrics</span><span class="p">,</span><span class="w"> </span><span class="ss">:ecto_prefix</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1208170929-1">[</span><span class="ss">:my_app</span><span class="p">,</span><span class="w"> </span><span class="ss">:repo</span><span class="p" data-group-id="1208170929-1">]</span><span class="w">
+</span><span class="n">config</span><span class="w"> </span><span class="ss">:geometrics</span><span class="p">,</span><span class="w"> </span><span class="ss">:ecto_prefix</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3499077517-1">[</span><span class="ss">:my_app</span><span class="p">,</span><span class="w"> </span><span class="ss">:repo</span><span class="p" data-group-id="3499077517-1">]</span><span class="w">
 
 </span><span class="c1"># Configuring a custom logger Geometrics.OpenTelemetry.Logger to help export process crashes to OpenTelemetry, which aren&#39;t reported by default </span><span class="w">
 </span><span class="n">config</span><span class="w"> </span><span class="ss">:logger</span><span class="p">,</span><span class="w">
-       </span><span class="ss">backends</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1208170929-2">[</span><span class="w">
+       </span><span class="ss">backends</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3499077517-2">[</span><span class="w">
          </span><span class="ss">:console</span><span class="p">,</span><span class="w">
          </span><span class="nc">Geometrics.OpenTelemetry.Logger</span><span class="w">
-       </span><span class="p" data-group-id="1208170929-2">]</span><span class="w">
+       </span><span class="p" data-group-id="3499077517-2">]</span><span class="w">
 
 </span><span class="c1"># The service name will show up in each span in your metrics service (i.e. Honeycomb)</span><span class="w">
 </span><span class="n">config</span><span class="w"> </span><span class="ss">:opentelemetry</span><span class="p">,</span><span class="w"> </span><span class="ss">:resource</span><span class="p">,</span><span class="w">
-       </span><span class="ss">service</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1208170929-3">[</span><span class="w">
+       </span><span class="ss">service</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3499077517-3">[</span><span class="w">
          </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;&lt;app name&gt; backend&quot;</span><span class="w">
-       </span><span class="p" data-group-id="1208170929-3">]</span></code></pre><p>This is the endpoint of an <code class="inline">otel-collector</code> that frontend opentelemetry trace data will be sent to. In development, this may be localhost. In production,
+       </span><span class="p" data-group-id="3499077517-3">]</span></code></pre><p>This is the endpoint of an <code class="inline">otel-collector</code> that frontend opentelemetry trace data will be sent to. In development, this may be localhost. In production,
 this should be a public https endpoint.</p><pre><code class="nohighlight makeup elixir"><span class="n">config</span><span class="w"> </span><span class="ss">:geometrics</span><span class="p">,</span><span class="w"> </span><span class="ss">:collector_endpoint</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;http://localhost:55681/v1/trace&quot;</span></code></pre><p>Configure <code class="inline">opentelemetry</code> with an exporter. If running <code class="inline">otel-collector</code> as a sidecar
 in k8s, with an <code class="inline">otel</code> receiver on port 55821, the following will work.</p><pre><code class="nohighlight makeup elixir"><span class="n">config</span><span class="w"> </span><span class="ss">:opentelemetry</span><span class="p">,</span><span class="w">
-       </span><span class="ss">processors</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1742638620-1">[</span><span class="w">
-         </span><span class="ss">otel_batch_processor</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1742638620-2">%{</span><span class="w">
-           </span><span class="ss">exporter</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1742638620-3">{</span><span class="w">
+       </span><span class="ss">processors</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3972119184-1">[</span><span class="w">
+         </span><span class="ss">otel_batch_processor</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3972119184-2">%{</span><span class="w">
+           </span><span class="ss">exporter</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3972119184-3">{</span><span class="w">
              </span><span class="ss">:opentelemetry_exporter</span><span class="p">,</span><span class="w">
-             </span><span class="p" data-group-id="1742638620-4">%{</span><span class="ss">endpoints</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="1742638620-5">[</span><span class="p" data-group-id="1742638620-6">{</span><span class="ss">:http</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;0.0.0.0&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">55_681</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="1742638620-7">[</span><span class="p" data-group-id="1742638620-7">]</span><span class="p" data-group-id="1742638620-6">}</span><span class="p" data-group-id="1742638620-5">]</span><span class="p" data-group-id="1742638620-4">}</span><span class="w">
-           </span><span class="p" data-group-id="1742638620-3">}</span><span class="w">
-         </span><span class="p" data-group-id="1742638620-2">}</span><span class="w">
-       </span><span class="p" data-group-id="1742638620-1">]</span></code></pre><p>In this example we export all trace data to an opentelemetry-collector agent that will be running on <code class="inline">localhost:55681</code>.
+             </span><span class="p" data-group-id="3972119184-4">%{</span><span class="ss">endpoints</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3972119184-5">[</span><span class="p" data-group-id="3972119184-6">{</span><span class="ss">:http</span><span class="p">,</span><span class="w"> </span><span class="sc">&#39;0.0.0.0&#39;</span><span class="p">,</span><span class="w"> </span><span class="mi">55_681</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="3972119184-7">[</span><span class="p" data-group-id="3972119184-7">]</span><span class="p" data-group-id="3972119184-6">}</span><span class="p" data-group-id="3972119184-5">]</span><span class="p" data-group-id="3972119184-4">}</span><span class="w">
+           </span><span class="p" data-group-id="3972119184-3">}</span><span class="w">
+         </span><span class="p" data-group-id="3972119184-2">}</span><span class="w">
+       </span><span class="p" data-group-id="3972119184-1">]</span></code></pre><p>In this example we export all trace data to an opentelemetry-collector agent that will be running on <code class="inline">localhost:55681</code>.
 See <a href="#running-the-opentelemetry-collector">the section on running the opentelemetry collector</a> below
 or <a href="https://geometerio.github.io/geometrics">the guides</a> for more on this.</p><h2 id="application-ex" class="section-heading">
   <a href="#application-ex" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
   application.ex
 </h2>
-<p>Add the handler to the <a href="https://hexdocs.pm/elixir/Application.html"><code class="inline">Application</code></a>'s supervision tree:</p><pre><code class="nohighlight makeup elixir"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">MyApp.Application</span><span class="w"> </span><span class="k" data-group-id="0467991803-1">do</span><span class="w">
+<p>Add the handler to the <a href="https://hexdocs.pm/elixir/Application.html"><code class="inline">Application</code></a>'s supervision tree:</p><pre><code class="nohighlight makeup elixir"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">MyApp.Application</span><span class="w"> </span><span class="k" data-group-id="5812198803-1">do</span><span class="w">
   </span><span class="kn">use</span><span class="w"> </span><span class="nc">Application</span><span class="w">
 
-  </span><span class="kd">def</span><span class="w"> </span><span class="nf">start</span><span class="p" data-group-id="0467991803-2">(</span><span class="c">_type</span><span class="p">,</span><span class="w"> </span><span class="c">_args</span><span class="p" data-group-id="0467991803-2">)</span><span class="w"> </span><span class="k" data-group-id="0467991803-3">do</span><span class="w">
-    </span><span class="n">children</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="0467991803-4">[</span><span class="w">
+  </span><span class="kd">def</span><span class="w"> </span><span class="nf">start</span><span class="p" data-group-id="5812198803-2">(</span><span class="c">_type</span><span class="p">,</span><span class="w"> </span><span class="c">_args</span><span class="p" data-group-id="5812198803-2">)</span><span class="w"> </span><span class="k" data-group-id="5812198803-3">do</span><span class="w">
+    </span><span class="n">children</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="5812198803-4">[</span><span class="w">
       </span><span class="nc">Geometrics.OpenTelemetry.Handler</span><span class="p">,</span><span class="w"> </span><span class="c1">## &lt;------------</span><span class="w">
       </span><span class="nc">MyApp.Repo</span><span class="p">,</span><span class="w">
-      </span><span class="p" data-group-id="0467991803-5">{</span><span class="nc">Phoenix.PubSub</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="nc">MyApp.PubSub</span><span class="p" data-group-id="0467991803-5">}</span><span class="p">,</span><span class="w">
+      </span><span class="p" data-group-id="5812198803-5">{</span><span class="nc">Phoenix.PubSub</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="nc">MyApp.PubSub</span><span class="p" data-group-id="5812198803-5">}</span><span class="p">,</span><span class="w">
       </span><span class="nc">MyAppWeb.Endpoint</span><span class="w">
-    </span><span class="p" data-group-id="0467991803-4">]</span><span class="w">
+    </span><span class="p" data-group-id="5812198803-4">]</span><span class="w">
 
-    </span><span class="n">opts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="0467991803-6">[</span><span class="ss">strategy</span><span class="p">:</span><span class="w"> </span><span class="ss">:one_for_one</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="nc">MyApp.Supervisor</span><span class="p" data-group-id="0467991803-6">]</span><span class="w">
-    </span><span class="nc">Supervisor</span><span class="o">.</span><span class="n">start_link</span><span class="p" data-group-id="0467991803-7">(</span><span class="n">children</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="0467991803-7">)</span><span class="w">
-  </span><span class="k" data-group-id="0467991803-3">end</span><span class="w">
-</span><span class="k" data-group-id="0467991803-1">end</span></code></pre><h2 id="phoenix-router-ex" class="section-heading">
+    </span><span class="n">opts</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p" data-group-id="5812198803-6">[</span><span class="ss">strategy</span><span class="p">:</span><span class="w"> </span><span class="ss">:one_for_one</span><span class="p">,</span><span class="w"> </span><span class="ss">name</span><span class="p">:</span><span class="w"> </span><span class="nc">MyApp.Supervisor</span><span class="p" data-group-id="5812198803-6">]</span><span class="w">
+    </span><span class="nc">Supervisor</span><span class="o">.</span><span class="n">start_link</span><span class="p" data-group-id="5812198803-7">(</span><span class="n">children</span><span class="p">,</span><span class="w"> </span><span class="n">opts</span><span class="p" data-group-id="5812198803-7">)</span><span class="w">
+  </span><span class="k" data-group-id="5812198803-3">end</span><span class="w">
+</span><span class="k" data-group-id="5812198803-1">end</span></code></pre><h2 id="phoenix-endpoint-ex-liveview" class="section-heading">
+  <a href="#phoenix-endpoint-ex-liveview" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
+  Phoenix endpoint.ex -- LiveView
+</h2>
+<p>In order for LiveView to receive information about the browser user agent, <code class="inline">:user_agent</code> should be
+add to the <code class="inline">:connect_info</code> when configuring the live view socket in <code class="inline">endpoint.ex</code>. Others listed
+below are not required, but are provided for informational purposes.</p><pre><code class="nohighlight makeup elixir"><span class="n">socket</span><span class="w"> </span><span class="s">&quot;/live&quot;</span><span class="p">,</span><span class="w"> </span><span class="nc">Phoenix.LiveView.Socket</span><span class="p">,</span><span class="w">
+  </span><span class="ss">websocket</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3514955156-1">[</span><span class="w">
+    </span><span class="ss">connect_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="3514955156-2">[</span><span class="w">
+      </span><span class="ss">:peer_data</span><span class="p">,</span><span class="w">
+      </span><span class="ss">:trace_context_headers</span><span class="p">,</span><span class="w">
+      </span><span class="ss">:user_agent</span><span class="p">,</span><span class="w">
+      </span><span class="ss">:x_headers</span><span class="p">,</span><span class="w">
+      </span><span class="ss">session</span><span class="p">:</span><span class="w"> </span><span class="na">@session_options</span><span class="w">
+    </span><span class="p" data-group-id="3514955156-2">]</span><span class="w">
+  </span><span class="p" data-group-id="3514955156-1">]</span></code></pre><h2 id="phoenix-router-ex" class="section-heading">
   <a href="#phoenix-router-ex" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
   Phoenix router.ex
 </h2>
-<p>Add our plug to the router:</p><pre><code class="nohighlight makeup elixir"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">MyAppWeb.Router</span><span class="w"> </span><span class="k" data-group-id="1371062342-1">do</span><span class="w">
+<p>Add our plug to the router:</p><pre><code class="nohighlight makeup elixir"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">MyAppWeb.Router</span><span class="w"> </span><span class="k" data-group-id="2576275415-1">do</span><span class="w">
   </span><span class="kn">use</span><span class="w"> </span><span class="nc">MyAppWeb</span><span class="p">,</span><span class="w"> </span><span class="ss">:router</span><span class="w">
 
-  </span><span class="n">pipeline</span><span class="w"> </span><span class="ss">:browser</span><span class="w"> </span><span class="k" data-group-id="1371062342-2">do</span><span class="w">
+  </span><span class="n">pipeline</span><span class="w"> </span><span class="ss">:browser</span><span class="w"> </span><span class="k" data-group-id="2576275415-2">do</span><span class="w">
     </span><span class="c1"># .....</span><span class="w">
     </span><span class="n">plug</span><span class="w"> </span><span class="nc">Geometrics.Plug.OpenTelemetry</span><span class="w">
-  </span><span class="k" data-group-id="1371062342-2">end</span><span class="w">
+  </span><span class="k" data-group-id="2576275415-2">end</span><span class="w">
 
   </span><span class="c1"># ...</span><span class="w">
-</span><span class="k" data-group-id="1371062342-1">end</span></code></pre><h2 id="root-layout" class="section-heading">
+</span><span class="k" data-group-id="2576275415-1">end</span></code></pre><h2 id="root-layout" class="section-heading">
   <a href="#root-layout" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
   Root layout
 </h2>

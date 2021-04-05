@@ -88,6 +88,25 @@ defmodule MyApp.Application do
 end
 ```
 
+## Phoenix endpoint.ex -- LiveView
+
+In order for LiveView to receive information about the browser user agent, `:user_agent` should be
+add to the `:connect_info` when configuring the live view socket in `endpoint.ex`. Others listed
+below are not required, but are provided for informational purposes.
+
+```elixir
+socket "/live", Phoenix.LiveView.Socket,
+  websocket: [
+    connect_info: [
+      :peer_data,
+      :trace_context_headers,
+      :user_agent,
+      :x_headers,
+      session: @session_options
+    ]
+  ]
+```
+
 ## Phoenix router.ex
 
 Add our plug to the router:
