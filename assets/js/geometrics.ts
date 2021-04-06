@@ -36,6 +36,11 @@ type InitOptions = {
   logToConsole: boolean;
 }
 
+/**
+ * Initializes OpenTelemetry and registers a provider and a context manager
+ * that will work in a browser. This function must be called before other functions
+ * such as `withSpan` or `newTrace`, or an error will be thrown.
+ */
 function initTracer({serviceName, logToConsole}: InitOptions) {
   propagation.setGlobalPropagator(new HttpTraceContext())
 
@@ -65,6 +70,40 @@ function initTracer({serviceName, logToConsole}: InitOptions) {
   return {tracerProvider, rootCtx}
 }
 
+/**
+ * Starts a span in a new trace, not related to any currently open span
+ * context. Useful for reporting traces that don't easily fit into a long-
+ * running open trace in a browser.
+ */
+function newTrace(name: string, fn: (span: Span) => any) {
+  if(!tracerProvider || !rootCtx) { throw new Error("you must initialize the tracer with initTracer() before using newTrace()")}
+
+  const tracer = tracerProvider.getTracer("default")
+  const span = tracer.startSpan(name, {root: true})
+  const response = fn(span)
+  span.end()
+
+  return response
+}
+
+/**
+ * Opens a new span as a child of whatever span context is currently open.
+ */
+function withSpan(name: string, fn: (span: Span) => any) {
+  if(!tracerProvider || !rootCtx) { throw new Error("you must initialize the tracer with initTracer() before using withSpan()")}
+
+  const tracer = tracerProvider.getTracer("default")
+  const span = getSpan(opentelemetry.context.active()) ? tracer.startSpan(name, {}, opentelemetry.context.active()) : tracer.startSpan(name, {}, rootCtx)
+
+  return opentelemetry.context.with(setSpan(opentelemetry.context.active(), span), () => {
+    const response = fn(span)
+
+    span.end()
+
+    return response
+  })
+}
+
 function getMetaTagValue(metaTagName: string) {
   const metaElement = [...document.getElementsByTagName('meta')].find(
       (e) => e.getAttribute('name') === metaTagName,
@@ -83,19 +122,4 @@ function createRootCtx(): Context {
   return baseContext
 }
 
-function withSpan(name: string, fn: (span: Span) => any) {
-  if(!tracerProvider || !rootCtx) { throw new Error("you must initialize the tracer with initTracer() before using withSpan()")}
-
-  const tracer = tracerProvider.getTracer("default")
-  const span = getSpan(opentelemetry.context.active()) ? tracer.startSpan(name, {}, opentelemetry.context.active()) : tracer.startSpan(name, {}, rootCtx)
-
-  return opentelemetry.context.with(setSpan(opentelemetry.context.active(), span), () => {
-    const response = fn(span)
-
-    span.end()
-
-    return response
-  })
-}
-
-export { withSpan, initTracer }
+export { newTrace, withSpan, initTracer }
