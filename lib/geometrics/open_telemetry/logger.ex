@@ -40,7 +40,7 @@ defmodule Geometrics.OpenTelemetry.Logger do
   @doc """
   When ending a span, it no longer needs to be tracked by the Logger.
   """
-  def pop_span_ctx do
+  def pop_span_ctx() do
     spans =
       Logger.metadata()
       |> Keyword.get(:ot_spans, [])

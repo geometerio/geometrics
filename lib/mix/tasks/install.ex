@@ -1,7 +1,12 @@
 defmodule Mix.Tasks.Geometrics.Install do
+  @shortdoc "Installs necessary components for Geometrics to work"
+  @moduledoc """
+  Installs supplementary files which may be helpful for adding opentelemetry
+  to an application, including a default docker compose file which runs an
+  opentelemetry collector.
+  """
   use Mix.Task
 
-  @shortdoc "Installs necessary components for Geometrics to work"
   def run(_) do
     cp_opentelemetry_files()
   end

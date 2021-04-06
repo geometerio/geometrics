@@ -13,13 +13,13 @@ defmodule Geometrics.OpenTelemetry.Handler do
 
   use GenServer
 
-  require Logger
-  require OpenTelemetry.Tracer
   alias Geometrics.OpenTelemetry.Logger, as: OTLogger
   alias OpenTelemetry.Ctx
   alias OpenTelemetry.Span
   alias OpenTelemetry.Tracer
   alias OpentelemetryPhoenix.Reason
+  require Logger
+  require OpenTelemetry.Tracer
 
   def start_link(args) do
     GenServer.start_link(__MODULE__, args, name: __MODULE__)
@@ -39,7 +39,7 @@ defmodule Geometrics.OpenTelemetry.Handler do
   Some bindings are attached before the library code, so that we can add some normalized
   attributes across most events.
   """
-  def setup do
+  def setup() do
     #### exception attachments need to be registered *before* we setup
     #### OpentelemetryPhoenix or OpentelemetryEcto, so we can alter
     #### the OT spans before those libraries end any spans
@@ -133,9 +133,9 @@ defmodule Geometrics.OpenTelemetry.Handler do
 
   def open_child_span([:phoenix, :live_view, :mount, :start], _payload, meta, _config) do
     case meta.socket do
-      %{ root_pid: nil } ->
+      %{root_pid: nil} ->
         handle_initial_lv_mount(meta.socket)
-      %{ root_pid: _root_pid } ->
+      %{root_pid: _root_pid} ->
         handle_lv_connect_mount(meta.socket)
     end
   end
@@ -200,7 +200,7 @@ defmodule Geometrics.OpenTelemetry.Handler do
     parent_ctx
   end
 
-  defp get_parent_ctx do
+  defp get_parent_ctx() do
     parent_ctx = Process.get(:ot_parent_ctx)
     _prev_ctx = Ctx.attach(parent_ctx)
     parent_ctx
@@ -323,7 +323,7 @@ defmodule Geometrics.OpenTelemetry.Handler do
   #   end
   # end
 
-  defp pop_span_ctx do
+  defp pop_span_ctx() do
     OTLogger.pop_span_ctx()
     |> case do
       [parent | _] -> parent
