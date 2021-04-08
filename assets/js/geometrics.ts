@@ -80,10 +80,13 @@ function newTrace(name: string, fn: (span: Span) => any) {
 
   const tracer = tracerProvider.getTracer("default")
   const span = tracer.startSpan(name, {root: true})
-  const response = fn(span)
-  span.end()
+  return opentelemetry.context.with(setSpan(opentelemetry.context.active(), span), () => {
+    const response = fn(span)
 
-  return response
+    span.end()
+
+    return response
+  })
 }
 
 /**
