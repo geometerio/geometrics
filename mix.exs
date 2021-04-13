@@ -65,6 +65,7 @@ defmodule Geometrics.MixProject do
         "guides/phoenix.md",
         "guides/javascript.md",
         "guides/deployment.md",
+        "guides/testing.md",
         "guides/references.md",
       ],
       output: "docs",
