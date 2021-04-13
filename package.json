@@ -1,5 +1,5 @@
 {
-  "name": "geometics",
+  "name": "geometrics",
   "version": "0.0.1",
   "description": "Sets up OpenTelemetry in JS.",
   "license": "MIT",
