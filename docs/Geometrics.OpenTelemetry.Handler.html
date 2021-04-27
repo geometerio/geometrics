@@ -355,15 +355,15 @@ was successful, ie did not crash or raise.</p>
 Makes sure that a parent span is either created, or attached to, so that events appear
 as siblings in a single trace spanning the LiveView session.</p><p>Note that child spans pull attributes off of the socket that are only present if the
 <code class="inline">:connect_info</code> is configured to include them in the Endpoint:</p><pre><code class="nohighlight makeup elixir"><span class="n">socket</span><span class="w"> </span><span class="s">&quot;/live&quot;</span><span class="p">,</span><span class="w"> </span><span class="nc">Phoenix.LiveView.Socket</span><span class="p">,</span><span class="w">
-  </span><span class="ss">websocket</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9001286129-1">[</span><span class="w">
-    </span><span class="ss">connect_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9001286129-2">[</span><span class="w">
+  </span><span class="ss">websocket</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0716927092-1">[</span><span class="w">
+    </span><span class="ss">connect_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0716927092-2">[</span><span class="w">
       </span><span class="ss">:peer_data</span><span class="p">,</span><span class="w">
       </span><span class="ss">:trace_context_headers</span><span class="p">,</span><span class="w">
       </span><span class="ss">:user_agent</span><span class="p">,</span><span class="w">
       </span><span class="ss">:x_headers</span><span class="p">,</span><span class="w">
       </span><span class="ss">session</span><span class="p">:</span><span class="w"> </span><span class="na">@session_options</span><span class="w">
-    </span><span class="p" data-group-id="9001286129-2">]</span><span class="w">
-  </span><span class="p" data-group-id="9001286129-1">]</span></code></pre>
+    </span><span class="p" data-group-id="0716927092-2">]</span><span class="w">
+  </span><span class="p" data-group-id="0716927092-1">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="setup/0">

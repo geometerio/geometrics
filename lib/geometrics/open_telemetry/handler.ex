@@ -135,6 +135,7 @@ defmodule Geometrics.OpenTelemetry.Handler do
     case meta.socket do
       %{root_pid: nil} ->
         handle_initial_lv_mount(meta.socket)
+
       %{root_pid: _root_pid} ->
         handle_lv_connect_mount(meta.socket)
     end
@@ -153,7 +154,10 @@ defmodule Geometrics.OpenTelemetry.Handler do
         ]
 
         :otel_propagator.text_map_extract(headers)
-      _ -> IO.warn("No traceContext on connect_params")
+
+      _ ->
+        if Application.get_env(:geometrics, :warn_on_no_trace_context, true),
+          do: IO.warn("No traceContext on connect_params")
     end
 
     create_parent_ctx("SECOND MOUNT #{to_module(socket.view)}")

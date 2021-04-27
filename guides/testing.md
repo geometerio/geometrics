@@ -27,3 +27,10 @@ defmodule MyAppWeb.PageLiveTest do
   end
 end
 ```
+
+Alternatively, this warning can be disabled entirely for tests by adding the following to
+`config/test.exs`:
+
+```elixir
+config :geometrics, :warn_on_no_trace_context, false
+```
