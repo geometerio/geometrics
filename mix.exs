@@ -39,6 +39,7 @@ defmodule Geometrics.MixProject do
       {:opentelemetry_ecto, github: "opentelemetry-beam/opentelemetry_ecto"},
       {:opentelemetry_phoenix, github: "opentelemetry-beam/opentelemetry_phoenix"},
       {:phoenix_html, "~> 2.11"},
+      {:phoenix_live_view, "~> 0.15", optional: true},
       {:plug, ">= 0.0.0"}
     ]
   end

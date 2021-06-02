@@ -342,8 +342,11 @@ defmodule Geometrics.OpenTelemetry.Handler do
   defp get_user_agent(%{private: %{connect_info: %{user_agent: user_agent}}}), do: user_agent
   defp get_user_agent(_), do: ""
 
-  defp connection_status(%{connected?: true}), do: "connected"
-  defp connection_status(%{connected?: false}), do: "disconnected"
+  defp connection_status(socket) do
+    if Phoenix.LiveView.connected?(socket),
+      do: "connected",
+      else: "disconnected"
+  end
 
   defp to_module(module) do
     module
