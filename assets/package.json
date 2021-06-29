@@ -6,6 +6,8 @@
   "repository": {},
   "scripts": {
     "build": "webpack --mode production",
+    "format": "prettier --write \"js/**/*.[jt]s\"",
+    "format-check": "prettier --check \"js/**/*.[jt]s\"",
     "watch": "webpack --mode production --watch"
   },
   "dependencies": {
