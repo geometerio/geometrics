@@ -9,7 +9,7 @@ then connection to LiveView, along with each event that transpires.
 In order to tie the backend tracing context to front end events, you must provide a set of meta tags in your root
 layout.
 
-```.eex
+```eex
 <%= Geometrics.Phoenix.View.meta_tags() %>
 ```
 
@@ -33,7 +33,7 @@ requests containing trace information to buffer and export traces to visualizati
 
 To use Geometrics' included javascript, you must add it to your `package.json`:
 
-```.json
+```json
   "dependencies": {
     ...
     "geometrics": "file:../../geometrics",
@@ -51,7 +51,7 @@ pass a name for the span, as well as a function that will wrap the code for the 
 javascript object which represents the span that is being created. In the example below we use this object to pass the
 context of our frontend event to our LiveView backend via param.
 
-```.js
+```js
 import {withSpan, initTracer} from "geometrics"
 
 initTracer({
@@ -64,7 +64,7 @@ const liveSocket = withSpan("liveSocket.connect()", (span) => {
   const options = {
     params: {
       _csrf_token: csrfToken,
-      traceContext: span.context()
+      traceContext: span.spanContext()
     }
   }
   const liveSocket = new LiveSocket("/live", Socket, options)

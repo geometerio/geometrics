@@ -2,7 +2,7 @@ defmodule Geometrics.MixProject do
   @moduledoc false
   use Mix.Project
 
-  @version "0.1.0"
+  @version "0.2.0"
 
   def project do
     [
@@ -33,11 +33,11 @@ defmodule Geometrics.MixProject do
       {:credo, ">= 0.0.0", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
       {:ex_doc, ">= 0.0.0", only: [:docs], runtime: false},
-      {:opentelemetry, "~> 0.6", override: true},
-      {:opentelemetry_api, "~> 0.6", override: true},
-      {:opentelemetry_exporter, ">= 0.6.0", override: true},
-      {:opentelemetry_ecto, github: "opentelemetry-beam/opentelemetry_ecto"},
-      {:opentelemetry_phoenix, github: "opentelemetry-beam/opentelemetry_phoenix"},
+      {:opentelemetry, "~> 1.0.0-rc"},
+      {:opentelemetry_api, "~> 1.0.0-rc"},
+      {:opentelemetry_exporter, "~> 1.0.0-rc"},
+      {:opentelemetry_ecto, "~> 1.0.0-rc"},
+      {:opentelemetry_phoenix, "~> 1.0.0-rc"},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_view, "~> 0.15", optional: true},
       {:plug, ">= 0.0.0"}
