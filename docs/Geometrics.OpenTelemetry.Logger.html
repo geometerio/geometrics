@@ -4,22 +4,29 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.23.0">
-    <meta name="project" content="geometrics v0.1.0">
+    <meta name="generator" content="ExDoc v0.24.2">
+    <meta name="project" content="geometrics v0.2.0">
 
-    <title>Geometrics.OpenTelemetry.Logger — geometrics v0.1.0</title>
-    <link rel="stylesheet" href="dist/elixir-9f91ebe876dc01d67920.css" />
+    <title>Geometrics.OpenTelemetry.Logger — geometrics v0.2.0</title>
+    <link rel="stylesheet" href="dist/elixir-a172fe91e725dcb259e2.css" />
 
-    <script src="dist/sidebar_items-34718083c1.js"></script>
+    <script src="dist/sidebar_items-27acd1ba18.js"></script>
 
       <script src="docs_config.js"></script>
 
-    <script async src="dist/app-60a0c9f10e9e52eae31f.js"></script>
+    <script async src="dist/app-f27ff079945e43879c46.js"></script>
 
 
   </head>
   <body data-type="modules">
-    <script>try { if(localStorage.getItem('night-mode') === 'true') document.body.className += ' night-mode'; } catch (e) { }</script>
+    <script>
+
+      try {
+        if (localStorage.getItem('night-mode') === 'true') {
+          document.body.classList.add('night-mode');
+        }
+      } catch (error) { }
+    </script>
 
 <div class="main">
 
@@ -36,7 +43,7 @@
       <span class="icon-cross" aria-hidden="true" title="Cancel search"></span>
     </button>
     <label class="search-label">
-      <input name="q" type="text" id="search-list" class="search-input" placeholder="Search..." aria-label="Input your search terms" autocomplete="off" />
+      <input name="q" type="text" class="search-input" placeholder="Search..." aria-label="Input your search terms" autocomplete="off" />
     </label>
   </form>
 
@@ -51,19 +58,19 @@
 geometrics
       </a>
       <strong class="sidebar-projectVersion">
-        v0.1.0
+        v0.2.0
       </strong>
     </div>
 
   </div>
 
   <ul class="sidebar-listNav">
-    <li><a id="extras-list" href="#full-list">Pages</a></li>
+    <li><a id="extras-list-link" href="#full-list">Pages</a></li>
 
-      <li><a id="modules-list" href="#full-list">Modules</a></li>
+      <li><a id="modules-list-link" href="#full-list">Modules</a></li>
 
 
-      <li><a id="tasks-list" href="#full-list">Mix Tasks</a></li>
+      <li><a id="tasks-list-link" href="#full-list">Mix Tasks</a></li>
 
   </ul>
   <div class="gradient"></div>
@@ -75,7 +82,7 @@ geometrics
     <div id="content" class="content-inner">
 
       <h1>
-Geometrics.OpenTelemetry.Logger <small class="app-vsn">(geometrics v0.1.0)</small>
+Geometrics.OpenTelemetry.Logger <small class="app-vsn">(geometrics v0.2.0)</small>
 
       </h1>
 
@@ -83,7 +90,7 @@ Geometrics.OpenTelemetry.Logger <small class="app-vsn">(geometrics v0.1.0)</smal
         <section id="moduledoc">
 <p>Capture crashes and exits with open spans. This helps to capture problems where a
 system is overloaded or under-optimized, and timeouts occur. Timeout errors (in Ecto,
-or when <code class="inline">call</code>ing into GenServers) typically trigger <code class="inline">exit</code> instead of raising exceptions.</p><p>Frameworks such as <code class="inline">Phoenix</code> and <code class="inline">Phoenix.LiveView</code> use <code class="inline">:telemetry</code>, with wrappers that
+or when <code class="inline">call</code>ing into GenServers) typically trigger <code class="inline">exit</code> instead of raising exceptions.</p><p>Frameworks such as <a href="https://hexdocs.pm/phoenix/1.5.9/Phoenix.html"><code class="inline">Phoenix</code></a> and <a href="https://hexdocs.pm/phoenix_live_view/0.15.7/Phoenix.LiveView.html"><code class="inline">Phoenix.LiveView</code></a> use <code class="inline">:telemetry</code>, with wrappers that
 rescue and reraise exceptions, but which do not catch exits. For this reason, exits and
 other timeout errors can interrupt application tracing, since spans opened in processes
 may otherwise never be closed, and therefore never be exported.</p><p>This module requires that when a span is opened, it be</p><p>References:</p><ul><li><a href="https://github.com/elixir-lang/elixir/blob/v1.11.3/lib/logger/lib/logger/backends/console.ex">https://github.com/elixir-lang/elixir/blob/v1.11.3/lib/logger/lib/logger/backends/console.ex</a></li></ul>
@@ -109,7 +116,7 @@ may otherwise never be closed, and therefore never be exported.</p><p>This modul
 
   </div>
 
-    <div class="summary-synopsis"><p>Callback implementation for <a href="http://www.erlang.org/doc/man/gen_event.html#Module:handle_call-2"><code class="inline">:gen_event.handle_call/2</code></a>.</p></div>
+    <div class="summary-synopsis"><p>Callback implementation for <a href="https://erlang.org/doc/man/gen_event.html#Module:handle_call-2"><code class="inline">:gen_event.handle_call/2</code></a>.</p></div>
 
 </div>
 <div class="summary-row">
@@ -118,7 +125,7 @@ may otherwise never be closed, and therefore never be exported.</p><p>This modul
 
   </div>
 
-    <div class="summary-synopsis"><p>Callback implementation for <a href="http://www.erlang.org/doc/man/gen_event.html#Module:handle_event-2"><code class="inline">:gen_event.handle_event/2</code></a>.</p></div>
+    <div class="summary-synopsis"><p>Callback implementation for <a href="https://erlang.org/doc/man/gen_event.html#Module:handle_event-2"><code class="inline">:gen_event.handle_event/2</code></a>.</p></div>
 
 </div>
 <div class="summary-row">
@@ -127,7 +134,7 @@ may otherwise never be closed, and therefore never be exported.</p><p>This modul
 
   </div>
 
-    <div class="summary-synopsis"><p>Callback implementation for <a href="http://www.erlang.org/doc/man/gen_event.html#Module:handle_info-2"><code class="inline">:gen_event.handle_info/2</code></a>.</p></div>
+    <div class="summary-synopsis"><p>Callback implementation for <a href="https://erlang.org/doc/man/gen_event.html#Module:handle_info-2"><code class="inline">:gen_event.handle_info/2</code></a>.</p></div>
 
 </div>
 <div class="summary-row">
@@ -136,7 +143,7 @@ may otherwise never be closed, and therefore never be exported.</p><p>This modul
 
   </div>
 
-    <div class="summary-synopsis"><p>Callback implementation for <a href="http://www.erlang.org/doc/man/gen_event.html#Module:init-1"><code class="inline">:gen_event.init/1</code></a>.</p></div>
+    <div class="summary-synopsis"><p>Callback implementation for <a href="https://erlang.org/doc/man/gen_event.html#Module:init-1"><code class="inline">:gen_event.init/1</code></a>.</p></div>
 
 </div>
 <div class="summary-row">
@@ -188,7 +195,7 @@ Functions
 
   <section class="docstring">
 
-<p>Callback implementation for <a href="http://www.erlang.org/doc/man/gen_event.html#Module:handle_call-2"><code class="inline">:gen_event.handle_call/2</code></a>.</p>
+<p>Callback implementation for <a href="https://erlang.org/doc/man/gen_event.html#Module:handle_call-2"><code class="inline">:gen_event.handle_call/2</code></a>.</p>
   </section>
 </section>
 <section class="detail" id="handle_event/2">
@@ -205,7 +212,7 @@ Functions
 
   <section class="docstring">
 
-<p>Callback implementation for <a href="http://www.erlang.org/doc/man/gen_event.html#Module:handle_event-2"><code class="inline">:gen_event.handle_event/2</code></a>.</p>
+<p>Callback implementation for <a href="https://erlang.org/doc/man/gen_event.html#Module:handle_event-2"><code class="inline">:gen_event.handle_event/2</code></a>.</p>
   </section>
 </section>
 <section class="detail" id="handle_info/2">
@@ -222,7 +229,7 @@ Functions
 
   <section class="docstring">
 
-<p>Callback implementation for <a href="http://www.erlang.org/doc/man/gen_event.html#Module:handle_info-2"><code class="inline">:gen_event.handle_info/2</code></a>.</p>
+<p>Callback implementation for <a href="https://erlang.org/doc/man/gen_event.html#Module:handle_info-2"><code class="inline">:gen_event.handle_info/2</code></a>.</p>
   </section>
 </section>
 <section class="detail" id="init/1">
@@ -239,7 +246,7 @@ Functions
 
   <section class="docstring">
 
-<p>Callback implementation for <a href="http://www.erlang.org/doc/man/gen_event.html#Module:init-1"><code class="inline">:gen_event.init/1</code></a>.</p>
+<p>Callback implementation for <a href="https://erlang.org/doc/man/gen_event.html#Module:init-1"><code class="inline">:gen_event.init/1</code></a>.</p>
   </section>
 </section>
 <section class="detail" id="pop_span_ctx/0">
@@ -286,7 +293,7 @@ and can send telemetry to indicate that the span should be closed.</p>
         <p>
           <span class="line">
             Built using
-            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener">ExDoc</a> (v0.23.0) for the
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener">ExDoc</a> (v0.24.2) for the
             <a href="https://elixir-lang.org" title="Elixir" target="_blank">Elixir programming language</a>.
           </span>
           <span class="line">

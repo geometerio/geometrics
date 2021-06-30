@@ -4,22 +4,29 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.23.0">
-    <meta name="project" content="geometrics v0.1.0">
+    <meta name="generator" content="ExDoc v0.24.2">
+    <meta name="project" content="geometrics v0.2.0">
 
-    <title>Javascript — geometrics v0.1.0</title>
-    <link rel="stylesheet" href="dist/elixir-9f91ebe876dc01d67920.css" />
+    <title>Javascript — geometrics v0.2.0</title>
+    <link rel="stylesheet" href="dist/elixir-a172fe91e725dcb259e2.css" />
 
-    <script src="dist/sidebar_items-34718083c1.js"></script>
+    <script src="dist/sidebar_items-27acd1ba18.js"></script>
 
       <script src="docs_config.js"></script>
 
-    <script async src="dist/app-60a0c9f10e9e52eae31f.js"></script>
+    <script async src="dist/app-f27ff079945e43879c46.js"></script>
 
 
   </head>
   <body data-type="extras">
-    <script>try { if(localStorage.getItem('night-mode') === 'true') document.body.className += ' night-mode'; } catch (e) { }</script>
+    <script>
+
+      try {
+        if (localStorage.getItem('night-mode') === 'true') {
+          document.body.classList.add('night-mode');
+        }
+      } catch (error) { }
+    </script>
 
 <div class="main">
 
@@ -36,7 +43,7 @@
       <span class="icon-cross" aria-hidden="true" title="Cancel search"></span>
     </button>
     <label class="search-label">
-      <input name="q" type="text" id="search-list" class="search-input" placeholder="Search..." aria-label="Input your search terms" autocomplete="off" />
+      <input name="q" type="text" class="search-input" placeholder="Search..." aria-label="Input your search terms" autocomplete="off" />
     </label>
   </form>
 
@@ -51,19 +58,19 @@
 geometrics
       </a>
       <strong class="sidebar-projectVersion">
-        v0.1.0
+        v0.2.0
       </strong>
     </div>
 
   </div>
 
   <ul class="sidebar-listNav">
-    <li><a id="extras-list" href="#full-list">Pages</a></li>
+    <li><a id="extras-list-link" href="#full-list">Pages</a></li>
 
-      <li><a id="modules-list" href="#full-list">Modules</a></li>
+      <li><a id="modules-list-link" href="#full-list">Modules</a></li>
 
 
-      <li><a id="tasks-list" href="#full-list">Mix Tasks</a></li>
+      <li><a id="tasks-list-link" href="#full-list">Mix Tasks</a></li>
 
   </ul>
   <div class="gradient"></div>
@@ -81,7 +88,7 @@ then connection to LiveView, along with each event that transpires.</p><h2 id="t
   Tracing across stack boundaries
 </h2>
 <p>In order to tie the backend tracing context to front end events, you must provide a set of meta tags in your root
-layout.</p><pre><code class=".eex">&lt;%= Geometrics.Phoenix.View.meta_tags() %&gt;</code></pre><p>This will create two <code class="inline">meta</code> tags:</p><ul><li>A tag with the name <code class="inline">traceparent</code> that contains a unique identifier used by OpenTelemetry to tie traces together. The
+layout.</p><pre><code class="eex">&lt;%= Geometrics.Phoenix.View.meta_tags() %&gt;</code></pre><p>This will create two <code class="inline">meta</code> tags:</p><ul><li>A tag with the name <code class="inline">traceparent</code> that contains a unique identifier used by OpenTelemetry to tie traces together. The
 naming for this meta tag arises from a recent W3C proposal around distributed tracing. It proposes a standard format
 for headers that lets you identify traces across services. If you're curious to read more about it, check out the
 proposal <a href="https://www.w3.org/TR/trace-context/#problem-statement">here</a>).</li><li>A tag with the name <code class="inline">collector_endpoint</code> whose value is the endpoint url that the frontend will send telemetry events
@@ -96,7 +103,7 @@ requests containing trace information to buffer and export traces to visualizati
   <a href="#setup" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
   Setup
 </h2>
-<p>To use Geometrics' included javascript, you must add it to your <code class="inline">package.json</code>:</p><pre><code class=".json">  &quot;dependencies&quot;: {
+<p>To use Geometrics' included javascript, you must add it to your <code class="inline">package.json</code>:</p><pre><code class="json">  &quot;dependencies&quot;: {
     ...
     &quot;geometrics&quot;: &quot;file:../../geometrics&quot;,
     ...
@@ -108,7 +115,7 @@ requests containing trace information to buffer and export traces to visualizati
 <p>To capture spans, you can wrap whatever block of code you wish to capture in a <code class="inline">withSpan</code>. This function allows you to
 pass a name for the span, as well as a function that will wrap the code for the span. This function will also receive a
 javascript object which represents the span that is being created. In the example below we use this object to pass the
-context of our frontend event to our LiveView backend via param.</p><pre><code class=".js">import {withSpan, initTracer} from &quot;geometrics&quot;
+context of our frontend event to our LiveView backend via param.</p><pre><code class="js">import {withSpan, initTracer} from &quot;geometrics&quot;
 
 initTracer({
   serviceName: 'frontend',
@@ -120,7 +127,7 @@ const liveSocket = withSpan(&quot;liveSocket.connect()&quot;, (span) =&gt; {
   const options = {
     params: {
       _csrf_token: csrfToken,
-      traceContext: span.context()
+      traceContext: span.spanContext()
     }
   }
   const liveSocket = new LiveSocket(&quot;/live&quot;, Socket, options)
@@ -129,11 +136,38 @@ const liveSocket = withSpan(&quot;liveSocket.connect()&quot;, (span) =&gt; {
   return liveSocket
 })</code></pre><p>Note that we pass the <code class="inline">span.context()</code> in the socket connection params as <code class="inline">traceContext</code>. We pick up this context on the
 backend and use it to tie the frontend span with the trace context in the backend.</p><p>At the moment, it is only possible to record synchronous behavior executed in the context of a <code class="inline">withSpan</code>.</p>
+<div class="bottom-actions">
+  <div class="bottom-actions-item">
+
+      <a href="phoenix.html" class="bottom-actions-button" rel="prev">
+        <span class="subheader">
+          ← Previous Page
+        </span>
+        <span class="title">
+Phoenix + Ecto
+        </span>
+      </a>
+
+  </div>
+  <div class="bottom-actions-item">
+
+      <a href="deployment.html" class="bottom-actions-button" rel="next">
+        <span class="subheader">
+          Next Page →
+        </span>
+        <span class="title">
+Deployments
+        </span>
+      </a>
+
+  </div>
+</div>
+
       <footer class="footer">
         <p>
           <span class="line">
             Built using
-            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener">ExDoc</a> (v0.23.0) for the
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener">ExDoc</a> (v0.24.2) for the
             <a href="https://elixir-lang.org" title="Elixir" target="_blank">Elixir programming language</a>.
           </span>
           <span class="line">

@@ -4,22 +4,29 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.23.0">
-    <meta name="project" content="geometrics v0.1.0">
+    <meta name="generator" content="ExDoc v0.24.2">
+    <meta name="project" content="geometrics v0.2.0">
 
-    <title>Overview — geometrics v0.1.0</title>
-    <link rel="stylesheet" href="dist/elixir-9f91ebe876dc01d67920.css" />
+    <title>Overview — geometrics v0.2.0</title>
+    <link rel="stylesheet" href="dist/elixir-a172fe91e725dcb259e2.css" />
 
-    <script src="dist/sidebar_items-34718083c1.js"></script>
+    <script src="dist/sidebar_items-27acd1ba18.js"></script>
 
       <script src="docs_config.js"></script>
 
-    <script async src="dist/app-60a0c9f10e9e52eae31f.js"></script>
+    <script async src="dist/app-f27ff079945e43879c46.js"></script>
 
 
   </head>
   <body data-type="extras">
-    <script>try { if(localStorage.getItem('night-mode') === 'true') document.body.className += ' night-mode'; } catch (e) { }</script>
+    <script>
+
+      try {
+        if (localStorage.getItem('night-mode') === 'true') {
+          document.body.classList.add('night-mode');
+        }
+      } catch (error) { }
+    </script>
 
 <div class="main">
 
@@ -36,7 +43,7 @@
       <span class="icon-cross" aria-hidden="true" title="Cancel search"></span>
     </button>
     <label class="search-label">
-      <input name="q" type="text" id="search-list" class="search-input" placeholder="Search..." aria-label="Input your search terms" autocomplete="off" />
+      <input name="q" type="text" class="search-input" placeholder="Search..." aria-label="Input your search terms" autocomplete="off" />
     </label>
   </form>
 
@@ -51,19 +58,19 @@
 geometrics
       </a>
       <strong class="sidebar-projectVersion">
-        v0.1.0
+        v0.2.0
       </strong>
     </div>
 
   </div>
 
   <ul class="sidebar-listNav">
-    <li><a id="extras-list" href="#full-list">Pages</a></li>
+    <li><a id="extras-list-link" href="#full-list">Pages</a></li>
 
-      <li><a id="modules-list" href="#full-list">Modules</a></li>
+      <li><a id="modules-list-link" href="#full-list">Modules</a></li>
 
 
-      <li><a id="tasks-list" href="#full-list">Mix Tasks</a></li>
+      <li><a id="tasks-list-link" href="#full-list">Mix Tasks</a></li>
 
   </ul>
   <div class="gradient"></div>
@@ -94,7 +101,7 @@ be opened. Since this is the first span, representing the root, a <code class="i
 the controller action, one or more database queries may be made (each wrapped in its own span,
 but inheriting the <code class="inline">trace-id</code>), after which the renderer executes and a response is sent to the
 client. After the response is sent, callback functions may be executed before the <code class="inline">cowboy</code>
-process exits. Some time either before or after the callbacks, the root span is ended.</p><p>This might be represented by the following time-based visualization:</p><pre><code class="nohighlight makeup elixir"><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nc">GET</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">-</span><span class="w"> </span><span class="o">|</span><span class="w">
+process exits. Some time either before or after the callbacks, the root span is ended.</p><p>This might be represented by the following time-based visualization:</p><pre><code class="makeup elixir"><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nc">GET</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">--</span><span class="o">-</span><span class="w"> </span><span class="o">|</span><span class="w">
    </span><span class="o">|</span><span class="w"> </span><span class="n">db</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">|</span><span class="w">
                  </span><span class="o">|</span><span class="w"> </span><span class="n">db</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">|</span><span class="w">
                                   </span><span class="o">|</span><span class="w"> </span><span class="n">db</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">|</span><span class="w">
@@ -146,21 +153,48 @@ and <code class="inline">opentelemetry-erlang</code>, and have both those librar
 this was achieved was by standardizing that all OpenTelemetry language implementations must be able to communicate with
 a running agent called an <a href="https://github.com/open-telemetry/opentelemetry-collector">OpenTelemetry collector</a> over HTTP.</p><p>The <a href="https://github.com/open-telemetry/opentelemetry-collector">OpenTelemetry collector agent</a> is used
 to collect traces using the vendor-agnostic protocol, then forward the traces to a 3rd party tracing service. This
-allows applications to export traces via a single mechanism, without having to care what happens later.</p><p>The diagram below illustrates how this looks.</p><p><img src="assets/OpenTelemetry Exporter Diagram.png" alt="OpenTelemetry Exporter Diagram"></img></p><h2 id="opentelemetry-gotchas" class="section-heading">
+allows applications to export traces via a single mechanism, without having to care what happens later.</p><p>The diagram below illustrates how this looks.</p><p><img src="assets/OpenTelemetry Exporter Diagram.png" alt="OpenTelemetry Exporter Diagram"/></p><h2 id="opentelemetry-gotchas" class="section-heading">
   <a href="#opentelemetry-gotchas" class="hover-link"><span class="icon-link" aria-hidden="true"></span></a>
   OpenTelemetry gotchas
 </h2>
 <ul><li>Spans are only valid if they are ended, giving them a duration.</li><li>Spans are only exported if they are valid.</li><li>Timeout errors in Elixir/Erlang usually signal process exits, rather than
-raising exceptions.</li><li><code class="inline">:telemetry</code> helpers rescue/reraise exceptions, but do not catch exits.</li><li>Helper libraries like <a href="https://hexdocs.pm/opentelemetry_phoenix/0.2.0/OpentelemetryPhoenix.html"><code class="inline">OpentelemetryPhoenix</code></a> and <a href="https://hexdocs.pm/opentelemetry_ecto/0.1.0/OpentelemetryEcto.html"><code class="inline">OpentelemetryEcto</code></a> hook
+raising exceptions.</li><li><code class="inline">:telemetry</code> helpers rescue/reraise exceptions, but do not catch exits.</li><li>Helper libraries like <a href="https://hexdocs.pm/opentelemetry_phoenix/1.0.0-rc.2/OpentelemetryPhoenix.html"><code class="inline">OpentelemetryPhoenix</code></a> and <a href="https://hexdocs.pm/opentelemetry_ecto/1.0.0-rc.1/OpentelemetryEcto.html"><code class="inline">OpentelemetryEcto</code></a> hook
 into <code class="inline">:telemetry</code>, since they are unable to alter Phoenix/Ecto runtime code
-to introduce <a href="https://hexdocs.pm/opentelemetry_api/0.6.0/OpenTelemetry.html"><code class="inline">OpenTelemetry</code></a>-specific helpers.</li><li>Ergo... an overloaded system that begins timing out in GenServer calls or
+to introduce <a href="https://hexdocs.pm/opentelemetry_api/1.0.0-rc.2/OpenTelemetry.html"><code class="inline">OpenTelemetry</code></a>-specific helpers.</li><li>Ergo... an overloaded system that begins timing out in GenServer calls or
 database queries may lose the most important traces, ie those associated with
 the timeouts. See the <a href="phoenix.html">Phoenix + Ecto</a> page for more info.</li></ul>
+<div class="bottom-actions">
+  <div class="bottom-actions-item">
+
+      <a href="api-reference.html" class="bottom-actions-button" rel="prev">
+        <span class="subheader">
+          ← Previous Page
+        </span>
+        <span class="title">
+API Reference
+        </span>
+      </a>
+
+  </div>
+  <div class="bottom-actions-item">
+
+      <a href="installation.html" class="bottom-actions-button" rel="next">
+        <span class="subheader">
+          Next Page →
+        </span>
+        <span class="title">
+Installation
+        </span>
+      </a>
+
+  </div>
+</div>
+
       <footer class="footer">
         <p>
           <span class="line">
             Built using
-            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener">ExDoc</a> (v0.23.0) for the
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener">ExDoc</a> (v0.24.2) for the
             <a href="https://elixir-lang.org" title="Elixir" target="_blank">Elixir programming language</a>.
           </span>
           <span class="line">

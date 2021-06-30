@@ -7,7 +7,7 @@
     <meta name="generator" content="ExDoc v0.24.2">
     <meta name="project" content="geometrics v0.2.0">
 
-    <title>404 — geometrics v0.2.0</title>
+    <title>Geometrics.OpenTelemetry.Handler.handle_exception — geometrics v0.2.0</title>
     <link rel="stylesheet" href="dist/elixir-a172fe91e725dcb259e2.css" />
 
     <script src="dist/sidebar_items-27acd1ba18.js"></script>
@@ -18,7 +18,7 @@
 
 
   </head>
-  <body data-type="extras">
+  <body data-type="modules">
     <script>
 
       try {
@@ -81,14 +81,32 @@ geometrics
   <div class="content-outer">
     <div id="content" class="content-inner">
 
-<h2>Page not found</h2>
+<h1>Geometrics.OpenTelemetry.Handler.handle_exception</h1>
 
-<p>Sorry, but the page you were trying to get to, does not exist. You
-may want to try searching this site using the sidebar
+<div class="deprecated">
+  You're seeing just the function <code>handle_exception</code>, go back to <a href="Geometrics.OpenTelemetry.Handler.html">Geometrics.OpenTelemetry.Handler</a> module for more information.
+</div>
 
-  or using our <a href="api-reference.html">API Reference</a> page
+<section class="detail" id="handle_exception/4">
 
-to find what you were looking for.</p>
+  <div class="detail-header">
+    <a href="#handle_exception/4" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">handle_exception(list, payload, metadata, config)</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>Catch message around exits and exceptions, to make sure that spans are marked with crash/exception status and
+closed.</p>
+  </section>
+</section>
+
+
       <footer class="footer">
         <p>
           <span class="line">

@@ -4,22 +4,29 @@
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="generator" content="ExDoc v0.23.0">
-    <meta name="project" content="geometrics v0.1.0">
+    <meta name="generator" content="ExDoc v0.24.2">
+    <meta name="project" content="geometrics v0.2.0">
 
-    <title>Geometrics.OpenTelemetry.Handler — geometrics v0.1.0</title>
-    <link rel="stylesheet" href="dist/elixir-9f91ebe876dc01d67920.css" />
+    <title>Geometrics.OpenTelemetry.Handler — geometrics v0.2.0</title>
+    <link rel="stylesheet" href="dist/elixir-a172fe91e725dcb259e2.css" />
 
-    <script src="dist/sidebar_items-34718083c1.js"></script>
+    <script src="dist/sidebar_items-27acd1ba18.js"></script>
 
       <script src="docs_config.js"></script>
 
-    <script async src="dist/app-60a0c9f10e9e52eae31f.js"></script>
+    <script async src="dist/app-f27ff079945e43879c46.js"></script>
 
 
   </head>
   <body data-type="modules">
-    <script>try { if(localStorage.getItem('night-mode') === 'true') document.body.className += ' night-mode'; } catch (e) { }</script>
+    <script>
+
+      try {
+        if (localStorage.getItem('night-mode') === 'true') {
+          document.body.classList.add('night-mode');
+        }
+      } catch (error) { }
+    </script>
 
 <div class="main">
 
@@ -36,7 +43,7 @@
       <span class="icon-cross" aria-hidden="true" title="Cancel search"></span>
     </button>
     <label class="search-label">
-      <input name="q" type="text" id="search-list" class="search-input" placeholder="Search..." aria-label="Input your search terms" autocomplete="off" />
+      <input name="q" type="text" class="search-input" placeholder="Search..." aria-label="Input your search terms" autocomplete="off" />
     </label>
   </form>
 
@@ -51,19 +58,19 @@
 geometrics
       </a>
       <strong class="sidebar-projectVersion">
-        v0.1.0
+        v0.2.0
       </strong>
     </div>
 
   </div>
 
   <ul class="sidebar-listNav">
-    <li><a id="extras-list" href="#full-list">Pages</a></li>
+    <li><a id="extras-list-link" href="#full-list">Pages</a></li>
 
-      <li><a id="modules-list" href="#full-list">Modules</a></li>
+      <li><a id="modules-list-link" href="#full-list">Modules</a></li>
 
 
-      <li><a id="tasks-list" href="#full-list">Mix Tasks</a></li>
+      <li><a id="tasks-list-link" href="#full-list">Mix Tasks</a></li>
 
   </ul>
   <div class="gradient"></div>
@@ -75,7 +82,7 @@ geometrics
     <div id="content" class="content-inner">
 
       <h1>
-Geometrics.OpenTelemetry.Handler <small class="app-vsn">(geometrics v0.1.0)</small>
+Geometrics.OpenTelemetry.Handler <small class="app-vsn">(geometrics v0.2.0)</small>
 
       </h1>
 
@@ -184,8 +191,8 @@ as siblings in a single trace spanning the LiveView session.</p></div>
 
   </div>
 
-    <div class="summary-synopsis"><p>Sets up telemetry attachments. Some bindings are registered via <a href="https://hexdocs.pm/opentelemetry_phoenix/0.2.0/OpentelemetryPhoenix.html"><code class="inline">OpentelemetryPhoenix</code></a>
-and <a href="https://hexdocs.pm/opentelemetry_ecto/0.1.0/OpentelemetryEcto.html"><code class="inline">OpentelemetryEcto</code></a>, but since neither of those handle LiveView we attach our own
+    <div class="summary-synopsis"><p>Sets up telemetry attachments. Some bindings are registered via <a href="https://hexdocs.pm/opentelemetry_phoenix/1.0.0-rc.2/OpentelemetryPhoenix.html"><code class="inline">OpentelemetryPhoenix</code></a>
+and <a href="https://hexdocs.pm/opentelemetry_ecto/1.0.0-rc.1/OpentelemetryEcto.html"><code class="inline">OpentelemetryEcto</code></a>, but since neither of those handle LiveView we attach our own
 bindings for those events.</p></div>
 
 </div>
@@ -354,16 +361,16 @@ was successful, ie did not crash or raise.</p>
 <p>Given a telemetry event signaling that an action has begun, open a new child span.
 Makes sure that a parent span is either created, or attached to, so that events appear
 as siblings in a single trace spanning the LiveView session.</p><p>Note that child spans pull attributes off of the socket that are only present if the
-<code class="inline">:connect_info</code> is configured to include them in the Endpoint:</p><pre><code class="nohighlight makeup elixir"><span class="n">socket</span><span class="w"> </span><span class="s">&quot;/live&quot;</span><span class="p">,</span><span class="w"> </span><span class="nc">Phoenix.LiveView.Socket</span><span class="p">,</span><span class="w">
-  </span><span class="ss">websocket</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0716927092-1">[</span><span class="w">
-    </span><span class="ss">connect_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="0716927092-2">[</span><span class="w">
+<code class="inline">:connect_info</code> is configured to include them in the Endpoint:</p><pre><code class="makeup elixir"><span class="n">socket</span><span class="w"> </span><span class="s">&quot;/live&quot;</span><span class="p">,</span><span class="w"> </span><span class="nc">Phoenix.LiveView.Socket</span><span class="p">,</span><span class="w">
+  </span><span class="ss">websocket</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9404426962-1">[</span><span class="w">
+    </span><span class="ss">connect_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9404426962-2">[</span><span class="w">
       </span><span class="ss">:peer_data</span><span class="p">,</span><span class="w">
       </span><span class="ss">:trace_context_headers</span><span class="p">,</span><span class="w">
       </span><span class="ss">:user_agent</span><span class="p">,</span><span class="w">
       </span><span class="ss">:x_headers</span><span class="p">,</span><span class="w">
       </span><span class="ss">session</span><span class="p">:</span><span class="w"> </span><span class="na">@session_options</span><span class="w">
-    </span><span class="p" data-group-id="0716927092-2">]</span><span class="w">
-  </span><span class="p" data-group-id="0716927092-1">]</span></code></pre>
+    </span><span class="p" data-group-id="9404426962-2">]</span><span class="w">
+  </span><span class="p" data-group-id="9404426962-1">]</span></code></pre>
   </section>
 </section>
 <section class="detail" id="setup/0">
@@ -380,8 +387,8 @@ as siblings in a single trace spanning the LiveView session.</p><p>Note that chi
 
   <section class="docstring">
 
-<p>Sets up telemetry attachments. Some bindings are registered via <a href="https://hexdocs.pm/opentelemetry_phoenix/0.2.0/OpentelemetryPhoenix.html"><code class="inline">OpentelemetryPhoenix</code></a>
-and <a href="https://hexdocs.pm/opentelemetry_ecto/0.1.0/OpentelemetryEcto.html"><code class="inline">OpentelemetryEcto</code></a>, but since neither of those handle LiveView we attach our own
+<p>Sets up telemetry attachments. Some bindings are registered via <a href="https://hexdocs.pm/opentelemetry_phoenix/1.0.0-rc.2/OpentelemetryPhoenix.html"><code class="inline">OpentelemetryPhoenix</code></a>
+and <a href="https://hexdocs.pm/opentelemetry_ecto/1.0.0-rc.1/OpentelemetryEcto.html"><code class="inline">OpentelemetryEcto</code></a>, but since neither of those handle LiveView we attach our own
 bindings for those events.</p><p>Some bindings are attached before the library code, so that we can add some normalized
 attributes across most events.</p>
   </section>
@@ -411,7 +418,7 @@ attributes across most events.</p>
         <p>
           <span class="line">
             Built using
-            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener">ExDoc</a> (v0.23.0) for the
+            <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" target="_blank" rel="help noopener">ExDoc</a> (v0.24.2) for the
             <a href="https://elixir-lang.org" title="Elixir" target="_blank">Elixir programming language</a>.
           </span>
           <span class="line">

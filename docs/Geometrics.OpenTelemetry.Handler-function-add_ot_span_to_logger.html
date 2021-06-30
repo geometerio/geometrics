@@ -7,7 +7,7 @@
     <meta name="generator" content="ExDoc v0.24.2">
     <meta name="project" content="geometrics v0.2.0">
 
-    <title>404 — geometrics v0.2.0</title>
+    <title>Geometrics.OpenTelemetry.Handler.add_ot_span_to_logger — geometrics v0.2.0</title>
     <link rel="stylesheet" href="dist/elixir-a172fe91e725dcb259e2.css" />
 
     <script src="dist/sidebar_items-27acd1ba18.js"></script>
@@ -18,7 +18,7 @@
 
 
   </head>
-  <body data-type="extras">
+  <body data-type="modules">
     <script>
 
       try {
@@ -81,14 +81,34 @@ geometrics
   <div class="content-outer">
     <div id="content" class="content-inner">
 
-<h2>Page not found</h2>
+<h1>Geometrics.OpenTelemetry.Handler.add_ot_span_to_logger</h1>
 
-<p>Sorry, but the page you were trying to get to, does not exist. You
-may want to try searching this site using the sidebar
+<div class="deprecated">
+  You're seeing just the function <code>add_ot_span_to_logger</code>, go back to <a href="Geometrics.OpenTelemetry.Handler.html">Geometrics.OpenTelemetry.Handler</a> module for more information.
+</div>
 
-  or using our <a href="api-reference.html">API Reference</a> page
+<section class="detail" id="add_ot_span_to_logger/4">
 
-to find what you were looking for.</p>
+  <div class="detail-header">
+    <a href="#add_ot_span_to_logger/4" class="detail-link" title="Link to this function">
+      <span class="icon-link" aria-hidden="true"></span>
+      <span class="sr-only">Link to this function</span>
+    </a>
+    <h1 class="signature">add_ot_span_to_logger(event, payload, meta, config)</h1>
+
+
+  </div>
+
+  <section class="docstring">
+
+<p>When crashes or exits occur, rather than exceptions, no telemetry fires to close open
+spans. To get around this, we keep a list of open spans in the <code class="inline">Logger.metadata</code>, and
+cheOTLogger in a <a href="Geometrics.OpenTelemetry.Logger.html"><code class="inline">Geometrics.OpenTelemetry.Logger</code></a>.</p><p>If a crash occurs where any <code class="inline">:ot_spans</code> live in the metadata, a <code class="inline">[:geometrics, :open_telemetry, :exit]</code>
+telemetry event is fired, which gets picked up by our <code class="inline">handle_exception</code> binding.</p>
+  </section>
+</section>
+
+
       <footer class="footer">
         <p>
           <span class="line">

@@ -9,14 +9,14 @@ api-reference.html
 assets/OpenTelemetry Exporter Diagram.png
 assets/honeycomb_trace_example.png
 deployment.html
-dist/app-60a0c9f10e9e52eae31f.js
-dist/elixir-9f91ebe876dc01d67920.css
+dist/app-f27ff079945e43879c46.js
+dist/elixir-a172fe91e725dcb259e2.css
 dist/html/fonts/icomoon.eot
 dist/html/fonts/icomoon.svg
 dist/html/fonts/icomoon.ttf
 dist/html/fonts/icomoon.woff
-dist/search_items-257c1105a1.js
-dist/sidebar_items-34718083c1.js
+dist/search_items-25a555552e.js
+dist/sidebar_items-27acd1ba18.js
 index.html
 installation.html
 javascript.html
