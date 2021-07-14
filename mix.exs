@@ -16,7 +16,7 @@ defmodule Geometrics.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       homepage_url: @scm_url,
       package: package(),
-      preferred_cli_env: [credo: :test, dialyzer: :test, docs: :docs],
+      preferred_cli_env: [credo: :test, dialyzer: :test, docs: :dev],
       source_url: @scm_url,
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
@@ -36,7 +36,7 @@ defmodule Geometrics.MixProject do
     [
       {:credo, ">= 0.0.0", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
-      {:ex_doc, ">= 0.0.0", only: [:docs], runtime: false},
+      {:ex_doc, ">= 0.0.0", only: [:dev], runtime: false},
       {:opentelemetry, "~> 1.0.0-rc"},
       {:opentelemetry_api, "~> 1.0.0-rc"},
       {:opentelemetry_exporter, "~> 1.0.0-rc"},
