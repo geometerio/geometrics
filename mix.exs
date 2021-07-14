@@ -16,7 +16,7 @@ defmodule Geometrics.MixProject do
       preferred_cli_env: [credo: :test, dialyzer: :test, docs: :docs],
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      version: @version,
+      version: @version
     ]
   end
 
@@ -46,9 +46,9 @@ defmodule Geometrics.MixProject do
 
   defp description,
     do: """
-        Wraps OpenTelemetry from Erlang and JS, providing opinions and documentation for rapidly adding tracing
-        to an application.
-        """
+    Wraps OpenTelemetry from Erlang and JS, providing opinions and documentation for rapidly adding tracing
+    to an application.
+    """
 
   defp dialyzer do
     [
@@ -67,7 +67,7 @@ defmodule Geometrics.MixProject do
         "guides/javascript.md",
         "guides/deployment.md",
         "guides/testing.md",
-        "guides/references.md",
+        "guides/references.md"
       ],
       output: "docs",
       assets: "guides/assets",

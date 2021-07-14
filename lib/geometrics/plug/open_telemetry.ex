@@ -11,7 +11,10 @@ defmodule Geometrics.Plug.OpenTelemetry do
     OpenTelemetry.Tracer.current_span_ctx()
     |> case do
       :undefined ->
-        Logger.warn("[#{__MODULE__}] expected current process have an OpenTelemetry span, but does not")
+        Logger.warn(
+          "[#{__MODULE__}] expected current process have an OpenTelemetry span, but does not"
+        )
+
         conn
 
       span_ctx ->
