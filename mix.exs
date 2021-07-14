@@ -2,6 +2,7 @@ defmodule Geometrics.MixProject do
   @moduledoc false
   use Mix.Project
 
+  @scm_url "https://github.com/geometerio/geometrics"
   @version "0.2.0-rc.1"
 
   def project do
@@ -13,7 +14,10 @@ defmodule Geometrics.MixProject do
       docs: docs(),
       elixir: "~> 1.11",
       elixirc_paths: elixirc_paths(Mix.env()),
+      homepage_url: @scm_url,
+      package: package(),
       preferred_cli_env: [credo: :test, dialyzer: :test, docs: :docs],
+      source_url: @scm_url,
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       version: @version
@@ -82,4 +86,12 @@ defmodule Geometrics.MixProject do
 
   defp elixirc_paths(:test), do: ["lib", "test/support"]
   defp elixirc_paths(_), do: ["lib"]
+
+  defp package do
+    [
+      licenses: ["MIT"],
+      maintainers: ["Geometer"],
+      links: %{"GitHub" => @scm_url}
+    ]
+  end
 end
