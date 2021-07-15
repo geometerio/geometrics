@@ -8,9 +8,9 @@ the `otel/opentelemetry-collector-dev:0.25.0` docker image as a separate droplet
 
 ## Compatibility
 
-* [opentelemetry-js](https://github.com/open-telemetry/opentelemetry-js) - `0.22.0`
-* [otel-collector](https://github.com/open-telemetry/opentelemetry-collector) - `0.25.0`
-* [opentelemetry-erlang](https://github.com/open-telemetry/opentelemetry-erlang) - `~> 0.6`
+- [opentelemetry-js](https://github.com/open-telemetry/opentelemetry-js) - `0.22.0`
+- [otel-collector](https://github.com/open-telemetry/opentelemetry-collector) - `0.25.0`
+- [opentelemetry-erlang](https://github.com/open-telemetry/opentelemetry-erlang) - `~> 1.0.0-rc`
 
 Geometrics uses [opentelemetry-js](https://github.com/open-telemetry/opentelemetry-js)
 version `0.22.0`. The `@opentelemetry/exporter-collector` at the time of writing is

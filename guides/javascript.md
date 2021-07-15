@@ -9,17 +9,17 @@ then connection to LiveView, along with each event that transpires.
 In order to tie the backend tracing context to front end events, you must provide a set of meta tags in your root
 layout.
 
-```eex
-<%= Geometrics.Phoenix.View.meta_tags() %>
+```elixir
+<%= Geometrics.Phoenix.View.meta_tags(@conn) %>
 ```
 
 This will create two `meta` tags:
 
-* A tag with the name `traceparent` that contains a unique identifier used by OpenTelemetry to tie traces together. The
+- A tag with the name `traceparent` that contains a unique identifier used by OpenTelemetry to tie traces together. The
   naming for this meta tag arises from a recent W3C proposal around distributed tracing. It proposes a standard format
   for headers that lets you identify traces across services. If you're curious to read more about it, check out the
   proposal [here](https://www.w3.org/TR/trace-context/#problem-statement)).
-* A tag with the name `collector_endpoint` whose value is the endpoint url that the frontend will send telemetry events
+- A tag with the name `collector_endpoint` whose value is the endpoint url that the frontend will send telemetry events
   to.
 
 ## Collecting traces
@@ -52,26 +52,26 @@ javascript object which represents the span that is being created. In the exampl
 context of our frontend event to our LiveView backend via param.
 
 ```js
-import {withSpan, initTracer} from "geometrics"
+import { withSpan, initTracer } from 'geometrics';
 
 initTracer({
   serviceName: 'frontend',
-  logToConsole: true
-})
+  logToConsole: true,
+});
 
-const liveSocket = withSpan("liveSocket.connect()", (span) => {
-  const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
+const liveSocket = withSpan('liveSocket.connect()', (span) => {
+  const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute('content');
   const options = {
     params: {
       _csrf_token: csrfToken,
-      traceContext: span.spanContext()
-    }
-  }
-  const liveSocket = new LiveSocket("/live", Socket, options)
-  liveSocket.connect()
+      traceContext: span.spanContext(),
+    },
+  };
+  const liveSocket = new LiveSocket('/live', Socket, options);
+  liveSocket.connect();
 
-  return liveSocket
-})
+  return liveSocket;
+});
 ```
 
 Note that we pass the `span.context()` in the socket connection params as `traceContext`. We pick up this context on the

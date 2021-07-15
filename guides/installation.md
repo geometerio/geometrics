@@ -24,7 +24,7 @@ Configure `Geometrics` in `config.exs`:
 # Necessary to tell OpenTelemetry what repository to report traces for
 config :geometrics, :ecto_prefix, [:my_app, :repo]
 
-# Configuring a custom logger Geometrics.OpenTelemetry.Logger to help export process crashes to OpenTelemetry, which aren't reported by default 
+# Configuring a custom logger Geometrics.OpenTelemetry.Logger to help export process crashes to OpenTelemetry, which aren't reported by default
 config :logger,
        backends: [
          :console,
