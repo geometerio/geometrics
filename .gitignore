@@ -4,6 +4,7 @@
 /assets/dist/
 /cover/
 /deps/
+/docs/
 /priv/plts/
 /tmp
 erl_crash.dump
