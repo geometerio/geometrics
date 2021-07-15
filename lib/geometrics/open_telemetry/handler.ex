@@ -59,7 +59,9 @@ defmodule Geometrics.OpenTelemetry.Handler do
 
     OpenTelemetry.register_application_tracer(:geometrics)
     OpentelemetryPhoenix.setup()
-    OpentelemetryEcto.setup(ecto_prefix, time_unit: :millisecond)
+
+    if ecto_prefix,
+      do: OpentelemetryEcto.setup(ecto_prefix, time_unit: :millisecond)
 
     #### start attachments need to be registered *after* we setup
     #### OpentelemetryPhoenix or OpentelemetryEcto, so OT spans are already
