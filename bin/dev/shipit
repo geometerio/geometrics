@@ -13,4 +13,4 @@ bin/dev/test
 
 step "Pushing" "git push origin HEAD"
 
-cecho --bright-green "\nDone!" --bright-yellow "Check CI at" --bright-bold-white "https://github.com/geometerio/tangent/actions"
+cecho --bright-green "\nDone!" --bright-yellow "Check CI at" --bright-bold-white "https://github.com/geometerio/geometrics/actions"
