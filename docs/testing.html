@@ -5,9 +5,9 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.24.2">
-    <meta name="project" content="geometrics v0.2.0">
+    <meta name="project" content="geometrics v0.2.0-rc.1">
 
-    <title>Geometrics and testing — geometrics v0.2.0</title>
+    <title>Geometrics and testing — geometrics v0.2.0-rc.1</title>
     <link rel="stylesheet" href="dist/elixir-a172fe91e725dcb259e2.css" />
 
     <script src="dist/sidebar_items-27acd1ba18.js"></script>
@@ -54,11 +54,11 @@
 
   <div class="sidebar-header">
     <div class="sidebar-projectDetails">
-      <a href="overview.html" class="sidebar-projectName">
+      <a href="https://github.com/geometerio/geometrics" class="sidebar-projectName">
 geometrics
       </a>
       <strong class="sidebar-projectVersion">
-        v0.2.0
+        v0.2.0-rc.1
       </strong>
     </div>
 
@@ -84,24 +84,24 @@ geometrics
 <h1>Geometrics and testing</h1><p>When adding Geometrics to a Phoenix project, a plug and a handler is registered. This
 handler expects that when LiveView connections are made, a <code class="inline">traceContext</code> param is
 sent.</p><p>This can cause warnings in live view tests, if the parameter is not configured. This can
-be done as follows, where the values of <code class="inline">traceId</code> and <code class="inline">spanId</code> can be set to anything:</p><pre><code class="makeup elixir"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">MyAppWeb.PageLiveTest</span><span class="w"> </span><span class="k" data-group-id="6729156065-1">do</span><span class="w">
+be done as follows, where the values of <code class="inline">traceId</code> and <code class="inline">spanId</code> can be set to anything:</p><pre><code class="makeup elixir"><span class="kd">defmodule</span><span class="w"> </span><span class="nc">MyAppWeb.PageLiveTest</span><span class="w"> </span><span class="k" data-group-id="6097803556-1">do</span><span class="w">
   </span><span class="kn">use</span><span class="w"> </span><span class="nc">MyAppWeb.ConnCase</span><span class="w">
 
   </span><span class="kn">import</span><span class="w"> </span><span class="nc">Phoenix.LiveViewTest</span><span class="w">
   </span><span class="kn">alias</span><span class="w"> </span><span class="nc">Phoenix.LiveViewTest</span><span class="w">
 
-  </span><span class="n">test</span><span class="w"> </span><span class="s">&quot;renders&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6729156065-2">%{</span><span class="ss">conn</span><span class="p">:</span><span class="w"> </span><span class="n">conn</span><span class="p" data-group-id="6729156065-2">}</span><span class="w"> </span><span class="k" data-group-id="6729156065-3">do</span><span class="w">
-    </span><span class="p" data-group-id="6729156065-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">home_live</span><span class="p">,</span><span class="w"> </span><span class="n">disconnected_html</span><span class="p" data-group-id="6729156065-4">}</span><span class="w"> </span><span class="o">=</span><span class="w">
+  </span><span class="n">test</span><span class="w"> </span><span class="s">&quot;renders&quot;</span><span class="p">,</span><span class="w"> </span><span class="p" data-group-id="6097803556-2">%{</span><span class="ss">conn</span><span class="p">:</span><span class="w"> </span><span class="n">conn</span><span class="p" data-group-id="6097803556-2">}</span><span class="w"> </span><span class="k" data-group-id="6097803556-3">do</span><span class="w">
+    </span><span class="p" data-group-id="6097803556-4">{</span><span class="ss">:ok</span><span class="p">,</span><span class="w"> </span><span class="n">home_live</span><span class="p">,</span><span class="w"> </span><span class="n">disconnected_html</span><span class="p" data-group-id="6097803556-4">}</span><span class="w"> </span><span class="o">=</span><span class="w">
       </span><span class="n">conn</span><span class="w">
-      </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">LiveViewTest</span><span class="o">.</span><span class="n">put_connect_params</span><span class="p" data-group-id="6729156065-5">(</span><span class="p" data-group-id="6729156065-6">%{</span><span class="w">
-        </span><span class="s">&quot;traceContext&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="6729156065-7">%{</span><span class="s">&quot;traceId&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;11111&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;spanId&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;22222&quot;</span><span class="p" data-group-id="6729156065-7">}</span><span class="w">
-      </span><span class="p" data-group-id="6729156065-6">}</span><span class="p" data-group-id="6729156065-5">)</span><span class="w">
-      </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">live</span><span class="p" data-group-id="6729156065-8">(</span><span class="s">&quot;/&quot;</span><span class="p" data-group-id="6729156065-8">)</span><span class="w">
+      </span><span class="o">|&gt;</span><span class="w"> </span><span class="nc">LiveViewTest</span><span class="o">.</span><span class="n">put_connect_params</span><span class="p" data-group-id="6097803556-5">(</span><span class="p" data-group-id="6097803556-6">%{</span><span class="w">
+        </span><span class="s">&quot;traceContext&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="p" data-group-id="6097803556-7">%{</span><span class="s">&quot;traceId&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;11111&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;spanId&quot;</span><span class="w"> </span><span class="p">=&gt;</span><span class="w"> </span><span class="s">&quot;22222&quot;</span><span class="p" data-group-id="6097803556-7">}</span><span class="w">
+      </span><span class="p" data-group-id="6097803556-6">}</span><span class="p" data-group-id="6097803556-5">)</span><span class="w">
+      </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">live</span><span class="p" data-group-id="6097803556-8">(</span><span class="s">&quot;/&quot;</span><span class="p" data-group-id="6097803556-8">)</span><span class="w">
 
     </span><span class="n">assert</span><span class="w"> </span><span class="n">disconnected_html</span><span class="w"> </span><span class="o">=~</span><span class="w"> </span><span class="s">&quot;Some text&quot;</span><span class="w">
-    </span><span class="n">assert</span><span class="w"> </span><span class="n">render</span><span class="p" data-group-id="6729156065-9">(</span><span class="n">home_live</span><span class="p" data-group-id="6729156065-9">)</span><span class="w"> </span><span class="o">=~</span><span class="w"> </span><span class="s">&quot;Some text&quot;</span><span class="w">
-  </span><span class="k" data-group-id="6729156065-3">end</span><span class="w">
-</span><span class="k" data-group-id="6729156065-1">end</span></code></pre><p>Alternatively, this warning can be disabled entirely for tests by adding the following to
+    </span><span class="n">assert</span><span class="w"> </span><span class="n">render</span><span class="p" data-group-id="6097803556-9">(</span><span class="n">home_live</span><span class="p" data-group-id="6097803556-9">)</span><span class="w"> </span><span class="o">=~</span><span class="w"> </span><span class="s">&quot;Some text&quot;</span><span class="w">
+  </span><span class="k" data-group-id="6097803556-3">end</span><span class="w">
+</span><span class="k" data-group-id="6097803556-1">end</span></code></pre><p>Alternatively, this warning can be disabled entirely for tests by adding the following to
 <code class="inline">config/test.exs</code>:</p><pre><code class="makeup elixir"><span class="n">config</span><span class="w"> </span><span class="ss">:geometrics</span><span class="p">,</span><span class="w"> </span><span class="ss">:warn_on_no_trace_context</span><span class="p">,</span><span class="w"> </span><span class="no">false</span></code></pre>
 <div class="bottom-actions">
   <div class="bottom-actions-item">

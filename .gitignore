@@ -11,3 +11,5 @@ geometrics-*.tar
 node_modules
 .idea
 *.iml
+.medic/skipped
+.medic/.doctor.out

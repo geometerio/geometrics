@@ -27,7 +27,7 @@ defmodule Geometrics.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger, :telemetry]
+      extra_applications: [:logger, :telemetry, :phoenix_live_view]
     ]
   end
 
@@ -42,6 +42,7 @@ defmodule Geometrics.MixProject do
       {:opentelemetry_exporter, "~> 1.0.0-rc"},
       {:opentelemetry_ecto, "~> 1.0.0-rc"},
       {:opentelemetry_phoenix, "~> 1.0.0-rc"},
+      {:mix_audit, "~> 0.1", only: [:dev, :test], runtime: false},
       {:phoenix_html, "~> 2.11"},
       {:phoenix_live_view, "~> 0.15", optional: true},
       {:plug, ">= 0.0.0"}

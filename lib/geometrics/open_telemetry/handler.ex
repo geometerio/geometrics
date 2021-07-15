@@ -5,10 +5,12 @@ defmodule Geometrics.OpenTelemetry.Handler do
   @dialyzer {:nowarn_function, connection_status: 1}
   @dialyzer {:nowarn_function, create_child_span: 3}
   @dialyzer {:nowarn_function, create_parent_ctx: 1}
-  @dialyzer {:nowarn_function, handle_exception: 4}
-  @dialyzer {:nowarn_function, handle_cast: 2}
   @dialyzer {:nowarn_function, get_peer_data: 1}
   @dialyzer {:nowarn_function, get_user_agent: 1}
+  @dialyzer {:nowarn_function, handle_cast: 2}
+  @dialyzer {:nowarn_function, handle_exception: 4}
+  @dialyzer {:nowarn_function, handle_initial_lv_mount: 1}
+  @dialyzer {:nowarn_function, handle_lv_connect_mount: 1}
   @dialyzer {:nowarn_function, open_child_span: 4}
 
   use GenServer

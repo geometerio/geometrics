@@ -5,9 +5,9 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="ExDoc v0.24.2">
-    <meta name="project" content="geometrics v0.2.0">
+    <meta name="project" content="geometrics v0.2.0-rc.1">
 
-    <title>Geometrics.OpenTelemetry.Handler.open_child_span — geometrics v0.2.0</title>
+    <title>Geometrics.OpenTelemetry.Handler.open_child_span — geometrics v0.2.0-rc.1</title>
     <link rel="stylesheet" href="dist/elixir-a172fe91e725dcb259e2.css" />
 
     <script src="dist/sidebar_items-27acd1ba18.js"></script>
@@ -54,11 +54,11 @@
 
   <div class="sidebar-header">
     <div class="sidebar-projectDetails">
-      <a href="overview.html" class="sidebar-projectName">
+      <a href="https://github.com/geometerio/geometrics" class="sidebar-projectName">
 geometrics
       </a>
       <strong class="sidebar-projectVersion">
-        v0.2.0
+        v0.2.0-rc.1
       </strong>
     </div>
 
@@ -96,6 +96,11 @@ geometrics
     </a>
     <h1 class="signature">open_child_span(list, payload, meta, config)</h1>
 
+      <a href="https://github.com/geometerio/geometrics/blob/v0.2.0-rc.1/lib/geometrics/open_telemetry/handler.ex#L129" class="view-source" rel="help" title="View Source">
+       <span class="icon-code" aria-hidden="true"></span>
+       <span class="sr-only">View Source</span>
+     </a>
+
 
   </div>
 
@@ -105,15 +110,15 @@ geometrics
 Makes sure that a parent span is either created, or attached to, so that events appear
 as siblings in a single trace spanning the LiveView session.</p><p>Note that child spans pull attributes off of the socket that are only present if the
 <code class="inline">:connect_info</code> is configured to include them in the Endpoint:</p><pre><code class="makeup elixir"><span class="n">socket</span><span class="w"> </span><span class="s">&quot;/live&quot;</span><span class="p">,</span><span class="w"> </span><span class="nc">Phoenix.LiveView.Socket</span><span class="p">,</span><span class="w">
-  </span><span class="ss">websocket</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9404426962-1">[</span><span class="w">
-    </span><span class="ss">connect_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="9404426962-2">[</span><span class="w">
+  </span><span class="ss">websocket</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6937032845-1">[</span><span class="w">
+    </span><span class="ss">connect_info</span><span class="p">:</span><span class="w"> </span><span class="p" data-group-id="6937032845-2">[</span><span class="w">
       </span><span class="ss">:peer_data</span><span class="p">,</span><span class="w">
       </span><span class="ss">:trace_context_headers</span><span class="p">,</span><span class="w">
       </span><span class="ss">:user_agent</span><span class="p">,</span><span class="w">
       </span><span class="ss">:x_headers</span><span class="p">,</span><span class="w">
       </span><span class="ss">session</span><span class="p">:</span><span class="w"> </span><span class="na">@session_options</span><span class="w">
-    </span><span class="p" data-group-id="9404426962-2">]</span><span class="w">
-  </span><span class="p" data-group-id="9404426962-1">]</span></code></pre>
+    </span><span class="p" data-group-id="6937032845-2">]</span><span class="w">
+  </span><span class="p" data-group-id="6937032845-1">]</span></code></pre>
   </section>
 </section>
 
