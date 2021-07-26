@@ -93,7 +93,7 @@ fly.
 
 One thing that is important about OpenTelemetry is that it provides a specification for implementing
 application tracing across multiple languages, a normalized set of attributes for different types of
-traces (HTTP requests vs database queries, for example), and a vendor-agnostic protocol for 
+traces (HTTP requests vs database queries, for example), and a vendor-agnostic protocol for
 exporting span traces to various 3rd-party tracing services (Honeycomb, Jaeger, Zipkin).
 
 This means that a team can instrument their applications in one way, and swap out the service(s) used to analyze traces
@@ -108,18 +108,18 @@ allows applications to export traces via a single mechanism, without having to c
 
 The diagram below illustrates how this looks.
 
-![OpenTelemetry Exporter Diagram](assets/OpenTelemetry Exporter Diagram.png)
+![OpenTelemetry Exporter Diagram](assets/opentelemetry_exporter.png)
 
 ## OpenTelemetry gotchas
 
-* Spans are only valid if they are ended, giving them a duration.
-* Spans are only exported if they are valid.
-* Timeout errors in Elixir/Erlang usually signal process exits, rather than
+- Spans are only valid if they are ended, giving them a duration.
+- Spans are only exported if they are valid.
+- Timeout errors in Elixir/Erlang usually signal process exits, rather than
   raising exceptions.
-* `:telemetry` helpers rescue/reraise exceptions, but do not catch exits.
-* Helper libraries like `OpentelemetryPhoenix` and `OpentelemetryEcto` hook
+- `:telemetry` helpers rescue/reraise exceptions, but do not catch exits.
+- Helper libraries like `OpentelemetryPhoenix` and `OpentelemetryEcto` hook
   into `:telemetry`, since they are unable to alter Phoenix/Ecto runtime code
   to introduce `OpenTelemetry`-specific helpers.
-* Ergo... an overloaded system that begins timing out in GenServer calls or
+- Ergo... an overloaded system that begins timing out in GenServer calls or
   database queries may lose the most important traces, ie those associated with
   the timeouts. See the [Phoenix + Ecto](phoenix.md) page for more info.
