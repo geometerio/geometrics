@@ -15,6 +15,7 @@ defmodule Geometrics.OpenTelemetry.Handler do
 
   use GenServer
 
+  alias Geometrics.OpenTelemetry.Handler
   alias Geometrics.OpenTelemetry.Logger, as: OTLogger
   alias OpenTelemetry.Ctx
   alias OpenTelemetry.Span
@@ -51,13 +52,13 @@ defmodule Geometrics.OpenTelemetry.Handler do
         [:phoenix, :endpoint, :exception],
         [:phoenix, :router_dispatch, :exception]
       ],
-      &handle_errors/4,
+      &Handler.handle_errors/4,
       []
     )
 
     ecto_prefix = Application.get_env(:geometrics, :ecto_prefix)
 
-    OpenTelemetry.register_application_tracer(:geometrics)
+    OpenTelemetry.register_tracer(:geometrics, "0.1.0")
     OpentelemetryPhoenix.setup()
 
     if ecto_prefix,
@@ -73,7 +74,7 @@ defmodule Geometrics.OpenTelemetry.Handler do
         [:phoenix, :router_dispatch, :start],
         [:phoenix, :error_rendered]
       ],
-      &add_ot_span_to_logger/4,
+      &Handler.add_ot_span_to_logger/4,
       []
     )
 
@@ -86,7 +87,7 @@ defmodule Geometrics.OpenTelemetry.Handler do
         [:phoenix, :live_view, :handle_event, :exception],
         [:phoenix, :live_view, :mount, :exception]
       ],
-      &handle_exception/4,
+      &Handler.handle_exception/4,
       []
     )
 
@@ -96,7 +97,7 @@ defmodule Geometrics.OpenTelemetry.Handler do
         [:phoenix, :live_view, :handle_event, :start],
         [:phoenix, :live_view, :mount, :start]
       ],
-      &open_child_span/4,
+      &Handler.open_child_span/4,
       []
     )
 
@@ -106,7 +107,7 @@ defmodule Geometrics.OpenTelemetry.Handler do
         [:phoenix, :live_view, :handle_event, :stop],
         [:phoenix, :live_view, :mount, :stop]
       ],
-      &handle_success/4,
+      &Handler.handle_success/4,
       []
     )
   end
@@ -157,7 +158,7 @@ defmodule Geometrics.OpenTelemetry.Handler do
           {"traceparent", "00-#{trace_context["traceId"]}-#{trace_context["spanId"]}-00"}
         ]
 
-        :otel_propagator.text_map_extract(headers)
+        :otel_propagator_text_map.extract(headers)
 
       _ ->
         if Application.get_env(:geometrics, :warn_on_no_trace_context, true),

@@ -8,23 +8,30 @@ defmodule Geometrics.Plug.OpenTelemetry do
   def init(opts), do: opts
 
   def call(conn, _opts) do
-    OpenTelemetry.Tracer.current_span_ctx()
+    :otel_ctx.get_current()
     |> case do
-      :undefined ->
+      ctx when map_size(ctx) == 0 ->
         Logger.warn(
           "[#{__MODULE__}] expected current process have an OpenTelemetry span, but does not"
         )
 
         conn
 
-      span_ctx ->
+      otel_ctx ->
         conn
-        |> Plug.Conn.put_private(:__current_ot_ctx__, span_ctx)
-        |> Plug.Conn.put_resp_header("traceparent", :otel_propagator_http_w3c.encode(span_ctx))
+        |> Plug.Conn.put_private(:__current_ot_ctx__, otel_ctx)
+        |> Plug.Conn.put_resp_header("traceparent", traceparent(otel_ctx))
     end
   end
 
   def current_context(conn) do
     conn.private.__current_ot_ctx__
+  end
+
+  def traceparent(otel_ctx) do
+    case :otel_propagator_text_map.inject_from(otel_ctx, []) do
+      [{"traceparent", traceparent}] -> traceparent
+      [] -> ""
+    end
   end
 end

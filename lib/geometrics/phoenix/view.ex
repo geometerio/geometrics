@@ -21,14 +21,14 @@ defmodule Geometrics.Phoenix.View do
   end
 
   def traceparent(conn) do
-    content =
+    traceparent =
       conn
       |> OpenTelemetry.current_context()
-      |> :otel_propagator_http_w3c.encode()
+      |> OpenTelemetry.traceparent()
 
     Tag.tag(:meta,
       name: "traceparent",
-      content: content
+      content: traceparent
     )
   end
 end
