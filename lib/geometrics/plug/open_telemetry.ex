@@ -29,7 +29,12 @@ defmodule Geometrics.Plug.OpenTelemetry do
   end
 
   def traceparent(otel_ctx) do
-    case :otel_propagator_text_map.inject_from(otel_ctx, []) do
+    case :otel_propagator_trace_context.inject(
+           otel_ctx,
+           [],
+           &:otel_propagator_text_map.default_carrier_set/3,
+           []
+         ) do
       [{"traceparent", traceparent}] -> traceparent
       [] -> ""
     end
