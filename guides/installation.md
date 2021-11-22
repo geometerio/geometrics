@@ -62,7 +62,7 @@ config :opentelemetry,
 
 In this example we export all trace data to an opentelemetry-collector agent that will be running on `localhost:55681`.
 See [the section on running the opentelemetry collector](#running-the-opentelemetry-collector) below
-or [the guides](https://geometerio.github.io/geometrics) for more on this.
+or [the guides](https://hexdocs.pm/geometrics) for more on this.
 
 ## application.ex
 

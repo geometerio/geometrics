@@ -4,7 +4,7 @@ An opinionated library for adding application tracing and metrics to a Phoenix a
 dependencies which hook into Phoenix and Ecto [telemetry](https://hexdocs.pm/phoenix/telemetry.html), adding support for
 LiveView as well as crash tracking.
 
-This repo also contains informative [guides](https://geometerio.github.io/geometrics) to help you wrap your head around
+This repo also contains informative [guides](https://hexdocs.pm/geometrics) to help you wrap your head around
 Application tracing concepts which can be notoriously confusing, especially in Elixir and Erlang. It is worth reading
 these before diving in.
 
@@ -51,7 +51,7 @@ Application tracing service)
 ## Why does this library exists?
 
 1. To distill knowledge gleaned from dissecting the somewhat overwhelming OpenTelemetry/observability ecosystem into an
-   easily consumed set of [guides](https://geometerio.github.io/geometrics).
+   easily consumed set of [guides](https://hexdocs.pm/geometrics).
 2. To provide Phoenix LiveView observability, which has not yet been included into OpenTelemetry the way
    that [Phoenix](https://github.com/opentelemetry-beam/opentelemetry_phoenix)
    and [Ecto](https://github.com/opentelemetry-beam/opentelemetry_ecto) have.
@@ -59,7 +59,7 @@ Application tracing service)
 
 ## Installation
 
-[Installation guide](https://geometerio.github.io/geometrics/installation.html).
+[Installation guide](https://hexdocs.pm/geometrics/installation.html).
 
 ## Running the OpenTelemetry collector
 
@@ -87,10 +87,10 @@ Honeycomb (or any other API), you can use these locally running tracing services
 
 ## References
 
-For further reading, see [the guides](https://geometerio.github.io/geometrics).
+For further reading, see [the guides](https://hexdocs.pm/geometrics).
 
 External references:
 
-* https://opentelemetry.io/docs/concepts/what-is-opentelemetry/
-* https://opentelemetry.io/docs/erlang/getting-started/
-* https://github.com/open-telemetry/opentelemetry-specification
+- https://opentelemetry.io/docs/concepts/what-is-opentelemetry/
+- https://opentelemetry.io/docs/erlang/getting-started/
+- https://github.com/open-telemetry/opentelemetry-specification
