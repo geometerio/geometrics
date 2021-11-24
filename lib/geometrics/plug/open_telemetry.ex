@@ -29,14 +29,16 @@ defmodule Geometrics.Plug.OpenTelemetry do
   end
 
   def traceparent(otel_ctx) do
-    case :otel_propagator_trace_context.inject(
-           otel_ctx,
-           [],
-           &:otel_propagator_text_map.default_carrier_set/3,
-           []
-         ) do
-      [{"traceparent", traceparent}] -> traceparent
-      [] -> ""
+    :otel_propagator_trace_context.inject(
+      otel_ctx,
+      [],
+      &:otel_propagator_text_map.default_carrier_set/3,
+      []
+    )
+    |> Enum.find(fn {key, _val} -> key == "traceparent" end)
+    |> case do
+      {"traceparent", traceparent} -> traceparent
+      _ -> ""
     end
   end
 end
