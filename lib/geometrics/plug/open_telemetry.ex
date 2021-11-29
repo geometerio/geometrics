@@ -35,10 +35,9 @@ defmodule Geometrics.Plug.OpenTelemetry do
       &:otel_propagator_text_map.default_carrier_set/3,
       []
     )
-    |> Enum.find(fn {key, _val} -> key == "traceparent" end)
-    |> case do
+    |> Enum.find_value("", fn
       {"traceparent", traceparent} -> traceparent
-      _ -> ""
-    end
+      _other -> nil
+    end)
   end
 end
