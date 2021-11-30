@@ -3,7 +3,7 @@ defmodule Geometrics.MixProject do
   use Mix.Project
 
   @scm_url "https://github.com/geometerio/geometrics"
-  @version "0.2.1"
+  @version "0.2.0-rc.4"
 
   def project do
     [

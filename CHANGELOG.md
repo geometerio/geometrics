@@ -1,11 +1,8 @@
 # CHANGELOG
 
-## 0.2.1
-
-- Fix crash when propagator returns multiple items.
-
 ## 0.2.0
 
+- Fix crash when propagator returns multiple items.
 - Update Elixir OpenTelemetry libraries to `~> 1.0.0-rc`.
 - Update JS OpenTelemetry libraries to `0.22.0`.
 
