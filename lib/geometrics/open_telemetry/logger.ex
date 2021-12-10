@@ -108,6 +108,7 @@ defmodule Geometrics.OpenTelemetry.Logger do
     {:ok, state}
   end
 
+  def handle_info({Logger.Config, :update_counter}, state), do: {:ok, state}
   def handle_info({:io_reply, _ref, _msg}, state), do: {:ok, state}
   def handle_info({:EXIT, _pid, _reason}, state), do: {:ok, state}
 
