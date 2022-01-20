@@ -58,7 +58,6 @@ defmodule Geometrics.OpenTelemetry.Handler do
 
     ecto_prefix = Application.get_env(:geometrics, :ecto_prefix)
 
-    OpenTelemetry.register_tracer(:geometrics, "0.1.0")
     OpentelemetryPhoenix.setup()
 
     if ecto_prefix,
