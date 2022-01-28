@@ -1,12 +1,11 @@
 import opentelemetry, { Context, context, propagation, ROOT_CONTEXT, Span } from '@opentelemetry/api';
 import { Resource } from '@opentelemetry/resources';
-import { ResourceAttributes } from '@opentelemetry/semantic-conventions';
+import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions';
 import { ZoneContextManager } from '@opentelemetry/context-zone';
-import { WebTracerProvider } from '@opentelemetry/web';
-import { BatchSpanProcessor, ConsoleSpanExporter, SimpleSpanProcessor } from '@opentelemetry/tracing';
-import { HttpTraceContextPropagator, TRACE_PARENT_HEADER } from '@opentelemetry/core';
-import { registerInstrumentations } from '@opentelemetry/instrumentation';
-import { CollectorTraceExporter } from '@opentelemetry/exporter-collector';
+import { WebTracerProvider } from '@opentelemetry/sdk-trace-web';
+import { BatchSpanProcessor, ConsoleSpanExporter, SimpleSpanProcessor } from '@opentelemetry/sdk-trace-base';
+import { W3CTraceContextPropagator, TRACE_PARENT_HEADER } from '@opentelemetry/core';
+import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
 
 /*
   DocumentLoad does not work correctly with context propagation, so traces produced by that library
@@ -34,17 +33,12 @@ type InitOptions = {
  * such as `withSpan` or `newTrace`, or an error will be thrown.
  */
 function initTracer({ serviceName, logToConsole }: InitOptions) {
-  propagation.setGlobalPropagator(new HttpTraceContextPropagator());
+  propagation.setGlobalPropagator(new W3CTraceContextPropagator());
 
   tracerProvider = new WebTracerProvider({
     resource: new Resource({
-      [ResourceAttributes.SERVICE_NAME]: serviceName,
+      [SemanticResourceAttributes.SERVICE_NAME]: serviceName,
     }),
-  });
-
-  registerInstrumentations({
-    // @ts-ignore
-    tracerProvider: tracerProvider,
   });
 
   if (logToConsole) {
@@ -53,7 +47,7 @@ function initTracer({ serviceName, logToConsole }: InitOptions) {
 
   tracerProvider.addSpanProcessor(
     new BatchSpanProcessor(
-      new CollectorTraceExporter({
+      new OTLPTraceExporter({
         url: getMetaTagValue('collector_endpoint'),
       }),
     ),
@@ -61,7 +55,7 @@ function initTracer({ serviceName, logToConsole }: InitOptions) {
 
   tracerProvider.register({
     contextManager: new ZoneContextManager(),
-    propagator: new HttpTraceContextPropagator(),
+    propagator: new W3CTraceContextPropagator(),
   });
 
   // This needs to execute after the provider is registered.
