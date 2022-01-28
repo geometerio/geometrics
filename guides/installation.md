@@ -42,7 +42,7 @@ This is the endpoint of an `otel-collector` that frontend opentelemetry trace da
 this should be a public https endpoint.
 
 ```elixir
-config :geometrics, :collector_endpoint, "http://localhost:55681/v1/trace"
+config :geometrics, :collector_endpoint, "http://localhost:55681/v1/traces"
 ```
 
 Configure `opentelemetry` with an exporter. If running `otel-collector` as a sidecar
@@ -54,7 +54,7 @@ config :opentelemetry,
          otel_batch_processor: %{
            exporter: {
              :opentelemetry_exporter,
-             %{endpoints: [{:http, '0.0.0.0', 55_681, []}]}
+             %{endpoints: ["http://localhost:55681"]}]}
            }
          }
        ]

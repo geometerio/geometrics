@@ -72,7 +72,8 @@ defmodule Geometrics.MixProject do
         "guides/javascript.md",
         "guides/deployment.md",
         "guides/testing.md",
-        "guides/references.md"
+        "guides/references.md",
+        "guides/upgrading_to_1.0.md"
       ],
       output: "docs",
       assets: "guides/assets",
