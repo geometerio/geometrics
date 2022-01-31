@@ -61,7 +61,7 @@ jobs:
           path: _build
           key: ${{ runner.os }}-build-v1-${{ hashFiles('**/mix.lock', '.tool-versions') }}
       - name: Run tests
-        run: mix test --color --cover
+        run: mix test --color
         working-directory: .
       - name: Run mix audit
         run: mix deps.audit
