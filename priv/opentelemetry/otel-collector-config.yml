@@ -1,15 +1,23 @@
-
+# OTLP Receiver configuration can be found here:
+# https://github.com/open-telemetry/opentelemetry-collector/blob/main/receiver/otlpreceiver/README.md
 receivers:
   otlp:
     protocols:
       grpc:
-        endpoint: "0.0.0.0:55680"
+        endpoint: ":55680"
       http:
-        endpoint: "0.0.0.0:55681"
+        endpoint: ":55681"
+        cors:
+          allowed_origins:
+            - http://localhost:4000
+
 processors:
   batch:
     send_batch_size: 1024
     timeout: 5s
+
+# OTLP Exporter configuration can be found here:
+# https://github.com/open-telemetry/opentelemetry-collector/blob/main/exporter/otlphttpexporter/README.md
 exporters:
   zipkin:
     endpoint: "http://zipkin:9411/api/v2/spans"
@@ -25,6 +33,7 @@ exporters:
 
 extensions:
   zpages: {}
+
 service:
   extensions: [zpages]
   pipelines:
