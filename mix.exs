@@ -93,7 +93,16 @@ defmodule Geometrics.MixProject do
     [
       licenses: ["MIT"],
       maintainers: ["Geometer"],
-      links: %{"GitHub" => @scm_url}
+      links: %{"GitHub" => @scm_url},
+      files: ~w(
+        lib
+        mix.exs
+        LICENSE.md
+        README.md
+        priv/opentelemetry
+        priv/static
+        package.json
+      )
     ]
   end
 end
