@@ -4,7 +4,7 @@ services:
   #   build: .
 
   otel:
-    image: otel/opentelemetry-collector-dev:latest
+    image: otel/opentelemetry-collector-contrib:0.43.0
     command: ["--config=/etc/otel-collector-config.yml"]
     environment:
       - HONEYCOMB_WRITE_KEY

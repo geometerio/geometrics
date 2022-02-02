@@ -15,7 +15,8 @@ exporters:
     endpoint: "http://zipkin:9411/api/v2/spans"
   jaeger:
     endpoint: jaeger-all-in-one:14250
-    insecure: true
+    tls:
+      insecure: true
   otlp:
     endpoint: "api.honeycomb.io:443"
     headers:
