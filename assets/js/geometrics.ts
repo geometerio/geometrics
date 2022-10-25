@@ -2,11 +2,12 @@ import opentelemetry, { Context, context, propagation, ROOT_CONTEXT, Span } from
 import { Resource } from '@opentelemetry/resources';
 import { ResourceAttributes } from '@opentelemetry/semantic-conventions';
 import { ZoneContextManager } from '@opentelemetry/context-zone';
-import { WebTracerProvider } from '@opentelemetry/web';
-import { BatchSpanProcessor, ConsoleSpanExporter, SimpleSpanProcessor } from '@opentelemetry/tracing';
+import { WebTracerProvider } from '@opentelemetry/sdk-trace-web';
+import { ConsoleSpanExporter, BatchSpanProcessor, SimpleSpanProcessor } from '@opentelemetry/sdk-trace-base';
 import { HttpTraceContextPropagator, TRACE_PARENT_HEADER } from '@opentelemetry/core';
+import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
 import { registerInstrumentations } from '@opentelemetry/instrumentation';
-import { CollectorTraceExporter } from '@opentelemetry/exporter-collector';
+import { getWebAutoInstrumentations } from '@opentelemetry/auto-instrumentations-web';
 
 /*
   DocumentLoad does not work correctly with context propagation, so traces produced by that library
@@ -43,8 +44,7 @@ function initTracer({ serviceName, logToConsole }: InitOptions) {
   });
 
   registerInstrumentations({
-    // @ts-ignore
-    tracerProvider: tracerProvider,
+    instrumentations: [getWebAutoInstrumentations({})],
   });
 
   if (logToConsole) {
@@ -53,7 +53,7 @@ function initTracer({ serviceName, logToConsole }: InitOptions) {
 
   tracerProvider.addSpanProcessor(
     new BatchSpanProcessor(
-      new CollectorTraceExporter({
+      new OTLPTraceExporter({
         url: getMetaTagValue('collector_endpoint'),
       }),
     ),
@@ -81,7 +81,7 @@ function newTrace(name: string, fn: (span: Span) => any) {
   }
 
   const tracer = tracerProvider.getTracer('default');
-  const span = tracer.startSpan(name, { root: true });
+  const span = tracer.startSpan(name, { root: true, startTime: new Date() });
   return opentelemetry.context.with(opentelemetry.trace.setSpan(opentelemetry.context.active(), span), () => {
     const response = fn(span);
 

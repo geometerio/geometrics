@@ -1,20 +1,29 @@
 {
   "name": "geometrics",
-  "version": "0.0.1",
-  "description": "Sets up OpenTelemetry in JS.",
-  "license": "MIT",
+  "version": "0.2.0-rc.5",
+  "description": "An opinionated library for adding application tracing and metrics to a Phoenix application. Geometrics includes dependencies which hook into Phoenix and Ecto [telemetry](https://hexdocs.pm/phoenix/telemetry.html), adding support for LiveView as well as crash tracking.",
   "main": "./priv/static/geometrics.js",
+  "directories": {
+    "doc": "docs",
+    "lib": "lib",
+    "test": "test"
+  },
+  "dependencies": {
+    "lodash.merge": "^4.6.2"
+  },
+  "devDependencies": {},
+  "scripts": {},
   "repository": {
     "type": "git",
-    "url": "git://github.com/geometerio/geometrics.git"
+    "url": "git+https://github.com/geometerio/geometrics.git"
   },
-  "author": "Geometer",
-  "files": [
-    "README.md",
-    "LICENSE.md",
-    "package.json",
-    "priv/static/geometrics.js",
-    "priv/static/geometrics.d.ts",
-    "priv/static/geometrics.d.ts.map"
-  ]
+  "keywords": [
+    "observability"
+  ],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/geometerio/geometrics/issues"
+  },
+  "homepage": "https://github.com/geometerio/geometrics#readme"
 }

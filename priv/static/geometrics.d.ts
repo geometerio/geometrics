@@ -1,5 +1,5 @@
 import { Context, Span } from '@opentelemetry/api';
-import { WebTracerProvider } from '@opentelemetry/web';
+import { WebTracerProvider } from '@opentelemetry/sdk-trace-web';
 declare type InitOptions = {
     serviceName: string;
     logToConsole: boolean;
