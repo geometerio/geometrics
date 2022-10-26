@@ -44,7 +44,8 @@ function initTracer({ serviceName, logToConsole }: InitOptions) {
   });
 
   registerInstrumentations({
-    instrumentations: [getWebAutoInstrumentations({})],
+    // @ts-ignore
+    tracerProvider: tracerProvider,
   });
 
   if (logToConsole) {
