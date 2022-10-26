@@ -7,6 +7,34 @@
 # General application configuration
 import Config
 
+# Necessary to tell OpenTelemetry what repository to report traces for
+config :geometrics, :ecto_prefix, [:geometrics_example, :repo]
+
+# Configuring a custom logger Geometrics.OpenTelemetry.Logger to help export process crashes to OpenTelemetry, which aren't reported by default
+config :logger,
+  backends: [
+    :console,
+    Geometrics.OpenTelemetry.Logger
+  ]
+
+# The service name will show up in each span in your metrics service (i.e. Honeycomb)
+config :opentelemetry, :resource,
+  service: [
+    name: "Geometrics Example Backend"
+  ]
+
+config :geometrics, :collector_endpoint, "http://localhost:55681/v1/traces"
+
+config :opentelemetry,
+  processors: [
+    otel_batch_processor: %{
+      exporter: {
+        :opentelemetry_exporter,
+        %{endpoints: [{:http, '0.0.0.0', 55_681, []}]}
+      }
+    }
+  ]
+
 config :geometrics_example,
   ecto_repos: [GeometricsExample.Repo]
 

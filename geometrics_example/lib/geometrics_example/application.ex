@@ -8,6 +8,8 @@ defmodule GeometricsExample.Application do
   @impl true
   def start(_type, _args) do
     children = [
+      Geometrics.OpenTelemetry.Handler,
+
       # Start the Ecto repository
       GeometricsExample.Repo,
       # Start the Telemetry supervisor

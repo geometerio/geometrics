@@ -8,6 +8,8 @@ defmodule GeometricsExampleWeb.Router do
     plug :put_root_layout, {GeometricsExampleWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+
+    plug Geometrics.Plug.OpenTelemetry
   end
 
   pipeline :api do

@@ -32,3 +32,4 @@ geometrics_example-*.tar
 npm-debug.log
 /assets/node_modules/
 
+.envrc
