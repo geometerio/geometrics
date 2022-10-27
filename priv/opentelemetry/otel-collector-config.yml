@@ -1,21 +1,21 @@
-
 receivers:
   otlp:
     protocols:
-      grpc:
-        endpoint: "0.0.0.0:55680"
       http:
-        endpoint: "0.0.0.0:55681"
+        include_metadata: true
+        cors:
+          allowed_origins: ["*"]
+          allowed_headers: ["*"]
+          max_age: 7200
+        endpoint: 0.0.0.0:55681
+
 processors:
   batch:
     send_batch_size: 1024
     timeout: 5s
 exporters:
-  zipkin:
-    endpoint: "http://zipkin:9411/api/v2/spans"
-  jaeger:
-    endpoint: jaeger-all-in-one:14250
-    insecure: true
+  logging:
+    loglevel: debug
   otlp:
     endpoint: "api.honeycomb.io:443"
     headers:
@@ -23,11 +23,13 @@ exporters:
       "x-honeycomb-dataset": "${HONEYCOMB_DATASET}"
 
 extensions:
-  zpages: {}
 service:
-  extensions: [zpages]
+  extensions:
   pipelines:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [zipkin, jaeger, otlp]
+      exporters:
+        - otlp
+        # Uncomment below to enable console logging in the exporter
+        # - logging

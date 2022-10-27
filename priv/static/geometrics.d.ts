@@ -1,6 +1,9 @@
 import { Context, Span } from '@opentelemetry/api';
 import { WebTracerProvider } from '@opentelemetry/sdk-trace-web';
 declare type InitOptions = {
+    exporterHeaders?: {
+        [k in string]: any;
+    };
     serviceName: string;
     logToConsole: boolean;
 };
@@ -9,7 +12,7 @@ declare type InitOptions = {
  * that will work in a browser. This function must be called before other functions
  * such as `withSpan` or `newTrace`, or an error will be thrown.
  */
-declare function initTracer({ serviceName, logToConsole }: InitOptions): {
+declare function initTracer({ serviceName, logToConsole, exporterHeaders }: InitOptions): {
     tracerProvider: WebTracerProvider;
     rootCtx: Context;
 };

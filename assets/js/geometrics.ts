@@ -25,6 +25,7 @@ let tracerProvider: WebTracerProvider;
 let rootCtx: Context;
 
 type InitOptions = {
+  exporterHeaders?: { [k in string]: any };
   serviceName: string;
   logToConsole: boolean;
 };
@@ -34,7 +35,7 @@ type InitOptions = {
  * that will work in a browser. This function must be called before other functions
  * such as `withSpan` or `newTrace`, or an error will be thrown.
  */
-function initTracer({ serviceName, logToConsole }: InitOptions) {
+function initTracer({ serviceName, logToConsole, exporterHeaders = {} }: InitOptions) {
   propagation.setGlobalPropagator(new HttpTraceContextPropagator());
 
   tracerProvider = new WebTracerProvider({
@@ -55,6 +56,7 @@ function initTracer({ serviceName, logToConsole }: InitOptions) {
   tracerProvider.addSpanProcessor(
     new BatchSpanProcessor(
       new OTLPTraceExporter({
+        headers: exporterHeaders,
         url: getMetaTagValue('collector_endpoint'),
       }),
     ),
