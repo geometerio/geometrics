@@ -7,7 +7,6 @@ import { ConsoleSpanExporter, BatchSpanProcessor, SimpleSpanProcessor } from '@o
 import { HttpTraceContextPropagator, TRACE_PARENT_HEADER } from '@opentelemetry/core';
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
 import { registerInstrumentations } from '@opentelemetry/instrumentation';
-import { getWebAutoInstrumentations } from '@opentelemetry/auto-instrumentations-web';
 
 /*
   DocumentLoad does not work correctly with context propagation, so traces produced by that library
