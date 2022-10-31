@@ -3,7 +3,7 @@ defmodule Geometrics.MixProject do
   use Mix.Project
 
   @scm_url "https://github.com/geometerio/geometrics"
-  @version "0.2.0-rc.5"
+  @version "1.0.1-rc.3"
 
   def project do
     [
@@ -72,7 +72,8 @@ defmodule Geometrics.MixProject do
         "guides/javascript.md",
         "guides/deployment.md",
         "guides/testing.md",
-        "guides/references.md"
+        "guides/references.md",
+        "guides/upgrading_to_1.0.md"
       ],
       output: "docs",
       assets: "guides/assets",
@@ -92,7 +93,16 @@ defmodule Geometrics.MixProject do
     [
       licenses: ["MIT"],
       maintainers: ["Geometer"],
-      links: %{"GitHub" => @scm_url}
+      links: %{"GitHub" => @scm_url},
+      files: ~w(
+        lib
+        mix.exs
+        LICENSE.md
+        README.md
+        priv/opentelemetry
+        priv/static
+        package.json
+      )
     ]
   end
 end

@@ -63,8 +63,7 @@ const liveSocket = withSpan('liveSocket.connect()', (span) => {
   const csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute('content');
   const options = {
     params: {
-      _csrf_token: csrfToken,
-      traceContext: span.spanContext(),
+      _csrf_token: csrfToken
     },
   };
   const liveSocket = new LiveSocket('/live', Socket, options);
