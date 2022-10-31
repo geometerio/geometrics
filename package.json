@@ -1,6 +1,6 @@
 {
   "name": "geometrics",
-  "version": "0.2.0-rc.5",
+  "version": "1.0.1-rc.3",
   "description": "An opinionated library for adding application tracing and metrics to a Phoenix application. Geometrics includes dependencies which hook into Phoenix and Ecto [telemetry](https://hexdocs.pm/phoenix/telemetry.html), adding support for LiveView as well as crash tracking.",
   "main": "./priv/static/geometrics.js",
   "directories": {
