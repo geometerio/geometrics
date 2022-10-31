@@ -42,7 +42,7 @@ defmodule Geometrics.MixProject do
       {:opentelemetry_exporter, "~> 1.2.0"},
       {:opentelemetry_ecto, "~> 1.0.0"},
       {:opentelemetry_phoenix, "~> 1.0.0"},
-      {:mix_audit, "~> 0.1", only: [:dev, :test], runtime: false},
+      {:mix_audit, "~> 2.0", only: [:dev, :test], runtime: false},
       {:phoenix_html, "~> 2.11 or ~> 3.0"},
       {:phoenix_live_view, "~> 0.15", optional: true},
       {:plug, ">= 0.0.0"}
