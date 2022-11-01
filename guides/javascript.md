@@ -34,15 +34,14 @@ requests containing trace information to buffer and export traces to visualizati
 To use Geometrics' included javascript, you must add it to your `package.json`:
 
 ```json
+  ...
   "dependencies": {
-    ...
-    "geometrics": "file:../../geometrics",
-    ...
-  },
-
+    "geometrics": "file:../deps/geometrics/priv/static"
+  }
+  ...
 ```
 
-Then run `npm install`
+Ensure the path is correct, then run `npm install` within your assets direction.
 
 ## Usage
 
@@ -72,8 +71,5 @@ const liveSocket = withSpan('liveSocket.connect()', (span) => {
   return liveSocket;
 });
 ```
-
-Note that we pass the `span.context()` in the socket connection params as `traceContext`. We pick up this context on the
-backend and use it to tie the frontend span with the trace context in the backend.
 
 At the moment, it is only possible to record synchronous behavior executed in the context of a `withSpan`.
