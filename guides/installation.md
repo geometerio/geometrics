@@ -23,6 +23,7 @@ Cons:
 
 Pros:
 * Simple to set up
+* No need to run docker locally to host the collector
 
 Cons:
 * Does not allow you to connect traces between frontend and backend code
@@ -38,7 +39,7 @@ Add `geometrics` to your `mix.exs`.
 ```elixir
 def deps do
   [
-    {:geometrics, github: "geometerio/geometrics", branch: "main"},
+    {:geometrics, "~> 1.0.1-rc.3"}
   ]
 end
 ```
