@@ -61,30 +61,6 @@ Application tracing service)
 
 [Installation guide](https://hexdocs.pm/geometrics/installation.html).
 
-## Running the OpenTelemetry collector
-
-In order to actually report data to Honeycomb (or other services), you will need to run
-an [OpenTelemetry collector](https://github.com/open-telemetry/opentelemetry-collector). This component is responsible
-for receiving, processing and exporting OpenTelemetry data to external services.
-
-To do this you will need to run an installation script (note that you will need to set `HONEYCOMB_DATASET`
-and `HONEYCOMB_WRITE_KEY` in your environment before running this command):
-
-`mix geometrics.install`
-
-This will copy a `docker-compose.yml` file used to run the collector into your projects top level directory. It will
-also copy over a configuration file, `otel-collector-config.yml`, used to configure the collector Docker process.
-
-To run the collector, simply run `docker compose up`. You should now see metrics data appear in Honeycomb under the
-dataset configured by `HONEYCOMB_DATASET`.
-
-**Reporting to other third-party tracing services**:
-
-By default the `otel-collector-config.yml` and `docker-compose.yml` also spin up a local instance of [Jaeger](https://www.jaegertracing.io/)
-(running on http://localhost:16686/) and [Zipkin](https://zipkin.io/) (running on http://127.0.0.1:9411/)
-that will both also receive the same trace data. If you'd prefer not to send your trace data over the network to
-Honeycomb (or any other API), you can use these locally running tracing services instead.
-
 ## References
 
 For further reading, see [the guides](https://hexdocs.pm/geometrics).

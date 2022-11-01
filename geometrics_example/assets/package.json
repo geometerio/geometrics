@@ -1,0 +1,14 @@
+{
+  "name": "geometrics-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "geometrics": "file:../deps/geometrics/priv/static"
+  },
+  "author": "",
+  "license": "ISC"
+}

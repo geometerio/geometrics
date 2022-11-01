@@ -1,0 +1,16 @@
+version: '3'
+services:
+  # elixir:
+  #   build: .
+
+  otel:
+    image: otel/opentelemetry-collector:latest
+    command: ["--config=/etc/otel-collector-config.yml"]
+    environment:
+      - HONEYCOMB_WRITE_KEY
+      - HONEYCOMB_DATASET
+    ports:
+      - '55681:55681'
+      - '55680:55680'
+    volumes:
+      - ./otel-collector-config.yml:/etc/otel-collector-config.yml
