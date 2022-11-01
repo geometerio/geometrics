@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "file": "../deps/geometrics/priv/static"
+    "geometrics": "file:../deps/geometrics/priv/static"
   },
   "author": "",
   "license": "ISC"
