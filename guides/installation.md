@@ -1,6 +1,6 @@
 # Installation
 
-NOTE: Check out the [geometrics_example](./geometrics_example) directory to see an example Phoenix application that has everything configured from this guide.
+NOTE: Check out the [geometrics_example](https://github.com/geometerio/geometrics_example) directory to see an example Phoenix application that has everything configured from this guide.
 
 ## Running the OpenTelemetry collector
 
