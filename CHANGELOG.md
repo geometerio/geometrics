@@ -8,19 +8,19 @@ Update npm dependencies to resolve security vulnerabilities.
 
 Updates OpenTelemetry JS/Hex dependencies
 
-@opentelemetry/web -> @opentelemetry/sdk-trace-web
-@opentelemetry/tracing -> @opentelemetry/sdk-trace-base
-@opentelemetry/exporter-collector -> @opentelemetry/exporter-trace-otlp-http
+- @opentelemetry/web -> @opentelemetry/sdk-trace-web
+- @opentelemetry/tracing -> @opentelemetry/sdk-trace-base
+- @opentelemetry/exporter-collector -> @opentelemetry/exporter-trace-otlp-http
 
 Additionally adds @opentelemetry/auto-instrumentation-web and @opentelemetry/instrumentation
 
 For Hex deps:
 
-opentelemetry 1.0.0 -> 1.1.1
-opentelemetry_api 1.0.0 -> 1.1.0
-opentelemetry_ecto 1.0.0-rc.5 -> 1.0.0
-opentelemetry_phoenix 1.0.0-rc.7 -> 1.0.0
-opentelemetry_telemetry 1.0.0-beta.7 -> 1.0.0
+- opentelemetry 1.0.0 -> 1.1.1
+- opentelemetry_api 1.0.0 -> 1.1.0
+- opentelemetry_ecto 1.0.0-rc.5 -> 1.0.0
+- opentelemetry_phoenix 1.0.0-rc.7 -> 1.0.0
+- opentelemetry_telemetry 1.0.0-beta.7 -> 1.0.0
 
 NOTE:
 
