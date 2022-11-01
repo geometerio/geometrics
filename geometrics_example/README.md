@@ -1,19 +1,6 @@
-# GeometricsExample
+# Geometrics Example App
 
-To start your Phoenix server:
+This simple Phoenix app is meant to be used as a reference while going through the [Geometrics installation guides](https://hexdocs.pm/geometrics/installation.html).
 
-  * Install dependencies with `mix deps.get`
-  * Create and migrate your database with `mix ecto.setup`
-  * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
+For a more helpful diff, try walking through [this commit](https://github.com/geometerio/geometrics/commit/f4aa8033cf772a6428513226db117e1a465d761e).
 
-Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
-
-Ready to run in production? Please [check our deployment guides](https://hexdocs.pm/phoenix/deployment.html).
-
-## Learn more
-
-  * Official website: https://www.phoenixframework.org/
-  * Guides: https://hexdocs.pm/phoenix/overview.html
-  * Docs: https://hexdocs.pm/phoenix
-  * Forum: https://elixirforum.com/c/phoenix-forum
-  * Source: https://github.com/phoenixframework/phoenix

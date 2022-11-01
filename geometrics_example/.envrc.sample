@@ -1,3 +1,3 @@
 
-export HONEYCOMB_WRITE_KEY=<https://start.1password.com/open/i?a=VVH6YF3OKZBYFMLWUQR45VM3YA&v=6zxbllmxrpoziscobi7sy6jpby&i=lduioj5c7jbyvox5fgu325dzlm&h=geometer.1password.com>
+export HONEYCOMB_WRITE_KEY=<your honeycomb write key>
 export HONEYCOMB_DATASET=<name of your honeycomb dataset>
