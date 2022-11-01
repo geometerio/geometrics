@@ -1,6 +1,6 @@
 {
   "name": "geometrics",
-  "version": "0.0.1",
+  "version": "1.0.1-rc.3",
   "description": "Javascript wrapper for OpenTelemetry.",
   "license": "MIT",
   "repository": {},
@@ -12,19 +12,21 @@
   },
   "dependencies": {
     "@opentelemetry/api": "^1.x",
-    "@opentelemetry/context-zone": "^1.x",
-    "@opentelemetry/core": "^1.x",
-    "@opentelemetry/exporter-trace-otlp-http": "~0.27.0",
-    "@opentelemetry/sdk-trace-base": "^1.x",
-    "@opentelemetry/sdk-trace-web": "^1.x"
+    "@opentelemetry/context-zone": "~0.22.0",
+    "@opentelemetry/core": "~0.22.0",
+    "@opentelemetry/exporter-trace-otlp-http": "^0.33.0",
+    "@opentelemetry/instrumentation": "^0.33.0",
+    "@opentelemetry/sdk-trace-base": "^1.7.0",
+    "@opentelemetry/sdk-trace-web": "^1.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.x",
     "@babel/preset-env": "^7.x",
-    "@typescript-eslint/eslint-plugin": "^5.10.1",
     "babel-loader": "^8.2.2",
     "css-loader": "^5.x",
     "eslint": "^7.x",
+    "eslint-config-prettier": "^8.x",
+    "eslint-plugin-prettier": "^3.x",
     "prettier": "^2.x",
     "style-loader": "^3.x",
     "terser-webpack-plugin": "^5.x",

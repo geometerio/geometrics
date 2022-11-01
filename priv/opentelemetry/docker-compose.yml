@@ -4,7 +4,7 @@ services:
   #   build: .
 
   otel:
-    image: otel/opentelemetry-collector-contrib:0.43.0
+    image: otel/opentelemetry-collector:latest
     command: ["--config=/etc/otel-collector-config.yml"]
     environment:
       - HONEYCOMB_WRITE_KEY
@@ -14,17 +14,3 @@ services:
       - '55680:55680'
     volumes:
       - ./otel-collector-config.yml:/etc/otel-collector-config.yml
-
-  zipkin:
-    image: openzipkin/zipkin-slim
-    ports:
-      - '9411:9411'
-
-  # Jaeger
-  jaeger-all-in-one:
-    image: jaegertracing/all-in-one:latest
-    ports:
-      - "16686:16686"
-      - "14268"
-      - "14250"
-

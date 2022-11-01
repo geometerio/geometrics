@@ -1,11 +1,12 @@
 import opentelemetry, { Context, context, propagation, ROOT_CONTEXT, Span } from '@opentelemetry/api';
 import { Resource } from '@opentelemetry/resources';
-import { SemanticResourceAttributes } from '@opentelemetry/semantic-conventions';
+import { ResourceAttributes } from '@opentelemetry/semantic-conventions';
 import { ZoneContextManager } from '@opentelemetry/context-zone';
 import { WebTracerProvider } from '@opentelemetry/sdk-trace-web';
-import { BatchSpanProcessor, ConsoleSpanExporter, SimpleSpanProcessor } from '@opentelemetry/sdk-trace-base';
-import { W3CTraceContextPropagator, TRACE_PARENT_HEADER } from '@opentelemetry/core';
+import { ConsoleSpanExporter, BatchSpanProcessor, SimpleSpanProcessor } from '@opentelemetry/sdk-trace-base';
+import { HttpTraceContextPropagator, TRACE_PARENT_HEADER } from '@opentelemetry/core';
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
+import { registerInstrumentations } from '@opentelemetry/instrumentation';
 
 /*
   DocumentLoad does not work correctly with context propagation, so traces produced by that library
@@ -23,6 +24,7 @@ let tracerProvider: WebTracerProvider;
 let rootCtx: Context;
 
 type InitOptions = {
+  exporterHeaders?: { [k in string]: any };
   serviceName: string;
   logToConsole: boolean;
 };
@@ -32,13 +34,18 @@ type InitOptions = {
  * that will work in a browser. This function must be called before other functions
  * such as `withSpan` or `newTrace`, or an error will be thrown.
  */
-function initTracer({ serviceName, logToConsole }: InitOptions) {
-  propagation.setGlobalPropagator(new W3CTraceContextPropagator());
+function initTracer({ serviceName, logToConsole, exporterHeaders = {} }: InitOptions) {
+  propagation.setGlobalPropagator(new HttpTraceContextPropagator());
 
   tracerProvider = new WebTracerProvider({
     resource: new Resource({
-      [SemanticResourceAttributes.SERVICE_NAME]: serviceName,
+      [ResourceAttributes.SERVICE_NAME]: serviceName,
     }),
+  });
+
+  registerInstrumentations({
+    // @ts-ignore
+    tracerProvider: tracerProvider,
   });
 
   if (logToConsole) {
@@ -48,6 +55,7 @@ function initTracer({ serviceName, logToConsole }: InitOptions) {
   tracerProvider.addSpanProcessor(
     new BatchSpanProcessor(
       new OTLPTraceExporter({
+        headers: exporterHeaders,
         url: getMetaTagValue('collector_endpoint'),
       }),
     ),
@@ -55,7 +63,7 @@ function initTracer({ serviceName, logToConsole }: InitOptions) {
 
   tracerProvider.register({
     contextManager: new ZoneContextManager(),
-    propagator: new W3CTraceContextPropagator(),
+    propagator: new HttpTraceContextPropagator(),
   });
 
   // This needs to execute after the provider is registered.
@@ -75,7 +83,7 @@ function newTrace(name: string, fn: (span: Span) => any) {
   }
 
   const tracer = tracerProvider.getTracer('default');
-  const span = tracer.startSpan(name, { root: true });
+  const span = tracer.startSpan(name, { root: true, startTime: new Date() });
   return opentelemetry.context.with(opentelemetry.trace.setSpan(opentelemetry.context.active(), span), () => {
     const response = fn(span);
 

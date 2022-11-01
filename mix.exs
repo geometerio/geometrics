@@ -3,7 +3,7 @@ defmodule Geometrics.MixProject do
   use Mix.Project
 
   @scm_url "https://github.com/geometerio/geometrics"
-  @version "1.0.0-rc.2"
+  @version "1.0.1-rc.3"
 
   def project do
     [
@@ -34,15 +34,15 @@ defmodule Geometrics.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:credo, ">= 0.0.0", only: [:dev, :test], runtime: false},
+      {:credo, "~> 1.6", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
       {:ex_doc, ">= 0.0.0", only: [:dev], runtime: false},
-      {:opentelemetry, "~> 1.0.0"},
-      {:opentelemetry_api, "~> 1.0.0"},
-      {:opentelemetry_exporter, "~> 1.0.0"},
-      {:opentelemetry_ecto, "~> 1.0.0-rc.5"},
-      {:opentelemetry_phoenix, "~> 1.0.0-rc.5"},
-      {:mix_audit, "~> 1.0", only: [:dev, :test], runtime: false},
+      {:opentelemetry, "~> 1.1.1"},
+      {:opentelemetry_api, "~> 1.1.0"},
+      {:opentelemetry_exporter, "~> 1.2.0"},
+      {:opentelemetry_ecto, "~> 1.0.0"},
+      {:opentelemetry_phoenix, "~> 1.0.0"},
+      {:mix_audit, "~> 2.0", only: [:dev, :test], runtime: false},
       {:phoenix_html, "~> 2.11 or ~> 3.0"},
       {:phoenix_live_view, "~> 0.15", optional: true},
       {:plug, ">= 0.0.0"}

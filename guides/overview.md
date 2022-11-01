@@ -5,10 +5,6 @@ with traces. It is in essence a wrapper for OpenTelemetry, which is a cross-lang
 platform-agnostic specification for creating application traces and exporting them into tools
 that can later visualize the traces.
 
-At the time of writing, OpenTelemetry has just reached 1.0 of its specification, and many
-details of how to implement it are lightly documented. OpenTelemetry is the joining of two
-large open initiatives, OpenCensus and OpenTracing.
-
 ## Application Tracing
 
 What the heck is application tracing?

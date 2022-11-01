@@ -1,15 +1,13 @@
-# OTLP Receiver configuration can be found here:
-# https://github.com/open-telemetry/opentelemetry-collector/blob/main/receiver/otlpreceiver/README.md
 receivers:
   otlp:
     protocols:
-      grpc:
-        endpoint: ":55680"
       http:
-        endpoint: ":55681"
+        include_metadata: true
         cors:
-          allowed_origins:
-            - http://localhost:4000
+          allowed_origins: ["*"]
+          allowed_headers: ["*"]
+          max_age: 7200
+        endpoint: 0.0.0.0:55681
 
 processors:
   batch:
@@ -19,12 +17,8 @@ processors:
 # OTLP Exporter configuration can be found here:
 # https://github.com/open-telemetry/opentelemetry-collector/blob/main/exporter/otlphttpexporter/README.md
 exporters:
-  zipkin:
-    endpoint: "http://zipkin:9411/api/v2/spans"
-  jaeger:
-    endpoint: jaeger-all-in-one:14250
-    tls:
-      insecure: true
+  logging:
+    loglevel: debug
   otlp:
     endpoint: "api.honeycomb.io:443"
     headers:
@@ -32,12 +26,13 @@ exporters:
       "x-honeycomb-dataset": "${HONEYCOMB_DATASET}"
 
 extensions:
-  zpages: {}
-
 service:
-  extensions: [zpages]
+  extensions:
   pipelines:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [zipkin, jaeger, otlp]
+      exporters:
+        - otlp
+        # Uncomment below to enable console logging in the exporter
+        # - logging
