@@ -1,6 +1,6 @@
 {
   "name": "geometrics",
-  "version": "1.0.1-rc.3",
+  "version": "1.0.2-rc.3",
   "description": "Javascript wrapper for OpenTelemetry.",
   "license": "MIT",
   "repository": {},
