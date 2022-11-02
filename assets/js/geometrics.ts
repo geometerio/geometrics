@@ -96,7 +96,7 @@ function newTrace(name: string, fn: (span: Span) => any) {
 /**
  * Opens a new span as a child of whatever span context is currently open.
  */
-function withSpan(name: string, fn: (span: Span) => any) {
+async function withSpan(name: string, fn: (span: Span) => Promise<unknown>) {
   if (!tracerProvider || !rootCtx) {
     throw new Error('you must initialize the tracer with initTracer() before using withSpan()');
   }
@@ -106,13 +106,16 @@ function withSpan(name: string, fn: (span: Span) => any) {
     ? tracer.startSpan(name, {}, opentelemetry.context.active())
     : tracer.startSpan(name, {}, rootCtx);
 
-  return opentelemetry.context.with(opentelemetry.trace.setSpan(opentelemetry.context.active(), span), () => {
-    const response = fn(span);
+  return await opentelemetry.context.with(
+    opentelemetry.trace.setSpan(opentelemetry.context.active(), span),
+    async () => {
+      const response = await fn(span);
 
-    span.end();
+      span.end();
 
-    return response;
-  });
+      return response;
+    },
+  );
 }
 
 function getMetaTagValue(metaTagName: string) {

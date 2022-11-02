@@ -25,6 +25,6 @@ declare function newTrace(name: string, fn: (span: Span) => any): any;
 /**
  * Opens a new span as a child of whatever span context is currently open.
  */
-declare function withSpan(name: string, fn: (span: Span) => any): any;
+declare function withSpan(name: string, fn: (span: Span) => Promise<unknown>): Promise<unknown>;
 export { newTrace, withSpan, initTracer };
 //# sourceMappingURL=geometrics.d.ts.map
