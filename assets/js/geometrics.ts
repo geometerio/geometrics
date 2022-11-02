@@ -109,11 +109,20 @@ async function withSpan(name: string, fn: (span: Span) => Promise<unknown>) {
   return await opentelemetry.context.with(
     opentelemetry.trace.setSpan(opentelemetry.context.active(), span),
     async () => {
-      const response = await fn(span);
+      try {
+        const response = await fn(span);
+        span.end();
+        return response;
+      } catch (e: any) {
+        if (e instanceof Error) {
+          span.addEvent('error', { stacktrace: e.stack });
+          span.setAttribute('status', 'error');
+        }
 
-      span.end();
+        span.end();
 
-      return response;
+        throw e;
+      }
     },
   );
 }
