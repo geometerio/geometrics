@@ -71,5 +71,10 @@ const liveSocket = withSpan('liveSocket.connect()', (span) => {
   return liveSocket;
 });
 ```
+Note that you can also trace async behavior with `withSpan`:
 
-At the moment, it is only possible to record synchronous behavior executed in the context of a `withSpan`.
+```js
+withSpan('myfetch', async () => {
+  await fetch('/api/v1/foo')
+})
+```
