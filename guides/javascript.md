@@ -78,3 +78,5 @@ withSpan('myfetch', async () => {
   await fetch('/api/v1/foo')
 })
 ```
+
+If you are seeing smaller-than-expected spans in your traces, it is likely because you forgot to await the async behavior that you surrounded with a `withSpan` ;)
