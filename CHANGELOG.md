@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## 1.0.3-rc.3
+
+Add support for tracing async / await behavior with frontend withSpan.
+
 ## 1.0.2-rc.3
 
 Update npm dependencies to resolve security vulnerabilities.

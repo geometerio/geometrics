@@ -1,11 +1,11 @@
 {
   "name": "geometrics",
-  "version": "1.0.2-rc.3",
+  "version": "1.0.3-rc.3",
   "description": "Javascript wrapper for OpenTelemetry.",
   "license": "MIT",
   "repository": {},
   "scripts": {
-    "build": "webpack --mode production",
+    "build": "NODE_OPTIONS=--openssl-legacy-provider webpack --mode production",
     "format": "prettier --write \"js/**/*.[jt]s\"",
     "format-check": "prettier --check \"js/**/*.[jt]s\"",
     "watch": "webpack --mode production --watch"
