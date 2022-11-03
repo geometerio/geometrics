@@ -39,7 +39,7 @@ Add `geometrics` to your `mix.exs`.
 ```elixir
 def deps do
   [
-    {:geometrics, "~> 1.0.2-rc.3"}
+    {:geometrics, "~> 1.0.3-rc.3"}
   ]
 end
 ```
