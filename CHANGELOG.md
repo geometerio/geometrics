@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 1.0.4-rc.3
+
+- Add support for injecting instrumentations for opentelemetry-js via initTracer
+- Fix issue where embedded live views (ie live views not rendered via the router)
+were causing the Geometrics telemetry handler to crash.
+
 ## 1.0.3-rc.3
 
 Add support for tracing async / await behavior with frontend withSpan.
