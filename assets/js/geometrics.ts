@@ -6,7 +6,7 @@ import { WebTracerProvider } from '@opentelemetry/sdk-trace-web';
 import { ConsoleSpanExporter, BatchSpanProcessor, SimpleSpanProcessor } from '@opentelemetry/sdk-trace-base';
 import { HttpTraceContextPropagator, TRACE_PARENT_HEADER } from '@opentelemetry/core';
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-http';
-import { registerInstrumentations } from '@opentelemetry/instrumentation';
+import { InstrumentationOption, registerInstrumentations } from '@opentelemetry/instrumentation';
 
 /*
   DocumentLoad does not work correctly with context propagation, so traces produced by that library
@@ -24,9 +24,10 @@ let tracerProvider: WebTracerProvider;
 let rootCtx: Context;
 
 type InitOptions = {
-  exporterHeaders?: { [k in string]: any };
   serviceName: string;
   logToConsole: boolean;
+  instrumentations?: InstrumentationOption[];
+  exporterHeaders?: { [k in string]: any };
 };
 
 /**
@@ -34,7 +35,7 @@ type InitOptions = {
  * that will work in a browser. This function must be called before other functions
  * such as `withSpan` or `newTrace`, or an error will be thrown.
  */
-function initTracer({ serviceName, logToConsole, exporterHeaders = {} }: InitOptions) {
+function initTracer({ serviceName, logToConsole, exporterHeaders = {}, instrumentations = [] }: InitOptions) {
   propagation.setGlobalPropagator(new HttpTraceContextPropagator());
 
   tracerProvider = new WebTracerProvider({
@@ -44,7 +45,7 @@ function initTracer({ serviceName, logToConsole, exporterHeaders = {} }: InitOpt
   });
 
   registerInstrumentations({
-    // @ts-ignore
+    instrumentations: instrumentations,
     tracerProvider: tracerProvider,
   });
 
