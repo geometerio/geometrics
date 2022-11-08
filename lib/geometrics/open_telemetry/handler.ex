@@ -153,17 +153,27 @@ defmodule Geometrics.OpenTelemetry.Handler do
     peer_data = get_peer_data(socket)
     user_agent = get_user_agent(socket)
 
-    attributes = [
-      "http.host": socket.host_uri.host,
-      "http.scheme": socket.host_uri.scheme,
-      "http.user_agent": user_agent,
-      "live_view.connection_status": connection_status(socket),
-      "net.host.port": socket.host_uri.port,
-      "net.peer.port": peer_data.port,
-      "net.transport": :"IP.TCP"
-    ]
+    attributes =
+      [
+        "http.user_agent": user_agent,
+        "live_view.connection_status": connection_status(socket),
+        "net.peer.port": peer_data.port,
+        "net.transport": :"IP.TCP"
+      ] ++ host_attributes(socket)
 
     Span.set_attributes(span_ctx, attributes)
+  end
+
+  defp host_attributes(%{host_uri: :not_mounted_at_router}), do: []
+
+  defp host_attributes(%{
+         host_uri: %URI{
+           host: host,
+           port: port,
+           scheme: scheme
+         }
+       }) do
+    ["http.scheme": scheme, "http.host": host, "net.host.port": port]
   end
 
   @doc """
